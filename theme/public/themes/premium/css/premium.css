@@ -1,6 +1,6 @@
 /* ==========================================================================
-   FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.1 FIXED)
-   Pterodactyl Panel v1.15+ Luxury Glassmorphism & Animated Suite
+   FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.2 FIXED)
+   Pterodactyl Panel v1.15+ Luxury Glassmorphism & Admin Sidebar Integration
    ========================================================================== */
 
 :root {
@@ -29,7 +29,7 @@ body, html {
   overflow-x: hidden;
 }
 
-/* Custom Futuristic Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -111,10 +111,104 @@ body, html {
 }
 
 /* ==========================================================================
+   ADMIN SIDEBAR ITEM (BAWAH APPLICATION API - MENGIKUT SAIZ ASAL)
+   ========================================================================== */
+
+#admin-theme-sidebar-item {
+  position: relative;
+  display: block;
+  transition: all 0.2s ease;
+}
+
+#admin-theme-sidebar-item > a {
+  display: block;
+  padding: 12px 5px 12px 15px;
+  color: var(--theme-primary, #6366f1) !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  border-left: 3px solid transparent;
+  transition: all 0.25s ease;
+  text-decoration: none !important;
+}
+
+#admin-theme-sidebar-item > a > i {
+  width: 20px;
+  text-align: center;
+  margin-right: 6px;
+  color: var(--theme-primary, #6366f1);
+  transition: transform 0.25s ease;
+}
+
+#admin-theme-sidebar-item > a:hover {
+  color: #ffffff !important;
+  background: rgba(var(--theme-primary-rgb, 99, 102, 241), 0.15) !important;
+  border-left-color: var(--theme-primary, #6366f1) !important;
+}
+
+#admin-theme-sidebar-item > a:hover > i {
+  transform: rotate(25deg) scale(1.15);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   COMPACT FLOATING BUTTON (HANYA UNTUK CLIENT & LOGIN - BUKAN ADMIN)
+   ========================================================================== */
+
+/* Pastikan di admin page, floating FAB disembunyikan sepenuhnya */
+body.hold-transition.skin-blue #premium-theme-fab,
+body.skin-blue #premium-theme-fab,
+.wrapper #premium-theme-fab {
+  display: none !important;
+}
+
+/* Kompak, kemas, bulat sempurna (46px x 46px), tidak melebar */
+#premium-theme-fab {
+  position: fixed !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  right: auto !important;
+  width: 46px !important;
+  height: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 6px 20px var(--theme-glow), 0 0 12px rgba(0,0,0,0.5) !important;
+  cursor: pointer !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  backdrop-filter: blur(10px) !important;
+  z-index: 2147483647 !important;
+  box-sizing: border-box !important;
+}
+
+#premium-theme-fab:hover {
+  transform: translateY(-3px) scale(1.1) !important;
+  box-shadow: 0 10px 25px var(--theme-glow) !important;
+}
+
+#premium-theme-fab i {
+  font-size: 18px !important;
+  margin: 0 !important;
+}
+
+/* Sembunyikan teks label di dalam FAB supaya ia kekal bulat kemas */
+#premium-theme-fab span {
+  display: none !important;
+}
+
+/* ==========================================================================
    LOGIN PAGE BEAUTIFICATION & LOGO
    ========================================================================== */
 
-/* Login Container Backdrop & Centering */
 div[class*="LoginFormContainer"],
 div[class*="LoginContainer"],
 .LoginFormContainer {
@@ -127,7 +221,6 @@ div[class*="LoginContainer"],
   z-index: 10;
 }
 
-/* Login Form Glass Card */
 div[class*="LoginFormContainer"] > div,
 div[class*="LoginContainer"] > div,
 form[class*="LoginForm"] {
@@ -143,7 +236,6 @@ form[class*="LoginForm"] {
   overflow: hidden;
 }
 
-/* Top Border Gleam Animation on Login Card */
 div[class*="LoginFormContainer"] > div::before,
 form[class*="LoginForm"]::before {
   content: '';
@@ -162,7 +254,6 @@ form[class*="LoginForm"]::before {
   100% { opacity: 0.4; filter: hue-rotate(0deg); }
 }
 
-/* Logo Box on Login Form */
 .premium-login-logo-wrapper {
   text-align: center;
   margin-bottom: 22px;
@@ -191,7 +282,6 @@ form[class*="LoginForm"]::before {
   transform: scale(1.06);
 }
 
-/* Default Animated SVG Badge (When no custom image logo is set) */
 .premium-default-logo-badge {
   display: flex;
   flex-direction: column;
@@ -223,86 +313,7 @@ form[class*="LoginForm"]::before {
   text-transform: uppercase;
 }
 
-/* Login Inputs */
-div[class*="LoginFormContainer"] input,
-form[class*="LoginForm"] input {
-  background: rgba(15, 23, 42, 0.65) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: #fff !important;
-  border-radius: var(--theme-radius-sm) !important;
-  transition: all 0.25s ease !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-}
-div[class*="LoginFormContainer"] input:focus,
-form[class*="LoginForm"] input:focus {
-  border-color: var(--theme-primary) !important;
-  box-shadow: 0 0 0 3px rgba(var(--theme-primary-rgb), 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-  background: rgba(15, 23, 42, 0.85) !important;
-}
-
-/* Login Submit Button */
-div[class*="LoginFormContainer"] button[type="submit"],
-form[class*="LoginForm"] button[type="submit"] {
-  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-primary-hover) 100%) !important;
-  border: none !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.5px !important;
-  border-radius: var(--theme-radius-sm) !important;
-  box-shadow: 0 4px 15px rgba(var(--theme-primary-rgb), 0.35) !important;
-  transition: all 0.3s ease !important;
-}
-div[class*="LoginFormContainer"] button[type="submit"]:hover,
-form[class*="LoginForm"] button[type="submit"]:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 24px rgba(var(--theme-primary-rgb), 0.55) !important;
-}
-
-/* ==========================================================================
-   BUTTON PENGATURAN TEMA (FLOATING & TOP CORNER)
-   ========================================================================== */
-
-/* Floating Button: Positioned Bottom-Left to avoid Google reCAPTCHA Badge at Bottom-Right */
-#premium-theme-fab {
-  position: fixed !important;
-  bottom: 24px !important;
-  left: 24px !important;
-  right: auto !important;
-  z-index: 2147483647 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  padding: 10px 18px !important;
-  border-radius: 30px !important;
-  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%) !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  font-size: 13.5px !important;
-  box-shadow: 0 8px 25px var(--theme-glow), 0 0 15px rgba(0,0,0,0.6) !important;
-  cursor: pointer !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-  backdrop-filter: blur(10px) !important;
-  user-select: none !important;
-}
-
-#premium-theme-fab:hover {
-  transform: translateY(-3px) scale(1.06) !important;
-  box-shadow: 0 12px 35px var(--theme-glow), 0 0 25px var(--theme-primary) !important;
-}
-
-#premium-theme-fab i {
-  font-size: 16px;
-  animation: wandRotate 4s ease-in-out infinite alternate;
-}
-
-@keyframes wandRotate {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(25deg); }
-  100% { transform: rotate(-15deg); }
-}
-
-/* Top Corner Setting Trigger Button on Login & Dashboard */
+/* Top Corner Setting Trigger on Login Page */
 .premium-top-setting-btn {
   position: fixed !important;
   top: 18px !important;
@@ -334,48 +345,9 @@ form[class*="LoginForm"] button[type="submit"]:hover {
 
 .premium-top-setting-btn i {
   color: #06b6d4;
-  transition: color 0.2s;
 }
 .premium-top-setting-btn:hover i {
   color: #fff;
-}
-
-/* ==========================================================================
-   DASHBOARD NAVIGATION & CARDS
-   ========================================================================== */
-
-#app nav,
-header,
-div[class*="NavigationBar__Navigation"] {
-  background: rgba(11, 15, 25, 0.85) !important;
-  backdrop-filter: blur(var(--theme-card-blur)) !important;
-  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
-  border-bottom: 1px solid var(--theme-card-border) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Server Cards */
-div[class*="ServerRow__ServerRowContainer"],
-div[class*="ServerRow__Container"],
-div[class*="Card__"],
-.server-card {
-  background: var(--theme-card-bg) !important;
-  backdrop-filter: blur(var(--theme-card-blur)) !important;
-  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
-  border: 1px solid var(--theme-card-border) !important;
-  border-radius: var(--theme-radius) !important;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  overflow: hidden;
-  position: relative;
-}
-
-div[class*="ServerRow__ServerRowContainer"]:hover,
-div[class*="ServerRow__Container"]:hover,
-div[class*="Card__"]:hover {
-  transform: translateY(-4px) scale(1.008) !important;
-  border-color: rgba(var(--theme-primary-rgb), 0.4) !important;
-  box-shadow: 0 12px 32px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--theme-primary-rgb), 0.2) !important;
 }
 
 /* ==========================================================================
@@ -883,8 +855,8 @@ input:checked + .toggle-slider:before {
 
 #premium-toast {
   position: fixed !important;
-  bottom: 85px !important;
-  left: 24px !important;
+  bottom: 24px !important;
+  left: 85px !important;
   right: auto !important;
   background: rgba(15, 23, 42, 0.95);
   border: 1px solid var(--theme-primary);

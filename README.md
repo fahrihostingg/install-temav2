@@ -1,75 +1,55 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Animated v2.1
-> **Tema Pterodactyl Panel v1.15+ dengan Proteksi Password Lisensi, Floating Theme Customizer, dan Perbaikan Logo Login Otomatis.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Animated v2.2
+> **Tema Pterodactyl Panel v1.15+ dengan Integrasi Sidebar Admin (Bawah Application API), Compact FAB, dan Password Lisensi.**
 
 ---
 
 ## 🔑 Kunci Lisensi / Password Instalasi
-Tema ini dilindungi sistem verifikasi kata laluan. Semasa menjalankan `install.sh`, masukkan salah satu password sah berikut:
+Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 - **`PAHRI2026`**
 - **`FAKRULDEV`**
-*(Kata laluan boleh ditukar atau ditambah pada baris 20 fail `install.sh`)*.
+*(Kata laluan boleh ditukar pada baris 20 fail `install.sh`)*.
 
 ---
 
-## 📍 Di Mana Butang Pengaturan Tema Terletak?
+## 📍 Kedudukan Butang Pengaturan Tema (Telah Dibaiki)
 
-Untuk memastikan butang tidak lagi terlindung atau terlepas pandang:
-1. **Di Sudut Kiri Bawah (Bottom-Left)**:
-   - Terdapat **Butang Terapung (Floating Pill FAB)** berwarna neon ungu-sian dengan teks **`🎨 Tema Setting`**.
-   - *Mengapa di kiri?* Kerana di sudut kanan bawah terdapat widget Google reCAPTCHA yang menutupi skrin. Meletakkannya di kiri memastikan ia 100% bebas dari halangan!
+1. **Di Bahagian Admin Panel (`/admin/*`)**:
+   - Butang kini diletakkan **TEPAT DI BAWAH Application API** dalam seksyen **`BASIC ADMINISTRATION`** pada menu sidebar kiri.
+   - Mengikut saiz asal menu sidebar Pterodactyl/AdminLTE (kemas, tidak besar, saiz fon dan ikon sepadan dengan Overview, Settings, dan Application API).
+   - Bar ungu gergasi terapung di bahagian bawah dan butang di header atas telah dipadamkan sepenuhnya dari halaman Admin.
+
 2. **Di Halaman Login (`/auth/login`)**:
-   - Terdapat butang pantas di **Sudut Kanan Atas**: **`✨ Ubah Tema & Logo`**.
+   - Butang pantas di **Sudut Kanan Atas**: **`✨ Ubah Tema & Logo`**.
+   - Butang bulat kemas di **Sudut Kiri Bawah** (46px x 46px) dengan ikon palet.
+
 3. **Di Dashboard Klien (`/`)**:
-   - Terdapat butang **`🎨 Tema`** di bar navigasi atas (Navbar) bersebelahan nama pengguna.
-4. **Di Bahagian Admin Panel (`/admin/*`)**:
-   - Terdapat menu **`🎨 Tema & Logo Setting`** di Sidebar sebelah kiri.
+   - Butang bulat kemas di **Sudut Kiri Bawah**.
+   - Butang **`🎨 Tema`** di bar navigasi atas (Navbar).
 
 ---
 
-## 🏷️ Bagaimana Logo Login Berfungsi?
+## 🏷️ Logo Login (Telah Dibaiki)
 
-1. **Logo Dipaparkan Tepat Di Atas "Login to Continue"**:
-   - Jika anda belum menetapkan logo custom, sistem akan secara automatik memaparkan **Emblem Neon Cyberpunk "PAHRI CLOUD"** beranimasi, jadi kotak login tidak akan kosong lagi.
-2. **Menukar ke Logo Anda Sendiri**:
-   - Klik butang **`Tema Setting`** -> Buka tab **`Logo & Brand`**.
-   - Masukkan link URL gambar logo anda (format PNG, SVG, JPG, atau WebP dari Imgur / hosting anda).
-   - Laraskan saiz ketinggian logo (30px - 120px) dan aktifkan efek pendaran cahaya neon (*glow*).
-   - Klik **`Simpan Pengaturan`**; logo pada halaman login akan serta-merta berubah tanpa perlu refresh!
+1. Logo dipaparkan tepat di atas tajuk *"Login to Continue"*.
+2. Jika pautan logo belum dimasukkan, sistem memaparkan emblem **PAHRI CLOUD** beranimasi secara automatik (kotak login tidak kosong).
+3. Anda boleh menukar logo ke URL gambar anda sendiri melalui tab **`Logo & Brand`** dalam modal tema.
 
 ---
 
-## 🚀 Panduan Pemasangan di VPS
+## 🚀 Panduan Pemasangan Semula di VPS
 
-### 1. Masuk sebagai root & pergi ke folder /root
 ```bash
 sudo su
 cd /root
-```
-
-### 2. Muat Turun & Ekstrak Tema
-```bash
-unzip install-temav2-main.zip
+rm -rf install-temav2-main
+unzip install-temav2-v2.2-fixed.zip
 cd install-temav2-main
-```
-
-### 3. Jalankan Installer
-```bash
 chmod +x install.sh
 bash install.sh
 ```
-*Masukkan password lisensi:* `PAHRI2026` atau `FAKRULDEV`
+*Masukkan password:* `PAHRI2026`
 
-### 4. Buka Browser & Bersihkan Cache
-Buka `https://panel.fakrulafif.com` lalu tekan **Ctrl + F5**. Butang tema dan logo akan terus kelihatan!
-
----
-
-## 🔄 Cara Uninstall / Restore ke Default
-```bash
-cd /root/install-temav2-main
-chmod +x uninstall.sh
-bash uninstall.sh
-```
+Selepas selesai, buka panel anda di browser dan tekan **Ctrl + F5** (Hard Refresh).
 
 ---
 **Hak Cipta © FakrulDev & Fahri Hosting.**
