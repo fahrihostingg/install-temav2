@@ -35,6 +35,7 @@ if (!file_exists($secretFile)) {
 // Default settings
 $defaultSettings = [
     'primary_color' => '#6366f1',
+    'secondary_color' => '#06b6d4',
     'primary_glow' => 'rgba(99, 102, 241, 0.45)',
     'theme_mode' => 'dark',
     'dashboard_bg' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
@@ -97,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $updatableKeys = [
-        'primary_color', 'primary_glow', 'theme_mode', 'dashboard_bg', 'login_bg',
+        'primary_color', 'secondary_color', 'primary_glow', 'theme_mode', 'dashboard_bg', 'login_bg',
         'bg_overlay_opacity', 'login_logo', 'navbar_logo', 'logo_height', 'logo_glow',
         'card_blur', 'card_opacity', 'animated_bg', 'card_tilt', 'glow_effects',
         'announcement_enabled', 'announcement_text', 'announcement_type',

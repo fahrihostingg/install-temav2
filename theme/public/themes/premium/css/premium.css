@@ -1,6 +1,6 @@
 /* ==========================================================================
-   FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.3 FIXED
-   Pterodactyl Panel Luxury Glassmorphism & Clean Admin Sidebar Integration
+   FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.4 (MULTI-TEMPLATES & LOGO FIX)
+   Pterodactyl Panel Luxury Glassmorphism & Clean Admin Integration
    ========================================================================== */
 
 :root {
@@ -9,9 +9,10 @@
   --theme-primary-rgb: 99, 102, 241;
   --theme-glow: rgba(99, 102, 241, 0.45);
   --theme-secondary: #06b6d4;
+  --theme-secondary-rgb: 6, 182, 212;
   --theme-bg-color: #0b0f19;
-  --theme-card-bg: rgba(17, 24, 39, 0.75);
-  --theme-card-border: rgba(255, 255, 255, 0.08);
+  --theme-card-bg: rgba(17, 24, 39, 0.78);
+  --theme-card-border: rgba(255, 255, 255, 0.09);
   --theme-card-blur: 16px;
   --theme-text-primary: #f8fafc;
   --theme-text-muted: #94a3b8;
@@ -109,7 +110,7 @@ body, html {
 }
 
 /* ==========================================================================
-   ADMIN SIDEBAR ITEM: HANYA 1 BUTANG DI BAWAH APPLICATION API (MENGIKUT SAIZ ASAL)
+   ADMIN SIDEBAR ITEM (HANYA 1 DI BAWAH APPLICATION API)
    ========================================================================== */
 
 #admin-theme-sidebar-item {
@@ -127,6 +128,7 @@ body, html {
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
   text-decoration: none !important;
+  cursor: pointer !important;
 }
 
 #admin-theme-sidebar-item > a > i {
@@ -143,11 +145,7 @@ body, html {
   border-left-color: var(--theme-primary, #6366f1) !important;
 }
 
-#admin-theme-sidebar-item > a:hover > i {
-  color: #ffffff;
-}
-
-/* SEMBUNYIKAN SEMUA FLOATING BAR & TOP BUTTON PADA ADMIN PANEL */
+/* Sembunyikan mana-mana floating bar dan butang atas pada halaman admin */
 body.hold-transition.skin-blue #premium-theme-fab,
 body.skin-blue #premium-theme-fab,
 .hold-transition #premium-theme-fab,
@@ -162,7 +160,135 @@ body.skin-blue .premium-theme-pill {
 }
 
 /* ==========================================================================
-   COMPACT FLOATING BUTTON (HANYA UNTUK CLIENT & LOGIN)
+   LOGIN PAGE BEAUTIFICATION & LOGO FIX (KEMAS, BERPUSAT, TIADA PECAH KAD)
+   ========================================================================== */
+
+/* Pastikan bekas login sentiasa berpusat dalam 1 kolum tunggal */
+div[class*="LoginFormContainer"],
+.LoginFormContainer {
+  min-height: 100vh !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Sembunyikan gambar maskot besar atau elemen sampingan yang memecahkan grid login */
+div[class*="LoginFormContainer"] > img:not(.premium-custom-login-logo),
+div[class*="LoginFormContainer"] > svg:not(.premium-svg-animated-emblem),
+div[class*="LoginFormContainer"] > div > img[src*="mascot"],
+div[class*="LoginFormContainer"] > div > img[src*="pterodactyl"],
+div[class*="LoginFormContainer"] > div > img[src*="bird"] {
+  display: none !important;
+}
+
+/* Kad Form Login Utama */
+div[class*="LoginFormContainer"] form,
+form[class*="LoginForm"] {
+  background: var(--theme-card-bg) !important;
+  backdrop-filter: blur(var(--theme-card-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
+  border: 1px solid var(--theme-card-border) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(var(--theme-primary-rgb), 0.2) !important;
+  border-radius: var(--theme-radius) !important;
+  padding: 36px 32px !important;
+  max-width: 440px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  animation: modalEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Garisan kilauan bercahaya di atas kad form */
+div[class*="LoginFormContainer"] form::before,
+form[class*="LoginForm"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent);
+  animation: borderGleam 4s linear infinite;
+}
+
+@keyframes borderGleam {
+  0% { opacity: 0.4; filter: hue-rotate(0deg); }
+  50% { opacity: 1; filter: hue-rotate(45deg); }
+  100% { opacity: 0.4; filter: hue-rotate(0deg); }
+}
+
+/* Kotak Logo di dalam Kad Login */
+.premium-login-logo-wrapper {
+  text-align: center !important;
+  margin: 0 auto 16px auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.premium-custom-login-logo {
+  width: auto !important;
+  height: auto !important;
+  max-width: 250px !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+  filter: drop-shadow(0 0 16px var(--theme-glow));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+.premium-custom-login-logo:hover {
+  transform: scale(1.06);
+}
+
+.premium-default-logo-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.premium-default-logo-badge:hover {
+  transform: scale(1.06);
+}
+
+.premium-svg-animated-emblem {
+  animation: emblemPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes emblemPulse {
+  0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 8px var(--theme-glow)); }
+  100% { transform: scale(1.05) rotate(2deg); filter: drop-shadow(0 0 20px var(--theme-glow)); }
+}
+
+.premium-logo-text-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--theme-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   COMPACT BUTTONS FOR CLIENT & LOGIN
    ========================================================================== */
 
 #premium-theme-fab {
@@ -197,121 +323,11 @@ body.skin-blue .premium-theme-pill {
   transform: translateY(-2px) scale(1.08) !important;
   box-shadow: 0 10px 25px var(--theme-glow) !important;
 }
-
 #premium-theme-fab i {
   font-size: 17px !important;
 }
-
 #premium-theme-fab span {
   display: none !important;
-}
-
-/* ==========================================================================
-   LOGIN PAGE BEAUTIFICATION & LOGO
-   ========================================================================== */
-
-div[class*="LoginFormContainer"],
-div[class*="LoginContainer"],
-.LoginFormContainer {
-  background: transparent !important;
-  min-height: 100vh;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: relative;
-  z-index: 10;
-}
-
-div[class*="LoginFormContainer"] > div,
-div[class*="LoginContainer"] > div,
-form[class*="LoginForm"] {
-  background: var(--theme-card-bg) !important;
-  backdrop-filter: blur(var(--theme-card-blur)) !important;
-  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
-  border: 1px solid var(--theme-card-border) !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(var(--theme-primary-rgb), 0.2) !important;
-  border-radius: var(--theme-radius) !important;
-  padding: 38px 34px !important;
-  animation: modalEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  position: relative;
-  overflow: hidden;
-}
-
-div[class*="LoginFormContainer"] > div::before,
-form[class*="LoginForm"]::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent);
-  animation: borderGleam 4s linear infinite;
-}
-
-@keyframes borderGleam {
-  0% { opacity: 0.4; filter: hue-rotate(0deg); }
-  50% { opacity: 1; filter: hue-rotate(45deg); }
-  100% { opacity: 0.4; filter: hue-rotate(0deg); }
-}
-
-.premium-login-logo-wrapper {
-  text-align: center;
-  margin-bottom: 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  animation: logoFloatIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes logoFloatIn {
-  from { opacity: 0; transform: translateY(-15px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.premium-custom-login-logo {
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 0 16px var(--theme-glow));
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: pointer;
-}
-.premium-custom-login-logo:hover {
-  transform: scale(1.06);
-}
-
-.premium-default-logo-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.premium-default-logo-badge:hover {
-  transform: scale(1.06);
-}
-
-.premium-svg-animated-emblem {
-  animation: emblemPulse 3s ease-in-out infinite alternate;
-}
-
-@keyframes emblemPulse {
-  0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 8px var(--theme-glow)); }
-  100% { transform: scale(1.05) rotate(2deg); filter: drop-shadow(0 0 20px var(--theme-glow)); }
-}
-
-.premium-logo-text-title {
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, #ffffff 0%, var(--theme-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
 }
 
 .premium-top-setting-btn {
@@ -321,21 +337,19 @@ form[class*="LoginForm"]::before {
   z-index: 2147483647 !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 8px !important;
-  padding: 8px 16px !important;
+  gap: 7px !important;
+  padding: 7px 15px !important;
   border-radius: 20px !important;
   background: rgba(15, 23, 42, 0.75) !important;
   backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   color: #f8fafc !important;
-  font-size: 13px !important;
+  font-size: 12.5px !important;
   font-weight: 600 !important;
   cursor: pointer !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
   transition: all 0.25s ease !important;
 }
-
 .premium-top-setting-btn:hover {
   background: var(--theme-primary) !important;
   border-color: var(--theme-primary) !important;
@@ -435,7 +449,7 @@ form[class*="LoginForm"]::before {
 }
 
 .announcement-theme-gradient {
-  background: linear-gradient(90deg, rgba(var(--theme-primary-rgb), 0.25), rgba(6, 182, 212, 0.25));
+  background: linear-gradient(90deg, rgba(var(--theme-primary-rgb), 0.25), rgba(var(--theme-secondary-rgb), 0.25));
   backdrop-filter: blur(16px);
   color: #ffffff;
 }
@@ -476,7 +490,7 @@ form[class*="LoginForm"]::before {
 }
 
 /* ==========================================================================
-   MODAL PENGATURAN TEMA
+   MODAL PENGATURAN TEMA & TEMPLATES
    ========================================================================== */
 
 #premium-settings-modal-overlay {
@@ -504,7 +518,7 @@ form[class*="LoginForm"]::before {
 
 #premium-settings-modal {
   width: 100%;
-  max-width: 650px;
+  max-width: 680px;
   max-height: 88vh;
   background: rgba(15, 23, 42, 0.96);
   backdrop-filter: blur(26px);
@@ -605,13 +619,13 @@ form[class*="LoginForm"]::before {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
 }
 
 .tab-pane {
   display: none;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 .tab-pane.active {
   display: flex;
@@ -621,6 +635,122 @@ form[class*="LoginForm"]::before {
 @keyframes tabFadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Template Cards Grid */
+.templates-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.template-preset-card {
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.template-preset-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+.template-preset-card.active {
+  border-color: var(--theme-primary);
+  background: rgba(var(--theme-primary-rgb), 0.15);
+  box-shadow: 0 0 15px var(--theme-glow);
+}
+
+.template-card-icon {
+  font-size: 22px;
+}
+
+.template-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.template-card-palette {
+  display: flex;
+  gap: 4px;
+  margin-top: 2px;
+}
+.template-card-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Mix Color / Gradient Swatches Grid */
+.mix-colors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.mix-color-pill {
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  transition: all 0.2s ease;
+}
+.mix-color-pill:hover {
+  transform: scale(1.04);
+}
+.mix-color-pill.active {
+  border-color: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+/* Single Color Swatches Grid */
+.color-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+.color-preset-pill {
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.color-preset-pill:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+.color-preset-pill.active {
+  border-color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+.color-preset-pill.active::after {
+  content: '✓';
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
 }
 
 .form-group {
@@ -654,6 +784,7 @@ form[class*="LoginForm"]::before {
   font-size: 13px;
   outline: none;
   transition: all 0.25s ease;
+  box-sizing: border-box;
 }
 .input-text:focus {
   border-color: var(--theme-primary);
@@ -661,57 +792,34 @@ form[class*="LoginForm"]::before {
   background: rgba(11, 15, 25, 0.95);
 }
 
-.color-presets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.color-preset-pill {
+/* Logo Preview Box in Modal */
+.logo-preview-box {
   width: 100%;
-  height: 38px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.25s ease;
+  height: 80px;
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.color-preset-pill:hover {
-  transform: translateY(-2px) scale(1.05);
-}
-.color-preset-pill.active {
-  border-color: #ffffff;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
-}
-.color-preset-pill.active::after {
-  content: '✓';
-  color: #fff;
-  font-weight: 800;
-  font-size: 13px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  margin-top: 6px;
+  overflow: hidden;
+  position: relative;
 }
 
-.custom-color-row {
+.logo-preview-img {
+  max-height: 65px;
+  max-width: 220px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px var(--theme-glow));
+}
+
+.logo-preview-empty {
+  font-size: 12px;
+  color: #64748b;
   display: flex;
-  gap: 10px;
   align-items: center;
-}
-
-.color-picker-input {
-  -webkit-appearance: none;
-  border: none;
-  width: 40px;
-  height: 38px;
-  border-radius: 8px;
-  cursor: pointer;
-  background: transparent;
-}
-.color-picker-input::-webkit-color-swatch {
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  gap: 6px;
 }
 
 .slider-container {

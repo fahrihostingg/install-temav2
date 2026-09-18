@@ -1,6 +1,6 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.3 FIXED
- * Pterodactyl Panel Luxury Glassmorphism & Clean Admin Sidebar Integration
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.4 (MULTI-TEMPLATES & LOGO FIX)
+ * Pterodactyl Panel Luxury Glassmorphism & Clean Admin Integration
  */
 
 (function () {
@@ -9,14 +9,14 @@
   // Default theme settings
   const defaultSettings = {
     primary_color: '#6366f1',
-    primary_glow: 'rgba(99, 102, 241, 0.45)',
+    secondary_color: '#06b6d4',
     theme_mode: 'dark',
     dashboard_bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
     login_bg: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
     bg_overlay_opacity: '0.75',
     login_logo: '',
     navbar_logo: '',
-    logo_height: '60',
+    logo_height: '65',
     logo_glow: true,
     card_blur: '16',
     card_opacity: '0.85',
@@ -33,7 +33,90 @@
 
   let activeSettings = Object.assign({}, defaultSettings);
 
-  // Helper: Hex to RGB
+  // Ready-to-Use Theme Templates
+  const themeTemplates = {
+    cold: {
+      name: 'Cold Glacier',
+      primary: '#38bdf8',
+      secondary: '#0284c7',
+      bg: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&w=2070&auto=format&fit=crop',
+      blur: '20',
+      opacity: '0.80'
+    },
+    hacker: {
+      name: 'Cyber Matrix',
+      primary: '#00ff66',
+      secondary: '#059669',
+      bg: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop',
+      blur: '10',
+      opacity: '0.92'
+    },
+    soft: {
+      name: 'Soft Lavender',
+      primary: '#c084fc',
+      secondary: '#f472b6',
+      bg: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop',
+      blur: '22',
+      opacity: '0.78'
+    },
+    cyberpunk: {
+      name: 'Cyberpunk 2077',
+      primary: '#f43f5e',
+      secondary: '#06b6d4',
+      bg: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=2047&auto=format&fit=crop',
+      blur: '16',
+      opacity: '0.85'
+    },
+    luxury_gold: {
+      name: 'Obsidian Gold',
+      primary: '#f59e0b',
+      secondary: '#fbbf24',
+      bg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop',
+      blur: '18',
+      opacity: '0.90'
+    },
+    bloodmoon: {
+      name: 'Bloodmoon Crimson',
+      primary: '#e11d48',
+      secondary: '#9f1239',
+      bg: 'https://images.unsplash.com/photo-1507499739999-097706ad8914?q=80&w=2070&auto=format&fit=crop',
+      blur: '16',
+      opacity: '0.88'
+    },
+    deep_ocean: {
+      name: 'Deep Ocean',
+      primary: '#0ea5e9',
+      secondary: '#6366f1',
+      bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
+      blur: '18',
+      opacity: '0.82'
+    },
+    electric: {
+      name: 'Electric Violet',
+      primary: '#8b5cf6',
+      secondary: '#3b82f6',
+      bg: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop',
+      blur: '16',
+      opacity: '0.85'
+    },
+    emerald: {
+      name: 'Emerald Mint',
+      primary: '#10b981',
+      secondary: '#14b8a6',
+      bg: 'https://images.unsplash.com/photo-1511497584788-87676104235f?q=80&w=2070&auto=format&fit=crop',
+      blur: '18',
+      opacity: '0.82'
+    },
+    sunset: {
+      name: 'Sunset Twilight',
+      primary: '#f97316',
+      secondary: '#ec4899',
+      bg: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop',
+      blur: '18',
+      opacity: '0.82'
+    }
+  };
+
   function hexToRgb(hex) {
     hex = (hex || '#6366f1').replace('#', '');
     if (hex.length === 3) {
@@ -73,22 +156,26 @@
     }
   }
 
-  // 2. Apply Dynamic Theme CSS Variables & Overrides
+  // 2. Apply Theme CSS Variables & Colors
   function applyTheme(settings) {
     activeSettings = Object.assign({}, activeSettings, settings);
 
-    const rgb = hexToRgb(activeSettings.primary_color || '#6366f1');
-    const rgbStr = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
-    const glowStr = `rgba(${rgbStr}, 0.45)`;
+    const primaryRgb = hexToRgb(activeSettings.primary_color || '#6366f1');
+    const secondaryRgb = hexToRgb(activeSettings.secondary_color || '#06b6d4');
+    const pRgbStr = `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`;
+    const sRgbStr = `${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}`;
+    const glowStr = `rgba(${pRgbStr}, 0.45)`;
 
     const root = document.documentElement;
     root.style.setProperty('--theme-primary', activeSettings.primary_color);
-    root.style.setProperty('--theme-primary-rgb', rgbStr);
+    root.style.setProperty('--theme-primary-rgb', pRgbStr);
+    root.style.setProperty('--theme-secondary', activeSettings.secondary_color);
+    root.style.setProperty('--theme-secondary-rgb', sRgbStr);
     root.style.setProperty('--theme-glow', glowStr);
     root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 16}px`);
     root.style.setProperty('--theme-card-bg', `rgba(17, 24, 39, ${activeSettings.card_opacity || 0.85})`);
 
-    // Background Container
+    // Background Image
     const bgContainer = document.getElementById('premium-bg-container');
     const bgOverlay = document.getElementById('premium-bg-overlay');
     const isLoginPage = window.location.pathname.includes('/auth/');
@@ -115,6 +202,7 @@
       orb1.style.display = showOrbs ? 'block' : 'none';
       orb2.style.display = showOrbs ? 'block' : 'none';
       orb1.style.background = activeSettings.primary_color;
+      orb2.style.background = activeSettings.secondary_color;
     }
 
     // Dynamic Style Tag
@@ -128,11 +216,13 @@
     styleTag.innerHTML = `
       :root {
         --theme-primary: ${activeSettings.primary_color} !important;
-        --theme-primary-rgb: ${rgbStr} !important;
+        --theme-primary-rgb: ${pRgbStr} !important;
+        --theme-secondary: ${activeSettings.secondary_color} !important;
+        --theme-secondary-rgb: ${sRgbStr} !important;
         --theme-glow: ${glowStr} !important;
       }
       button.btn-primary, button[type="submit"], .bg-primary-500, .bg-blue-600 {
-        background: linear-gradient(135deg, ${activeSettings.primary_color} 0%, rgba(${rgbStr}, 0.85) 100%) !important;
+        background: linear-gradient(135deg, ${activeSettings.primary_color} 0%, ${activeSettings.secondary_color} 100%) !important;
       }
       .border-primary-500, .border-blue-500 {
         border-color: ${activeSettings.primary_color} !important;
@@ -148,66 +238,68 @@
     updateAnnouncement();
   }
 
-  // 3. Guaranteed Login Logo Fix
+  // 3. Guaranteed Login Logo Fix (Ikut URL 100%, Letak Kemas Dalam Form)
   function injectOrUpdateLoginLogo() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     if (!isLoginPage) return;
 
+    // Cari elemen form login
+    const form = document.querySelector('form');
+    if (!form) return;
+
+    // Cari tajuk "Login to Continue"
     let titleEl = null;
-    const elements = document.querySelectorAll('h1, h2, h3, h4, div, p');
-    for (let i = 0; i < elements.length; i++) {
-      const text = elements[i].textContent ? elements[i].textContent.trim() : '';
-      if (text === 'Login to Continue') {
-        titleEl = elements[i];
+    const allHeaders = form.querySelectorAll('h1, h2, h3, h4, div, p');
+    for (let i = 0; i < allHeaders.length; i++) {
+      const txt = (allHeaders[i].textContent || '').trim();
+      if (txt.includes('Login to Continue')) {
+        titleEl = allHeaders[i];
         break;
       }
     }
 
-    const container = document.querySelector('div[class*="LoginFormContainer"]') ||
-                      document.querySelector('div[class*="LoginContainer"]') ||
-                      document.querySelector('form[class*="LoginForm"]') ||
-                      document.querySelector('#app form');
+    const parentNode = titleEl ? titleEl.parentNode : form;
+    const referenceNode = titleEl || form.firstChild;
 
-    if (!titleEl && !container) return;
-
-    const targetParent = titleEl ? titleEl.parentNode : container;
-    const targetBefore = titleEl || targetParent.firstChild;
-
-    let logoWrapper = document.getElementById('premium-login-logo-box');
-    if (!logoWrapper) {
-      logoWrapper = document.createElement('div');
-      logoWrapper.id = 'premium-login-logo-box';
-      logoWrapper.className = 'premium-login-logo-wrapper';
-      targetParent.insertBefore(logoWrapper, targetBefore);
+    let logoBox = document.getElementById('premium-login-logo-box');
+    if (!logoBox) {
+      logoBox = document.createElement('div');
+      logoBox.id = 'premium-login-logo-box';
+      logoBox.className = 'premium-login-logo-wrapper';
+      parentNode.insertBefore(logoBox, referenceNode);
+    } else if (logoBox.parentNode !== parentNode) {
+      parentNode.insertBefore(logoBox, referenceNode);
     }
 
     const logoUrl = (activeSettings.login_logo || '').trim();
-    const logoHeight = activeSettings.logo_height || '60';
+    const logoHeight = activeSettings.logo_height || '65';
     const logoGlow = activeSettings.logo_glow !== false;
     const glowFilter = logoGlow ? `filter: drop-shadow(0 0 16px var(--theme-glow));` : '';
 
     if (logoUrl) {
-      logoWrapper.innerHTML = `
+      // 100% Ikut URL Gambar yang Diberikan Pengguna
+      logoBox.innerHTML = `
         <img id="premium-login-logo-img" 
              class="premium-custom-login-logo" 
              src="${logoUrl}" 
-             alt="Panel Logo" 
-             style="max-height: ${logoHeight}px; max-width: 260px; object-fit: contain; ${glowFilter}" />
+             alt="Logo" 
+             style="max-height: ${logoHeight}px; max-width: 250px; width: auto; height: auto; object-fit: contain; margin: 0 auto; display: block; ${glowFilter}" />
       `;
     } else {
-      logoWrapper.innerHTML = `
-        <div class="premium-default-logo-badge" style="${glowFilter}" title="Klik butang tema untuk menukar logo ini">
-          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="56" height="56">
+      // Logo Emblem Asal Jika Tiada URL Custom
+      logoBox.innerHTML = `
+        <div class="premium-default-logo-badge" style="${glowFilter}" title="Tetapkan pautan URL logo di Tetapan Tema">
+          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="52" height="52">
             <defs>
               <linearGradient id="pEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="var(--theme-primary, #6366f1)"/>
-                <stop offset="100%" stop-color="#06b6d4"/>
+                <stop offset="100%" stop-color="var(--theme-secondary, #06b6d4)"/>
               </linearGradient>
             </defs>
             <polygon points="40,8 72,26 72,54 40,72 8,54 8,26" fill="rgba(99, 102, 241, 0.18)" stroke="url(#pEmblemGrad)" stroke-width="2.5" />
             <polygon points="40,18 62,31 62,49 40,62 18,49 18,31" fill="none" stroke="url(#pEmblemGrad)" stroke-width="1.5" stroke-dasharray="4,2" />
             <path d="M40 25 L40 55 M27 40 L53 40" stroke="url(#pEmblemGrad)" stroke-width="3" stroke-linecap="round" />
-            <circle cx="40" cy="40" r="5" fill="#06b6d4" />
+            <circle cx="40" cy="40" r="5" fill="var(--theme-secondary, #06b6d4)" />
           </svg>
           <span class="premium-logo-text-title">TEMA PANEL</span>
         </div>
@@ -313,7 +405,7 @@
   function injectAdminSidebarItem() {
     if (!window.location.pathname.startsWith('/admin')) return;
 
-    // Remove any floating button or top pill from Admin completely
+    // Bersihkan semua butang terapung & pill header di bahagian admin
     const strayButtons = [
       '#premium-theme-fab',
       '#premium-top-setting-btn',
@@ -326,7 +418,6 @@
 
     if (document.getElementById('admin-theme-sidebar-item')) return;
 
-    // Find "Application API" item in the sidebar
     const allLinks = document.querySelectorAll('aside.main-sidebar .sidebar-menu a, .sidebar a');
     let targetLi = null;
 
@@ -360,7 +451,6 @@
         </a>
       `;
 
-      // Insert directly after Application API
       targetLi.parentNode.insertBefore(themeLi, targetLi.nextSibling);
 
       document.getElementById('admin-theme-sidebar-link').addEventListener('click', function (e) {
@@ -370,14 +460,13 @@
     }
   }
 
-  // 8. Inject Theme Buttons for Client & Login (Compact 44px Fixed Circle)
+  // 8. Inject Theme Buttons for Client & Login (Compact 44px Circle)
   function injectClientButtons() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     const isAdminPage = window.location.pathname.startsWith('/admin');
 
     if (isAdminPage) return;
 
-    // A. Compact Floating Button (Bottom-Left)
     let fab = document.getElementById('premium-theme-fab');
     if (!fab) {
       fab = document.createElement('div');
@@ -388,7 +477,6 @@
       fab.addEventListener('click', openThemeModal);
     }
 
-    // B. Top-Right Corner Button on Login Page
     if (isLoginPage && !document.getElementById('premium-top-setting-btn')) {
       const topBtn = document.createElement('div');
       topBtn.id = 'premium-top-setting-btn';
@@ -398,7 +486,6 @@
       topBtn.addEventListener('click', openThemeModal);
     }
 
-    // C. Navbar Button on Client Dashboard (SPA)
     if (!isLoginPage && !isAdminPage) {
       const navContainer = document.querySelector('#app nav > div') || document.querySelector('#app nav');
       if (navContainer && !document.getElementById('premium-nav-theme-btn')) {
@@ -419,7 +506,7 @@
     }
   }
 
-  // 9. Build Theme Settings Modal
+  // 9. Build Theme Settings Modal with Multi-Templates, Mix Colors & Live Logo Preview
   function buildThemeModal() {
     if (document.getElementById('premium-settings-modal-overlay')) return;
 
@@ -430,65 +517,225 @@
         <div class="modal-header">
           <div class="modal-title">
             <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema & Logo Panel</span>
+            <span>Pengaturan Tema, Warna & Logo Panel</span>
           </div>
           <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <div class="modal-tabs">
-          <button class="modal-tab-btn active" data-tab="tab-colors"><i class="fa-solid fa-droplet"></i> Warna & Aksen</button>
-          <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Background</button>
+          <button class="modal-tab-btn active" data-tab="tab-templates"><i class="fa-solid fa-wand-magic-sparkles"></i> Template Siap Pakai</button>
+          <button class="modal-tab-btn" data-tab="tab-colors"><i class="fa-solid fa-droplet"></i> Warna & Mix</button>
           <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo & Brand</button>
+          <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Wallpaper</button>
           <button class="modal-tab-btn" data-tab="tab-announcement"><i class="fa-solid fa-bullhorn"></i> Pengumuman</button>
-          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sparkles"></i> Animasi</button>
+          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Efek</button>
         </div>
 
         <div class="modal-body">
-          <!-- TAB 1: WARNA -->
-          <div id="tab-colors" class="tab-pane active">
+          <!-- TAB 1: TEMPLATE SIAP PAKAI (COLD, HACKER, SOFT, CYBERPUNK, LUXURY, DLL) -->
+          <div id="tab-templates" class="tab-pane active">
             <div class="form-group">
-              <label class="form-label">Warna Utama (Primary Accent)</label>
-              <span class="form-subtext">Pilih warna mewah berikut untuk pratinjau langsung:</span>
-              <div class="color-presets-grid">
-                <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1" title="Indigo Luxury"></div>
-                <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6" title="Cyber Violet"></div>
-                <div class="color-preset-pill" style="background: #06b6d4;" data-color="#06b6d4" title="Neon Cyan"></div>
-                <div class="color-preset-pill" style="background: #10b981;" data-color="#10b981" title="Emerald Glow"></div>
-                <div class="color-preset-pill" style="background: #f43f5e;" data-color="#f43f5e" title="Crimson Ruby"></div>
-                <div class="color-preset-pill" style="background: #f59e0b;" data-color="#f59e0b" title="Sunset Gold"></div>
-                <div class="color-preset-pill" style="background: #3b82f6;" data-color="#3b82f6" title="Electric Blue"></div>
-                <div class="color-preset-pill" style="background: #ec4899;" data-color="#ec4899" title="Neon Pink"></div>
-              </div>
-            </div>
+              <label class="form-label">Pilih Tema / Template 1-Klik</label>
+              <span class="form-subtext">Klik mana-mana template di bawah untuk mengubah warna, wallpaper dan gaya panel serta-merta:</span>
+              <div class="templates-preset-grid">
+                <div class="template-preset-card" data-template="cold">
+                  <div class="template-card-icon">❄️</div>
+                  <div class="template-card-title">Cold Glacier</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#38bdf8;"></span>
+                    <span class="template-card-dot" style="background:#0284c7;"></span>
+                  </div>
+                </div>
 
-            <div class="form-group">
-              <label class="form-label">Custom HEX Color</label>
-              <div class="custom-color-row">
-                <input type="color" id="cfg-primary-picker" class="color-picker-input" value="${activeSettings.primary_color}">
-                <input type="text" id="cfg-primary-hex" class="input-text" style="width: 140px;" value="${activeSettings.primary_color}">
-              </div>
-            </div>
+                <div class="template-preset-card" data-template="hacker">
+                  <div class="template-card-icon">💻</div>
+                  <div class="template-card-title">Cyber Matrix</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#00ff66;"></span>
+                    <span class="template-card-dot" style="background:#059669;"></span>
+                  </div>
+                </div>
 
-            <div class="form-group">
-              <label class="form-label">Tingkat Efek Kaca (Glass Blur): <span id="val-blur" class="range-val-badge">${activeSettings.card_blur}px</span></label>
-              <div class="slider-container">
-                <input type="range" id="cfg-card-blur" class="input-range" min="0" max="30" value="${activeSettings.card_blur}">
-              </div>
-            </div>
+                <div class="template-preset-card" data-template="soft">
+                  <div class="template-card-icon">🌸</div>
+                  <div class="template-card-title">Soft Pastel</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#c084fc;"></span>
+                    <span class="template-card-dot" style="background:#f472b6;"></span>
+                  </div>
+                </div>
 
-            <div class="form-group">
-              <label class="form-label">Kepekatan Kartu (Card Opacity): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
-              <div class="slider-container">
-                <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="100" value="${Math.round(activeSettings.card_opacity * 100)}">
+                <div class="template-preset-card" data-template="cyberpunk">
+                  <div class="template-card-icon">🔮</div>
+                  <div class="template-card-title">Cyberpunk 2077</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#f43f5e;"></span>
+                    <span class="template-card-dot" style="background:#06b6d4;"></span>
+                  </div>
+                </div>
+
+                <div class="template-preset-card" data-template="luxury_gold">
+                  <div class="template-card-icon">👑</div>
+                  <div class="template-card-title">Obsidian Gold</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#f59e0b;"></span>
+                    <span class="template-card-dot" style="background:#fbbf24;"></span>
+                  </div>
+                </div>
+
+                <div class="template-preset-card" data-template="bloodmoon">
+                  <div class="template-card-icon">🩸</div>
+                  <div class="template-card-title">Blood Crimson</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#e11d48;"></span>
+                    <span class="template-card-dot" style="background:#9f1239;"></span>
+                  </div>
+                </div>
+
+                <div class="template-preset-card" data-template="deep_ocean">
+                  <div class="template-card-icon">🌊</div>
+                  <div class="template-card-title">Deep Ocean</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#0ea5e9;"></span>
+                    <span class="template-card-dot" style="background:#6366f1;"></span>
+                  </div>
+                </div>
+
+                <div class="template-preset-card" data-template="electric">
+                  <div class="template-card-icon">⚡</div>
+                  <div class="template-card-title">Electric Violet</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#8b5cf6;"></span>
+                    <span class="template-card-dot" style="background:#3b82f6;"></span>
+                  </div>
+                </div>
+
+                <div class="template-preset-card" data-template="emerald">
+                  <div class="template-card-icon">🍃</div>
+                  <div class="template-card-title">Emerald Mint</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#10b981;"></span>
+                    <span class="template-card-dot" style="background:#14b8a6;"></span>
+                  </div>
+                </div>
+
+                <div class="template-preset-card" data-template="sunset">
+                  <div class="template-card-icon">🌅</div>
+                  <div class="template-card-title">Sunset Twilight</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#f97316;"></span>
+                    <span class="template-card-dot" style="background:#ec4899;"></span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- TAB 2: BACKGROUND -->
+          <!-- TAB 2: WARNA, MIXCOLOR & KUSTOM -->
+          <div id="tab-colors" class="tab-pane">
+            <!-- Mix Colors / Dual Tone -->
+            <div class="form-group">
+              <label class="form-label">Pilihan Mix Color (Gradien Dwi-Warna)</label>
+              <span class="form-subtext">Gabungan dua warna serasi untuk aksen butang dan pendaran cahaya:</span>
+              <div class="mix-colors-grid">
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #8b5cf6, #06b6d4);" data-p="#8b5cf6" data-s="#06b6d4">Cyber Pulse</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #00ff66, #0ea5e9);" data-p="#00ff66" data-s="#0ea5e9">Matrix Cyan</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #f43f5e, #f59e0b);" data-p="#f43f5e" data-s="#f59e0b">Fire & Gold</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);" data-p="#ec4899" data-s="#8b5cf6">Sakura Neon</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #38bdf8, #10b981);" data-p="#38bdf8" data-s="#10b981">Arctic Mint</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #f97316, #e11d48);" data-p="#f97316" data-s="#e11d48">Molten Lava</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #eab308, #84cc16);" data-p="#eab308" data-s="#84cc16">Lime Gold</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #6366f1, #06b6d4);" data-p="#6366f1" data-s="#06b6d4">Royal Azure</div>
+              </div>
+            </div>
+
+            <!-- Single Color Presets -->
+            <div class="form-group">
+              <label class="form-label">Pilihan Warna Tunggal (16 Palet)</label>
+              <div class="color-presets-grid">
+                <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1" title="Indigo"></div>
+                <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6" title="Violet"></div>
+                <div class="color-preset-pill" style="background: #a855f7;" data-color="#a855f7" title="Purple"></div>
+                <div class="color-preset-pill" style="background: #d946ef;" data-color="#d946ef" title="Fuchsia"></div>
+                <div class="color-preset-pill" style="background: #ec4899;" data-color="#ec4899" title="Pink"></div>
+                <div class="color-preset-pill" style="background: #f43f5e;" data-color="#f43f5e" title="Rose"></div>
+                <div class="color-preset-pill" style="background: #ef4444;" data-color="#ef4444" title="Crimson"></div>
+                <div class="color-preset-pill" style="background: #f97316;" data-color="#f97316" title="Orange"></div>
+                <div class="color-preset-pill" style="background: #f59e0b;" data-color="#f59e0b" title="Amber"></div>
+                <div class="color-preset-pill" style="background: #eab308;" data-color="#eab308" title="Gold"></div>
+                <div class="color-preset-pill" style="background: #84cc16;" data-color="#84cc16" title="Lime"></div>
+                <div class="color-preset-pill" style="background: #10b981;" data-color="#10b981" title="Emerald"></div>
+                <div class="color-preset-pill" style="background: #14b8a6;" data-color="#14b8a6" title="Teal"></div>
+                <div class="color-preset-pill" style="background: #06b6d4;" data-color="#06b6d4" title="Cyan"></div>
+                <div class="color-preset-pill" style="background: #0ea5e9;" data-color="#0ea5e9" title="Sky"></div>
+                <div class="color-preset-pill" style="background: #3b82f6;" data-color="#3b82f6" title="Electric Blue"></div>
+              </div>
+            </div>
+
+            <!-- Custom HEX Pickers -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px;">
+              <div class="form-group">
+                <label class="form-label">Warna Utama (Primary)</label>
+                <div class="custom-color-row">
+                  <input type="color" id="cfg-primary-picker" class="color-picker-input" value="${activeSettings.primary_color}">
+                  <input type="text" id="cfg-primary-hex" class="input-text" value="${activeSettings.primary_color}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Warna Sekunder (Mix)</label>
+                <div class="custom-color-row">
+                  <input type="color" id="cfg-secondary-picker" class="color-picker-input" value="${activeSettings.secondary_color || '#06b6d4'}">
+                  <input type="text" id="cfg-secondary-hex" class="input-text" value="${activeSettings.secondary_color || '#06b6d4'}">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: LOGO & BRAND (IKUT LINK URL 100% DENGAN PRATINJAU LANGSUNG) -->
+          <div id="tab-logo" class="tab-pane">
+            <div class="form-group">
+              <label class="form-label">URL Logo Halaman Login (PNG/JPG/SVG/WebP/GIF)</label>
+              <span class="form-subtext">Tampal pautan gambar logo anda di sini (cth: Imgur, Cloudinary, atau direct link):</span>
+              <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/example.png" value="${activeSettings.login_logo || ''}">
+            </div>
+
+            <!-- Live Preview Box -->
+            <div class="form-group">
+              <label class="form-label">Pratinjau Logo Login (Live Preview)</label>
+              <div id="logo-preview-container" class="logo-preview-box">
+                <!-- Preview image or empty state injected dynamically -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">URL Logo Navbar Dashboard</label>
+              <span class="form-subtext">Logo di penjuru atas navbar dashboard klien:</span>
+              <input type="text" id="cfg-navbar-logo" class="input-text" placeholder="https://..." value="${activeSettings.navbar_logo || ''}">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Ketinggian / Saiz Logo: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 65}px</span></label>
+              <div class="slider-container">
+                <input type="range" id="cfg-logo-height" class="input-range" min="30" max="120" value="${activeSettings.logo_height || 65}">
+              </div>
+            </div>
+
+            <div class="toggle-row">
+              <div>
+                <div style="font-size:13.5px; font-weight:700;">Efek Cahaya Neon Logo (Glow)</div>
+                <div style="font-size:12px; color:#64748b;">Pendaran cahaya neon mengikut warna tema</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="cfg-logo-glow" ${activeSettings.logo_glow ? 'checked' : ''}>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- TAB 4: WALLPAPER BACKGROUND -->
           <div id="tab-bg" class="tab-pane">
             <div class="form-group">
               <label class="form-label">URL Wallpaper Background Dashboard</label>
-              <span class="form-subtext">Masukkan link gambar (JPG/PNG/WebP/GIF) untuk latar dashboard.</span>
               <input type="text" id="cfg-dashboard-bg" class="input-text" placeholder="https://..." value="${activeSettings.dashboard_bg || ''}">
             </div>
 
@@ -500,52 +747,18 @@
 
             <div class="form-group">
               <label class="form-label">Kegelapan Lapisan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
-              <span class="form-subtext">Tingkat kegelapan di atas wallpaper agar teks dan kartu server tetap terbaca jelas.</span>
               <div class="slider-container">
                 <input type="range" id="cfg-bg-overlay" class="input-range" min="10" max="95" value="${Math.round(activeSettings.bg_overlay_opacity * 100)}">
               </div>
             </div>
           </div>
 
-          <!-- TAB 3: LOGO & BRAND -->
-          <div id="tab-logo" class="tab-pane">
-            <div class="form-group">
-              <label class="form-label">URL Logo Halaman Login (PNG/JPG/SVG/WebP)</label>
-              <span class="form-subtext">Logo ini dipasang di atas form login. Jika kosong, logo emblem tema akan digunakan.</span>
-              <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/your-logo.png" value="${activeSettings.login_logo || ''}">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">URL Logo Navbar Dashboard</label>
-              <span class="form-subtext">Logo di navigasi atas dashboard server.</span>
-              <input type="text" id="cfg-navbar-logo" class="input-text" placeholder="https://..." value="${activeSettings.navbar_logo || ''}">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Ukuran / Tinggi Logo: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 60}px</span></label>
-              <div class="slider-container">
-                <input type="range" id="cfg-logo-height" class="input-range" min="30" max="120" value="${activeSettings.logo_height || 60}">
-              </div>
-            </div>
-
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Efek Cahaya Neon Logo (Glow)</div>
-                <div style="font-size:12px; color:#64748b;">Pendaran pendar cahaya lembut di sekeliling logo</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-logo-glow" ${activeSettings.logo_glow ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- TAB 4: ANNOUNCEMENT -->
+          <!-- TAB 5: ANNOUNCEMENT -->
           <div id="tab-announcement" class="tab-pane">
             <div class="toggle-row">
               <div>
                 <div style="font-size:13.5px; font-weight:700;">Aktifkan Banner Pengumuman</div>
-                <div style="font-size:12px; color:#64748b;">Menampilkan siaran berita di atas dashboard</div>
+                <div style="font-size:12px; color:#64748b;">Siaran notis penting di atas dashboard</div>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="cfg-announcement-enabled" ${activeSettings.announcement_enabled ? 'checked' : ''}>
@@ -571,7 +784,6 @@
             <div class="toggle-row">
               <div>
                 <div style="font-size:13.5px; font-weight:700;">Teks Berjalan (Running Marquee)</div>
-                <div style="font-size:12px; color:#64748b;">Animasi teks bergerak halus horizontal</div>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="cfg-announcement-marquee" ${activeSettings.announcement_marquee ? 'checked' : ''}>
@@ -580,26 +792,28 @@
             </div>
           </div>
 
-          <!-- TAB 5: ANIMASI -->
+          <!-- TAB 6: EFEK & KACA -->
           <div id="tab-effects" class="tab-pane">
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Animated Ambient Glow Orbs</div>
-                <div style="font-size:12px; color:#64748b;">Pendaran bola cahaya dinamis mengapung di latar belakang</div>
+            <div class="form-group">
+              <label class="form-label">Tingkat Efek Kaca (Glass Blur): <span id="val-blur" class="range-val-badge">${activeSettings.card_blur}px</span></label>
+              <div class="slider-container">
+                <input type="range" id="cfg-card-blur" class="input-range" min="0" max="30" value="${activeSettings.card_blur}">
               </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-animated-bg" ${activeSettings.animated_bg ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Kepekatan Kad (Card Opacity): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
+              <div class="slider-container">
+                <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="100" value="${Math.round(activeSettings.card_opacity * 100)}">
+              </div>
             </div>
 
             <div class="toggle-row">
               <div>
-                <div style="font-size:13.5px; font-weight:700;">Efek Angkat & Animasi Kartu (3D Hover Lift)</div>
-                <div style="font-size:12px; color:#64748b;">Kartu server terangkat dengan bayangan neon saat kursor diarahkan</div>
+                <div style="font-size:13.5px; font-weight:700;">Animated Ambient Glow Orbs</div>
               </div>
               <label class="toggle-switch">
-                <input type="checkbox" id="cfg-card-tilt" ${activeSettings.card_tilt ? 'checked' : ''}>
+                <input type="checkbox" id="cfg-animated-bg" ${activeSettings.animated_bg ? 'checked' : ''}>
                 <span class="toggle-slider"></span>
               </label>
             </div>
@@ -631,6 +845,7 @@
       if (e.target === overlay) closeThemeModal();
     });
 
+    // Tab Navigation
     const tabButtons = overlay.querySelectorAll('.modal-tab-btn');
     const tabPanes = overlay.querySelectorAll('.tab-pane');
     tabButtons.forEach(btn => {
@@ -643,6 +858,55 @@
       });
     });
 
+    // 1-Click Templates Click
+    overlay.querySelectorAll('.template-preset-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const key = card.getAttribute('data-template');
+        const t = themeTemplates[key];
+        if (!t) return;
+
+        overlay.querySelectorAll('.template-preset-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        // Apply template values
+        document.getElementById('cfg-primary-picker').value = t.primary;
+        document.getElementById('cfg-primary-hex').value = t.primary;
+        document.getElementById('cfg-secondary-picker').value = t.secondary;
+        document.getElementById('cfg-secondary-hex').value = t.secondary;
+        document.getElementById('cfg-dashboard-bg').value = t.bg;
+        document.getElementById('cfg-card-blur').value = t.blur;
+        document.getElementById('val-blur').textContent = `${t.blur}px`;
+        document.getElementById('cfg-card-opacity').value = Math.round(t.opacity * 100);
+        document.getElementById('val-opacity').textContent = `${Math.round(t.opacity * 100)}%`;
+
+        applyTheme(Object.assign({}, activeSettings, {
+          primary_color: t.primary,
+          secondary_color: t.secondary,
+          dashboard_bg: t.bg,
+          card_blur: t.blur,
+          card_opacity: t.opacity
+        }));
+      });
+    });
+
+    // Mix Color Click
+    overlay.querySelectorAll('.mix-color-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const p = pill.getAttribute('data-p');
+        const s = pill.getAttribute('data-s');
+        document.getElementById('cfg-primary-picker').value = p;
+        document.getElementById('cfg-primary-hex').value = p;
+        document.getElementById('cfg-secondary-picker').value = s;
+        document.getElementById('cfg-secondary-hex').value = s;
+
+        overlay.querySelectorAll('.mix-color-pill').forEach(c => c.classList.remove('active'));
+        pill.classList.add('active');
+
+        applyTheme(Object.assign({}, activeSettings, { primary_color: p, secondary_color: s }));
+      });
+    });
+
+    // Single Color Click
     overlay.querySelectorAll('.color-preset-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const color = pill.getAttribute('data-color');
@@ -654,19 +918,54 @@
       });
     });
 
-    const picker = document.getElementById('cfg-primary-picker');
-    const hexInput = document.getElementById('cfg-primary-hex');
-    picker.addEventListener('input', (e) => {
-      hexInput.value = e.target.value;
+    // Color Pickers Live
+    const pPicker = document.getElementById('cfg-primary-picker');
+    const pHex = document.getElementById('cfg-primary-hex');
+    pPicker.addEventListener('input', (e) => {
+      pHex.value = e.target.value;
       applyTheme(Object.assign({}, activeSettings, { primary_color: e.target.value }));
     });
-    hexInput.addEventListener('input', (e) => {
+    pHex.addEventListener('input', (e) => {
       if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
-        picker.value = e.target.value;
+        pPicker.value = e.target.value;
         applyTheme(Object.assign({}, activeSettings, { primary_color: e.target.value }));
       }
     });
 
+    const sPicker = document.getElementById('cfg-secondary-picker');
+    const sHex = document.getElementById('cfg-secondary-hex');
+    sPicker.addEventListener('input', (e) => {
+      sHex.value = e.target.value;
+      applyTheme(Object.assign({}, activeSettings, { secondary_color: e.target.value }));
+    });
+    sHex.addEventListener('input', (e) => {
+      if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+        sPicker.value = e.target.value;
+        applyTheme(Object.assign({}, activeSettings, { secondary_color: e.target.value }));
+      }
+    });
+
+    // Logo Input with Instant Live Preview Box
+    const logoInput = document.getElementById('cfg-login-logo');
+    const previewContainer = document.getElementById('logo-preview-container');
+
+    function updatePreviewBox(url) {
+      if (url && url.trim() !== '') {
+        previewContainer.innerHTML = `<img src="${url.trim()}" class="logo-preview-img" alt="Pratinjau Logo" onerror="this.parentNode.innerHTML='<span class=\\'logo-preview-empty\\'><i class=\\'fa-solid fa-triangle-exclamation\\' style=\\'color:#f43f5e;\\'></i> URL Gambar tidak sah</span>';" />`;
+      } else {
+        previewContainer.innerHTML = `<span class="logo-preview-empty"><i class="fa-solid fa-circle-info"></i> Tiada URL (Emblem 'TEMA PANEL' akan digunakan)</span>`;
+      }
+    }
+
+    updatePreviewBox(activeSettings.login_logo);
+
+    logoInput.addEventListener('input', (e) => {
+      const url = e.target.value.trim();
+      updatePreviewBox(url);
+      applyTheme(Object.assign({}, activeSettings, { login_logo: url }));
+    });
+
+    // Sliders
     const blurSlider = document.getElementById('cfg-card-blur');
     const blurVal = document.getElementById('val-blur');
     blurSlider.addEventListener('input', (e) => {
@@ -695,14 +994,11 @@
       applyTheme(Object.assign({}, activeSettings, { logo_height: e.target.value }));
     });
 
-    document.getElementById('cfg-login-logo').addEventListener('input', (e) => {
-      applyTheme(Object.assign({}, activeSettings, { login_logo: e.target.value.trim() }));
-    });
-
-    // Save Handler - Always succeeds, no unauthorized errors
+    // Save Button
     document.getElementById('premium-btn-save').addEventListener('click', () => {
       const payload = {
-        primary_color: hexInput.value,
+        primary_color: pHex.value,
+        secondary_color: sHex.value,
         card_blur: blurSlider.value,
         card_opacity: (opacitySlider.value / 100).toFixed(2),
         dashboard_bg: document.getElementById('cfg-dashboard-bg').value.trim(),
@@ -717,14 +1013,12 @@
         announcement_type: document.getElementById('cfg-announcement-type').value,
         announcement_marquee: document.getElementById('cfg-announcement-marquee').checked,
         animated_bg: document.getElementById('cfg-animated-bg').checked,
-        card_tilt: document.getElementById('cfg-card-tilt').checked,
         custom_css: document.getElementById('cfg-custom-css').value
       };
 
       applyTheme(payload);
       localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(activeSettings));
 
-      // Post to Server API
       fetch('/themes/premium/api/settings.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -741,6 +1035,7 @@
       });
     });
 
+    // Reset Button
     document.getElementById('premium-btn-reset').addEventListener('click', () => {
       if (confirm('Kembalikan semua tetapan tema ke nilai asal?')) {
         applyTheme(defaultSettings);
@@ -774,7 +1069,7 @@
     }
   }
 
-  // 10. MutationObserver for React Hydration & Admin Page Transitions
+  // 10. MutationObserver for React Hydration & Route Changes
   function setupWatcher() {
     const observer = new MutationObserver(() => {
       injectOrUpdateLoginLogo();
@@ -801,7 +1096,7 @@
     }, 400);
   }
 
-  // 11. Main Bootstrap Routine
+  // 11. Bootstrap Routine
   function bootstrap() {
     initBackgroundDOM();
     buildThemeModal();
