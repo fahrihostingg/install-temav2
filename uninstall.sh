@@ -1,56 +1,52 @@
 #!/bin/bash
-# ============================================================
-#   PREMIUM THEME UNINSTALLER
-# ============================================================
+# ==============================================================================
+# SCRIPT UNINSTALL TEMA PREMIUM (v2.0)
+# Restore Pterodactyl Panel to Default Theme
+# ==============================================================================
 
-set -e
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
 
-PANEL_PATH="/var/www/pterodactyl"
+clear
+echo -e "${YELLOW}==============================================================${NC}"
+echo -e "${YELLOW}          UNINSTALLER TEMA PREMIUM PTERODACTYL                ${NC}"
+echo -e "${YELLOW}==============================================================${NC}"
 
-R='\033[0;31m'; G='\033[0;32m'; Y='\033[1;33m'; C='\033[0;36m'; N='\033[0m'
-ok()   { echo -e "${G}  ✓${N} $1"; }
-info() { echo -e "${C}  ➜${N} $1"; }
-fail() { echo -e "${R}  ✗${N} $1"; exit 1; }
-
-[[ $EUID -ne 0 ]] && fail "Run sebagai root."
-
-BACKUP=$(ls -td /root/theme_backup_* 2>/dev/null | head -n1)
-[[ -z "$BACKUP" ]] && fail "Tiada backup dijumpai kat /root/"
-
-echo "↻ Restore dari: $BACKUP"
-
-if [[ -d "$BACKUP/views" ]]; then
-  rm -rf "$PANEL_PATH/resources/views"
-  cp -r "$BACKUP/views" "$PANEL_PATH/resources/views"
-  ok "Views restored"
+if [ "$EUID" -ne 0 ]; then
+  echo -e "${RED}[ERROR] Script ini harus dijalankan sebagai ROOT! Gunakan: sudo bash uninstall.sh${NC}"
+  exit 1
 fi
 
-if [[ -d "$BACKUP/public" ]]; then
-  for item in "$BACKUP/public"/*; do
-    base=$(basename "$item")
-    rm -rf "$PANEL_PATH/public/$base"
-    cp -r "$item" "$PANEL_PATH/public/"
-  done
-  ok "Public files restored"
+PANEL_DIR="/var/www/pterodactyl"
+WRAPPER_FILE="$PANEL_DIR/resources/views/templates/wrapper.blade.php"
+BACKUP_FILE="$PANEL_DIR/resources/views/templates/wrapper.blade.php.bak"
+
+echo -e "${CYAN}[1/3] Mengembalikan wrapper.blade.php original dari backup...${NC}"
+if [ -f "$BACKUP_FILE" ]; then
+  cp "$BACKUP_FILE" "$WRAPPER_FILE"
+  echo -e "${GREEN}✓ File wrapper asli berhasil dipulihkan.${NC}"
+else
+  echo -e "${YELLOW}⚠️ Backup tidak ditemukan. wrapper.blade.php dibiarkan tetap ada.${NC}"
 fi
 
-rm -rf "$PANEL_PATH/public/themes/premium"
-ok "Theme folder removed"
+echo -e "${CYAN}[2/3] Menghapus file aset tema premium...${NC}"
+rm -rf "$PANEL_DIR/public/themes/premium"
+echo -e "${GREEN}✓ Folder /public/themes/premium berhasil dihapus.${NC}"
 
-WEB_USER="www-data"
-for u in www-data nginx apache httpd; do
-  id "$u" &>/dev/null && WEB_USER="$u" && break
-done
-chown -R "$WEB_USER:$WEB_USER" "$PANEL_PATH" 2>/dev/null || true
+echo -e "${CYAN}[3/3] Membersihkan Cache Laravel...${NC}"
+cd "$PANEL_DIR" || exit
+if command -v php &>/dev/null; then
+  php artisan view:clear > /dev/null 2>&1
+  php artisan config:clear > /dev/null 2>&1
+  php artisan cache:clear > /dev/null 2>&1
+  echo -e "${GREEN}✓ Cache berhasil dibersihkan!${NC}"
+fi
 
-cd "$PANEL_PATH"
-php artisan view:clear
-php artisan cache:clear
-php artisan config:clear
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-echo
-echo -e "${G}  ✓ Tema asal dipulihkan!${N}"
-echo -e "${C}  Refresh panel kau sekarang.${N}\n"
+echo ""
+echo -e "${GREEN}==============================================================${NC}"
+echo -e "${GREEN}         PENGHAPUSAN TEMA BERHASIL DISELESAIKAN!              ${NC}"
+echo -e "${GREEN}  Pterodactyl Panel telah dikembalikan ke tampilan standar.   ${NC}"
+echo -e "${GREEN}==============================================================${NC}"
