@@ -1,6 +1,6 @@
 /* ==========================================================================
-   FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.2 FIXED)
-   Pterodactyl Panel v1.15+ Luxury Glassmorphism & Admin Sidebar Integration
+   FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.3 FIXED
+   Pterodactyl Panel Luxury Glassmorphism & Clean Admin Sidebar Integration
    ========================================================================== */
 
 :root {
@@ -21,7 +21,6 @@
   --theme-mono: 'JetBrains Mono', monospace;
 }
 
-/* Base Styles */
 body, html {
   font-family: var(--theme-font) !important;
   background-color: var(--theme-bg-color) !important;
@@ -77,7 +76,6 @@ body, html {
   transition: background 0.4s ease;
 }
 
-/* Ambient Glowing Orbs */
 .premium-glow-orb {
   position: fixed !important;
   border-radius: 50% !important;
@@ -111,23 +109,23 @@ body, html {
 }
 
 /* ==========================================================================
-   ADMIN SIDEBAR ITEM (BAWAH APPLICATION API - MENGIKUT SAIZ ASAL)
+   ADMIN SIDEBAR ITEM: HANYA 1 BUTANG DI BAWAH APPLICATION API (MENGIKUT SAIZ ASAL)
    ========================================================================== */
 
 #admin-theme-sidebar-item {
   position: relative;
   display: block;
-  transition: all 0.2s ease;
+  list-style: none;
 }
 
 #admin-theme-sidebar-item > a {
   display: block;
-  padding: 12px 5px 12px 15px;
-  color: var(--theme-primary, #6366f1) !important;
-  font-weight: 600 !important;
-  font-size: 13.5px !important;
+  padding: 12px 5px 12px 15px !important;
+  color: #b8c7ce !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
   border-left: 3px solid transparent;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   text-decoration: none !important;
 }
 
@@ -136,43 +134,48 @@ body, html {
   text-align: center;
   margin-right: 6px;
   color: var(--theme-primary, #6366f1);
-  transition: transform 0.25s ease;
+  font-size: 14px;
 }
 
 #admin-theme-sidebar-item > a:hover {
   color: #ffffff !important;
-  background: rgba(var(--theme-primary-rgb, 99, 102, 241), 0.15) !important;
+  background: #1e282c !important;
   border-left-color: var(--theme-primary, #6366f1) !important;
 }
 
 #admin-theme-sidebar-item > a:hover > i {
-  transform: rotate(25deg) scale(1.15);
   color: #ffffff;
 }
 
-/* ==========================================================================
-   COMPACT FLOATING BUTTON (HANYA UNTUK CLIENT & LOGIN - BUKAN ADMIN)
-   ========================================================================== */
-
-/* Pastikan di admin page, floating FAB disembunyikan sepenuhnya */
+/* SEMBUNYIKAN SEMUA FLOATING BAR & TOP BUTTON PADA ADMIN PANEL */
 body.hold-transition.skin-blue #premium-theme-fab,
 body.skin-blue #premium-theme-fab,
-.wrapper #premium-theme-fab {
+.hold-transition #premium-theme-fab,
+.wrapper #premium-theme-fab,
+body.hold-transition.skin-blue .premium-top-setting-btn,
+body.skin-blue .premium-top-setting-btn,
+body.skin-blue .premium-theme-pill {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
-/* Kompak, kemas, bulat sempurna (46px x 46px), tidak melebar */
+/* ==========================================================================
+   COMPACT FLOATING BUTTON (HANYA UNTUK CLIENT & LOGIN)
+   ========================================================================== */
+
 #premium-theme-fab {
   position: fixed !important;
   bottom: 24px !important;
   left: 24px !important;
   right: auto !important;
-  width: 46px !important;
-  height: 46px !important;
-  min-width: 46px !important;
-  max-width: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  min-height: 44px !important;
+  max-height: 44px !important;
   padding: 0 !important;
   margin: 0 !important;
   border-radius: 50% !important;
@@ -191,16 +194,14 @@ body.skin-blue #premium-theme-fab,
 }
 
 #premium-theme-fab:hover {
-  transform: translateY(-3px) scale(1.1) !important;
+  transform: translateY(-2px) scale(1.08) !important;
   box-shadow: 0 10px 25px var(--theme-glow) !important;
 }
 
 #premium-theme-fab i {
-  font-size: 18px !important;
-  margin: 0 !important;
+  font-size: 17px !important;
 }
 
-/* Sembunyikan teks label di dalam FAB supaya ia kekal bulat kemas */
 #premium-theme-fab span {
   display: none !important;
 }
@@ -313,7 +314,6 @@ form[class*="LoginForm"]::before {
   text-transform: uppercase;
 }
 
-/* Top Corner Setting Trigger on Login Page */
 .premium-top-setting-btn {
   position: fixed !important;
   top: 18px !important;
@@ -341,13 +341,6 @@ form[class*="LoginForm"]::before {
   border-color: var(--theme-primary) !important;
   box-shadow: 0 6px 20px var(--theme-glow) !important;
   transform: translateY(-2px) !important;
-}
-
-.premium-top-setting-btn i {
-  color: #06b6d4;
-}
-.premium-top-setting-btn:hover i {
-  color: #fff;
 }
 
 /* ==========================================================================
@@ -483,7 +476,7 @@ form[class*="LoginForm"]::before {
 }
 
 /* ==========================================================================
-   MODAL PENGATURAN TEMA LUXURY
+   MODAL PENGATURAN TEMA
    ========================================================================== */
 
 #premium-settings-modal-overlay {
@@ -511,13 +504,13 @@ form[class*="LoginForm"]::before {
 
 #premium-settings-modal {
   width: 100%;
-  max-width: 680px;
-  max-height: 90vh;
-  background: rgba(15, 23, 42, 0.94);
+  max-width: 650px;
+  max-height: 88vh;
+  background: rgba(15, 23, 42, 0.96);
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  border-radius: 18px;
   box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(var(--theme-primary-rgb), 0.25);
   display: flex;
   flex-direction: column;
@@ -532,7 +525,7 @@ form[class*="LoginForm"]::before {
 }
 
 .modal-header {
-  padding: 20px 24px;
+  padding: 18px 22px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
@@ -543,14 +536,14 @@ form[class*="LoginForm"]::before {
 .modal-title {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 18px;
+  gap: 10px;
+  font-size: 17px;
   font-weight: 700;
   color: #ffffff;
 }
 .modal-title i {
   color: var(--theme-primary);
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .modal-close-btn {
@@ -574,8 +567,8 @@ form[class*="LoginForm"]::before {
 
 .modal-tabs {
   display: flex;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: 6px;
+  padding: 10px 20px;
   background: rgba(11, 15, 25, 0.5);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   overflow-x: auto;
@@ -585,14 +578,14 @@ form[class*="LoginForm"]::before {
   background: transparent;
   border: none;
   color: #94a3b8;
-  padding: 8px 14px;
+  padding: 8px 12px;
   font-size: 13px;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   white-space: nowrap;
   transition: all 0.25s ease;
 }
@@ -607,18 +600,18 @@ form[class*="LoginForm"]::before {
 }
 
 .modal-body {
-  padding: 24px;
+  padding: 22px;
   overflow-y: auto;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .tab-pane {
   display: none;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 .tab-pane.active {
   display: flex;
@@ -633,7 +626,7 @@ form[class*="LoginForm"]::before {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .form-label {
@@ -648,17 +641,17 @@ form[class*="LoginForm"]::before {
 .form-subtext {
   font-size: 12px;
   color: #64748b;
-  margin-top: -4px;
+  margin-top: -3px;
 }
 
 .input-text {
   width: 100%;
-  padding: 10px 14px;
+  padding: 9px 12px;
   background: rgba(11, 15, 25, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
+  border-radius: 8px;
   color: #ffffff;
-  font-size: 13.5px;
+  font-size: 13px;
   outline: none;
   transition: all 0.25s ease;
 }
@@ -670,19 +663,18 @@ form[class*="LoginForm"]::before {
 
 .color-presets-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
-  gap: 10px;
-  margin-top: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .color-preset-pill {
   width: 100%;
-  height: 40px;
-  border-radius: 10px;
+  height: 38px;
+  border-radius: 8px;
   cursor: pointer;
   border: 2px solid transparent;
   transition: all 0.25s ease;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -692,48 +684,45 @@ form[class*="LoginForm"]::before {
 }
 .color-preset-pill.active {
   border-color: #ffffff;
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
 }
 .color-preset-pill.active::after {
   content: '✓';
   color: #fff;
   font-weight: 800;
-  font-size: 14px;
+  font-size: 13px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
 .custom-color-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
 }
 
 .color-picker-input {
   -webkit-appearance: none;
   border: none;
-  width: 44px;
-  height: 40px;
-  border-radius: 10px;
+  width: 40px;
+  height: 38px;
+  border-radius: 8px;
   cursor: pointer;
   background: transparent;
 }
-.color-picker-input::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
 .color-picker-input::-webkit-color-swatch {
   border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .slider-container {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .input-range {
   flex: 1;
-  height: 6px;
+  height: 5px;
   -webkit-appearance: none;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
@@ -741,26 +730,22 @@ form[class*="LoginForm"]::before {
 }
 .input-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--theme-primary);
   cursor: pointer;
   box-shadow: 0 0 10px var(--theme-glow);
-  transition: all 0.2s ease;
-}
-.input-range::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
 }
 
 .range-val-badge {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--theme-primary);
   background: rgba(var(--theme-primary-rgb), 0.15);
-  padding: 4px 8px;
+  padding: 3px 8px;
   border-radius: 6px;
-  min-width: 42px;
+  min-width: 40px;
   text-align: center;
 }
 
@@ -768,17 +753,17 @@ form[class*="LoginForm"]::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: rgba(11, 15, 25, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 46px;
-  height: 24px;
+  width: 42px;
+  height: 22px;
 }
 .toggle-switch input {
   opacity: 0;
@@ -790,30 +775,30 @@ form[class*="LoginForm"]::before {
   cursor: pointer;
   top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(255, 255, 255, 0.18);
-  transition: .3s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 24px;
+  transition: .25s ease;
+  border-radius: 22px;
 }
 .toggle-slider:before {
   position: absolute;
   content: "";
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
   left: 3px;
   bottom: 3px;
   background-color: white;
-  transition: .3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: .25s ease;
   border-radius: 50%;
 }
 input:checked + .toggle-slider {
   background-color: var(--theme-primary);
-  box-shadow: 0 0 12px var(--theme-glow);
+  box-shadow: 0 0 10px var(--theme-glow);
 }
 input:checked + .toggle-slider:before {
-  transform: translateX(22px);
+  transform: translateX(20px);
 }
 
 .modal-footer {
-  padding: 18px 24px;
+  padding: 16px 22px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.02);
   display: flex;
@@ -822,9 +807,9 @@ input:checked + .toggle-slider:before {
 }
 
 .btn-luxury {
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 13.5px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
@@ -837,11 +822,11 @@ input:checked + .toggle-slider:before {
 .btn-primary {
   background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-primary-hover) 100%);
   color: #ffffff;
-  box-shadow: 0 4px 18px rgba(var(--theme-primary-rgb), 0.4);
+  box-shadow: 0 4px 15px rgba(var(--theme-primary-rgb), 0.4);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(var(--theme-primary-rgb), 0.6);
+  box-shadow: 0 6px 20px rgba(var(--theme-primary-rgb), 0.6);
 }
 
 .btn-outline {
@@ -856,14 +841,14 @@ input:checked + .toggle-slider:before {
 #premium-toast {
   position: fixed !important;
   bottom: 24px !important;
-  left: 85px !important;
+  left: 24px !important;
   right: auto !important;
   background: rgba(15, 23, 42, 0.95);
   border: 1px solid var(--theme-primary);
   color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-size: 13.5px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 600;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--theme-glow);
   z-index: 2147483647 !important;

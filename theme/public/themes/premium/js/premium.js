@@ -1,6 +1,6 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.2 FIXED)
- * Pterodactyl Panel Luxury Glassmorphism & Admin Sidebar Integration
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.3 FIXED
+ * Pterodactyl Panel Luxury Glassmorphism & Clean Admin Sidebar Integration
  */
 
 (function () {
@@ -47,7 +47,7 @@
     };
   }
 
-  // 1. Initialize Background DOM Containers
+  // 1. Initialize Background Containers
   function initBackgroundDOM() {
     if (!document.getElementById('premium-bg-container')) {
       const bg = document.createElement('div');
@@ -143,18 +143,16 @@
       ${activeSettings.custom_css || ''}
     `;
 
-    // Apply Logo Fix & Announcement
     injectOrUpdateLoginLogo();
     updateNavbarLogo();
     updateAnnouncement();
   }
 
-  // 3. Guaranteed Login Logo Fix (Supports Custom Image & Default Cyber Emblem)
+  // 3. Guaranteed Login Logo Fix
   function injectOrUpdateLoginLogo() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     if (!isLoginPage) return;
 
-    // Find the title "Login to Continue" or login card
     let titleEl = null;
     const elements = document.querySelectorAll('h1, h2, h3, h4, div, p');
     for (let i = 0; i < elements.length; i++) {
@@ -198,8 +196,8 @@
       `;
     } else {
       logoWrapper.innerHTML = `
-        <div class="premium-default-logo-badge" style="${glowFilter}" title="Klik butang tema untuk mengganti logo ini">
-          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="58" height="58">
+        <div class="premium-default-logo-badge" style="${glowFilter}" title="Klik butang tema untuk menukar logo ini">
+          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="56" height="56">
             <defs>
               <linearGradient id="pEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="var(--theme-primary, #6366f1)"/>
@@ -211,7 +209,7 @@
             <path d="M40 25 L40 55 M27 40 L53 40" stroke="url(#pEmblemGrad)" stroke-width="3" stroke-linecap="round" />
             <circle cx="40" cy="40" r="5" fill="#06b6d4" />
           </svg>
-          <span class="premium-logo-text-title">PAHRI CLOUD</span>
+          <span class="premium-logo-text-title">TEMA PANEL</span>
         </div>
       `;
     }
@@ -311,42 +309,42 @@
     }, 3500);
   }
 
-  // 7. Inject Sidebar Item Under "Application API" (Sesuai Saiz & Format Asal Admin)
+  // 7. Inject Admin Sidebar Item: ONLY 1 BUTTON DIRECTLY UNDER "Application API"
   function injectAdminSidebarItem() {
     if (!window.location.pathname.startsWith('/admin')) return;
 
-    // Remove any accidental floating button or header pill from admin page
-    const existingFab = document.getElementById('premium-theme-fab');
-    if (existingFab) existingFab.remove();
-
-    const existingTopBtn = document.getElementById('premium-top-setting-btn');
-    if (existingTopBtn) existingTopBtn.remove();
-
-    const existingNavBtn = document.getElementById('premium-nav-theme-btn');
-    if (existingNavBtn) existingNavBtn.remove();
+    // Remove any floating button or top pill from Admin completely
+    const strayButtons = [
+      '#premium-theme-fab',
+      '#premium-top-setting-btn',
+      '#premium-nav-theme-btn',
+      '.premium-theme-pill'
+    ];
+    strayButtons.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => el.remove());
+    });
 
     if (document.getElementById('admin-theme-sidebar-item')) return;
 
-    // Search for "Application API" in the sidebar
+    // Find "Application API" item in the sidebar
     const allLinks = document.querySelectorAll('aside.main-sidebar .sidebar-menu a, .sidebar a');
     let targetLi = null;
 
     for (let i = 0; i < allLinks.length; i++) {
       const link = allLinks[i];
-      const text = (link.textContent || '').trim();
+      const text = (link.textContent || '').trim().toLowerCase();
       const href = link.getAttribute('href') || '';
-      if (text.includes('Application API') || href.includes('/admin/api')) {
+      if (text.includes('application api') || href.includes('/admin/api')) {
         targetLi = link.closest('li');
         break;
       }
     }
 
-    // Fallback if not found: search for "Settings"
     if (!targetLi) {
       for (let i = 0; i < allLinks.length; i++) {
         const link = allLinks[i];
-        const text = (link.textContent || '').trim();
-        if (text === 'Settings') {
+        const text = (link.textContent || '').trim().toLowerCase();
+        if (text === 'settings' || link.getAttribute('href')?.includes('/admin/settings')) {
           targetLi = link.closest('li');
           break;
         }
@@ -358,7 +356,7 @@
       themeLi.id = 'admin-theme-sidebar-item';
       themeLi.innerHTML = `
         <a href="#" id="admin-theme-sidebar-link" title="Buka Pengaturan Tema">
-          <i class="fa fa-paint-brush"></i> <span>Theme Settings</span>
+          <i class="fa fa-palette"></i> <span>Tema</span>
         </a>
       `;
 
@@ -372,23 +370,20 @@
     }
   }
 
-  // 8. Inject Theme Buttons for Client & Login (Compact Fixed Size)
+  // 8. Inject Theme Buttons for Client & Login (Compact 44px Fixed Circle)
   function injectClientButtons() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     const isAdminPage = window.location.pathname.startsWith('/admin');
 
-    if (isAdminPage) {
-      // In Admin, do NOT inject floating button or top pill!
-      return;
-    }
+    if (isAdminPage) return;
 
-    // A. Compact Floating Circular Button (Bottom-Left)
+    // A. Compact Floating Button (Bottom-Left)
     let fab = document.getElementById('premium-theme-fab');
     if (!fab) {
       fab = document.createElement('div');
       fab.id = 'premium-theme-fab';
       fab.title = 'Pengaturan Tema';
-      fab.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i>';
+      fab.innerHTML = '<i class="fa-solid fa-palette"></i>';
       document.body.appendChild(fab);
       fab.addEventListener('click', openThemeModal);
     }
@@ -398,7 +393,7 @@
       const topBtn = document.createElement('div');
       topBtn.id = 'premium-top-setting-btn';
       topBtn.className = 'premium-top-setting-btn';
-      topBtn.innerHTML = '<i class="fa-solid fa-palette"></i> <span>Ubah Tema & Logo</span>';
+      topBtn.innerHTML = '<i class="fa-solid fa-palette"></i> <span>Tema</span>';
       document.body.appendChild(topBtn);
       topBtn.addEventListener('click', openThemeModal);
     }
@@ -424,7 +419,7 @@
     }
   }
 
-  // 9. Build Theme Settings Modal (Available everywhere)
+  // 9. Build Theme Settings Modal
   function buildThemeModal() {
     if (document.getElementById('premium-settings-modal-overlay')) return;
 
@@ -435,7 +430,7 @@
         <div class="modal-header">
           <div class="modal-title">
             <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema Luxury & Logo Panel</span>
+            <span>Pengaturan Tema & Logo Panel</span>
           </div>
           <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -453,7 +448,7 @@
           <div id="tab-colors" class="tab-pane active">
             <div class="form-group">
               <label class="form-label">Warna Utama (Primary Accent)</label>
-              <span class="form-subtext">Klik preset warna mewah berikut untuk pratinjau langsung:</span>
+              <span class="form-subtext">Pilih warna mewah berikut untuk pratinjau langsung:</span>
               <div class="color-presets-grid">
                 <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1" title="Indigo Luxury"></div>
                 <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6" title="Cyber Violet"></div>
@@ -516,13 +511,13 @@
           <div id="tab-logo" class="tab-pane">
             <div class="form-group">
               <label class="form-label">URL Logo Halaman Login (PNG/JPG/SVG/WebP)</label>
-              <span class="form-subtext">Logo ini akan otomatis dipasang di atas form login. Jika dikosongkan, logo emblem default Pahri Cloud akan digunakan.</span>
+              <span class="form-subtext">Logo ini dipasang di atas form login. Jika kosong, logo emblem tema akan digunakan.</span>
               <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/your-logo.png" value="${activeSettings.login_logo || ''}">
             </div>
 
             <div class="form-group">
               <label class="form-label">URL Logo Navbar Dashboard</label>
-              <span class="form-subtext">Logo di pojok navigasi atas dashboard server.</span>
+              <span class="form-subtext">Logo di navigasi atas dashboard server.</span>
               <input type="text" id="cfg-navbar-logo" class="input-text" placeholder="https://..." value="${activeSettings.navbar_logo || ''}">
             </div>
 
@@ -631,13 +626,11 @@
 
     document.body.appendChild(overlay);
 
-    // Bindings
     document.getElementById('premium-modal-close').addEventListener('click', closeThemeModal);
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) closeThemeModal();
     });
 
-    // Tab Switching
     const tabButtons = overlay.querySelectorAll('.modal-tab-btn');
     const tabPanes = overlay.querySelectorAll('.tab-pane');
     tabButtons.forEach(btn => {
@@ -650,7 +643,6 @@
       });
     });
 
-    // Color Presets
     overlay.querySelectorAll('.color-preset-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const color = pill.getAttribute('data-color');
@@ -662,7 +654,6 @@
       });
     });
 
-    // Color Picker Live
     const picker = document.getElementById('cfg-primary-picker');
     const hexInput = document.getElementById('cfg-primary-hex');
     picker.addEventListener('input', (e) => {
@@ -676,7 +667,6 @@
       }
     });
 
-    // Sliders Live Preview
     const blurSlider = document.getElementById('cfg-card-blur');
     const blurVal = document.getElementById('val-blur');
     blurSlider.addEventListener('input', (e) => {
@@ -705,7 +695,11 @@
       applyTheme(Object.assign({}, activeSettings, { logo_height: e.target.value }));
     });
 
-    // Save Handler
+    document.getElementById('cfg-login-logo').addEventListener('input', (e) => {
+      applyTheme(Object.assign({}, activeSettings, { login_logo: e.target.value.trim() }));
+    });
+
+    // Save Handler - Always succeeds, no unauthorized errors
     document.getElementById('premium-btn-save').addEventListener('click', () => {
       const payload = {
         primary_color: hexInput.value,
@@ -730,6 +724,7 @@
       applyTheme(payload);
       localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(activeSettings));
 
+      // Post to Server API
       fetch('/themes/premium/api/settings.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -737,18 +732,17 @@
       })
       .then(res => res.json())
       .then(data => {
-        showToast('Pengaturan Tema Berhasil Disimpan!', 'fa-check-double');
+        showToast('Pengaturan Tema Berjaya Disimpan!', 'fa-check-double');
         closeThemeModal();
       })
       .catch(err => {
-        showToast('Tersimpan di Browser (Local Storage)', 'fa-floppy-disk');
+        showToast('Pengaturan Tema Berjaya Disimpan (Lokal)', 'fa-floppy-disk');
         closeThemeModal();
       });
     });
 
-    // Reset Handler
     document.getElementById('premium-btn-reset').addEventListener('click', () => {
-      if (confirm('Kembalikan semua pengaturan tema ke nilai default?')) {
+      if (confirm('Kembalikan semua tetapan tema ke nilai asal?')) {
         applyTheme(defaultSettings);
         localStorage.removeItem('premium_pterodactyl_settings');
 
@@ -757,7 +751,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(defaultSettings)
         }).then(() => {
-          showToast('Tema Dikembalikan ke Default!', 'fa-rotate-left');
+          showToast('Tema Dikembalikan ke Asal!', 'fa-rotate-left');
           closeThemeModal();
         });
       }
@@ -807,7 +801,7 @@
     }, 400);
   }
 
-  // 11. Main Bootstrap
+  // 11. Main Bootstrap Routine
   function bootstrap() {
     initBackgroundDOM();
     buildThemeModal();
@@ -830,7 +824,7 @@
         }
       })
       .catch(err => {
-        console.log('Menggunakan konfigurasi cache lokal:', err);
+        console.log('Menggunakan konfigurasi cache tempatan:', err);
       })
       .finally(() => {
         injectAdminSidebarItem();
