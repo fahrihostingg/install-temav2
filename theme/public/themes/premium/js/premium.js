@@ -1,6 +1,6 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.0)
- * Pterodactyl Panel Luxury Glassmorphism & Animated Suite
+ * FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.1 FIXED)
+ * Pterodactyl Panel Luxury Glassmorphism & Dynamic Theme Suite
  */
 
 (function () {
@@ -16,7 +16,7 @@
     bg_overlay_opacity: '0.75',
     login_logo: '',
     navbar_logo: '',
-    logo_height: '50',
+    logo_height: '60',
     logo_glow: true,
     card_blur: '16',
     card_opacity: '0.85',
@@ -35,7 +35,7 @@
 
   // Helper: Hex to RGB
   function hexToRgb(hex) {
-    hex = hex.replace('#', '');
+    hex = (hex || '#6366f1').replace('#', '');
     if (hex.length === 3) {
       hex = hex.split('').map(c => c + c).join('');
     }
@@ -47,7 +47,7 @@
     };
   }
 
-  // 1. Initialize DOM Background & Canvas
+  // 1. Initialize DOM Background Containers
   function initBackgroundDOM() {
     if (!document.getElementById('premium-bg-container')) {
       const bg = document.createElement('div');
@@ -91,7 +91,7 @@
     // Background Container
     const bgContainer = document.getElementById('premium-bg-container');
     const bgOverlay = document.getElementById('premium-bg-overlay');
-    const isLoginPage = window.location.pathname.includes('/auth/login') || window.location.pathname.includes('/auth/password');
+    const isLoginPage = window.location.pathname.includes('/auth/');
 
     if (bgContainer && bgOverlay) {
       const bgImg = isLoginPage 
@@ -132,7 +132,7 @@
         --theme-glow: ${glowStr} !important;
       }
       button.btn-primary, button[type="submit"], .bg-primary-500, .bg-blue-600 {
-        background: linear-gradient(135deg, ${activeSettings.primary_color} 0%, rgba(${rgbStr}, 0.8) 100%) !important;
+        background: linear-gradient(135deg, ${activeSettings.primary_color} 0%, rgba(${rgbStr}, 0.85) 100%) !important;
       }
       .border-primary-500, .border-blue-500 {
         border-color: ${activeSettings.primary_color} !important;
@@ -144,71 +144,78 @@
     `;
 
     // Apply Logo Fix & Announcement
-    updateLoginLogo();
+    injectOrUpdateLoginLogo();
     updateNavbarLogo();
     updateAnnouncement();
   }
 
-  // 3. Fix & Update Login Logo
-  function updateLoginLogo() {
+  // 3. Guaranteed Login Logo Fix (Supports Custom Image & Default Cyber Emblem)
+  function injectOrUpdateLoginLogo() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     if (!isLoginPage) return;
 
-    const logoUrl = activeSettings.login_logo;
-    const logoHeight = activeSettings.logo_height || '55';
-    const logoGlow = activeSettings.logo_glow !== false;
+    // Find the title "Login to Continue" or login card
+    let titleEl = null;
+    const elements = document.querySelectorAll('h1, h2, h3, h4, div, p');
+    for (let i = 0; i < elements.length; i++) {
+      const text = elements[i].textContent ? elements[i].textContent.trim() : '';
+      if (text === 'Login to Continue') {
+        titleEl = elements[i];
+        break;
+      }
+    }
 
-    // Search for login container
-    const loginForm = document.querySelector('div[class*="LoginFormContainer"]') ||
+    const container = document.querySelector('div[class*="LoginFormContainer"]') ||
                       document.querySelector('div[class*="LoginContainer"]') ||
                       document.querySelector('form[class*="LoginForm"]') ||
                       document.querySelector('#app form');
 
-    if (!loginForm) return;
+    if (!titleEl && !container) return;
 
-    let existingWrapper = document.getElementById('premium-login-logo-box');
+    const targetParent = titleEl ? titleEl.parentNode : container;
+    const targetBefore = titleEl || targetParent.firstChild;
 
-    if (logoUrl && logoUrl.trim() !== '') {
-      // Hide standard Pterodactyl SVG if present
-      const standardSvgs = loginForm.querySelectorAll('svg');
-      standardSvgs.forEach(svg => {
-        if (!svg.closest('#premium-login-logo-box')) {
-          svg.style.display = 'none';
-        }
-      });
+    let logoWrapper = document.getElementById('premium-login-logo-box');
+    if (!logoWrapper) {
+      logoWrapper = document.createElement('div');
+      logoWrapper.id = 'premium-login-logo-box';
+      logoWrapper.className = 'premium-login-logo-wrapper';
+      targetParent.insertBefore(logoWrapper, targetBefore);
+    }
 
-      if (!existingWrapper) {
-        existingWrapper = document.createElement('div');
-        existingWrapper.id = 'premium-login-logo-box';
-        existingWrapper.className = 'premium-login-logo-wrapper';
-        
-        const img = document.createElement('img');
-        img.id = 'premium-login-logo-img';
-        img.className = 'premium-custom-login-logo';
-        img.alt = 'Logo';
-        existingWrapper.appendChild(img);
+    const logoUrl = (activeSettings.login_logo || '').trim();
+    const logoHeight = activeSettings.logo_height || '60';
+    const logoGlow = activeSettings.logo_glow !== false;
+    const glowFilter = logoGlow ? `filter: drop-shadow(0 0 16px var(--theme-glow));` : '';
 
-        // Prepend to login box
-        loginForm.prepend(existingWrapper);
-      }
-
-      const imgEl = document.getElementById('premium-login-logo-img');
-      if (imgEl) {
-        if (imgEl.src !== logoUrl) {
-          imgEl.src = logoUrl;
-        }
-        imgEl.style.maxHeight = `${logoHeight}px`;
-        imgEl.style.filter = logoGlow ? `drop-shadow(0 0 16px var(--theme-glow))` : 'none';
-      }
+    if (logoUrl) {
+      // User Custom Image Logo
+      logoWrapper.innerHTML = `
+        <img id="premium-login-logo-img" 
+             class="premium-custom-login-logo" 
+             src="${logoUrl}" 
+             alt="Panel Logo" 
+             style="max-height: ${logoHeight}px; max-width: 260px; object-fit: contain; ${glowFilter}" />
+      `;
     } else {
-      // If no custom logo, show default SVG and remove custom wrapper
-      if (existingWrapper) {
-        existingWrapper.remove();
-      }
-      const standardSvgs = loginForm.querySelectorAll('svg');
-      standardSvgs.forEach(svg => {
-        svg.style.display = '';
-      });
+      // Default High-Tech Animated Emblem (Always visible, never empty!)
+      logoWrapper.innerHTML = `
+        <div class="premium-default-logo-badge" style="${glowFilter}" title="Klik tombol tema untuk mengganti logo ini">
+          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="58" height="58">
+            <defs>
+              <linearGradient id="pEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="var(--theme-primary, #6366f1)"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+            <polygon points="40,8 72,26 72,54 40,72 8,54 8,26" fill="rgba(99, 102, 241, 0.18)" stroke="url(#pEmblemGrad)" stroke-width="2.5" />
+            <polygon points="40,18 62,31 62,49 40,62 18,49 18,31" fill="none" stroke="url(#pEmblemGrad)" stroke-width="1.5" stroke-dasharray="4,2" />
+            <path d="M40 25 L40 55 M27 40 L53 40" stroke="url(#pEmblemGrad)" stroke-width="3" stroke-linecap="round" />
+            <circle cx="40" cy="40" r="5" fill="#06b6d4" />
+          </svg>
+          <span class="premium-logo-text-title">PAHRI CLOUD</span>
+        </div>
+      `;
     }
   }
 
@@ -229,7 +236,6 @@
       customNavImg.className = 'premium-navbar-logo';
       customNavImg.alt = 'Panel Logo';
 
-      // Hide default SVG icon if present inside brand link
       const defaultSvg = navBrand.querySelector('svg');
       if (defaultSvg) defaultSvg.style.display = 'none';
 
@@ -261,7 +267,6 @@
         </div>
       `;
 
-      // Insert under navbar or at top of #app
       const app = document.getElementById('app');
       const nav = document.querySelector('#app nav') || document.querySelector('header');
       if (nav && nav.parentNode) {
@@ -272,7 +277,6 @@
         document.body.prepend(bar);
       }
 
-      // Close handler
       document.getElementById('premium-announcement-close').addEventListener('click', function () {
         bar.classList.remove('announcement-active');
         sessionStorage.setItem('premium_announcement_dismissed', 'true');
@@ -287,11 +291,7 @@
       const textEl = document.getElementById('premium-announcement-text');
       if (textEl) {
         textEl.innerHTML = activeSettings.announcement_text;
-        if (activeSettings.announcement_marquee) {
-          textEl.className = 'announcement-marquee';
-        } else {
-          textEl.className = 'announcement-static';
-        }
+        textEl.className = activeSettings.announcement_marquee ? 'announcement-marquee' : 'announcement-static';
       }
     } else {
       bar.classList.remove('announcement-active');
@@ -313,379 +313,437 @@
     }, 3500);
   }
 
-  // 7. Inject Floating Settings Button & Modal
-  function injectSettingsUI() {
-    if (document.getElementById('premium-theme-fab')) return;
+  // 7. Inject All Buttons (Floating Bottom-Left, Top-Right Corner, & Navbar) + Modal
+  function injectThemeButtonsAndModal() {
+    const isLoginPage = window.location.pathname.includes('/auth/');
+    const isAdminPage = window.location.pathname.includes('/admin');
 
-    // Floating Button
-    const fab = document.createElement('div');
-    fab.id = 'premium-theme-fab';
-    fab.title = 'Pengaturan Tema Luxury';
-    fab.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i>';
-    document.body.appendChild(fab);
+    // A. Floating Button at Bottom-Left (Always visible, cannot be blocked by reCAPTCHA)
+    let fab = document.getElementById('premium-theme-fab');
+    if (!fab) {
+      fab = document.createElement('div');
+      fab.id = 'premium-theme-fab';
+      fab.title = 'Buka Pengaturan Tema & Logo';
+      fab.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> <span>Tema Setting</span>';
+      document.body.appendChild(fab);
+    }
 
-    // Modal Overlay & Structure
-    const overlay = document.createElement('div');
-    overlay.id = 'premium-settings-modal-overlay';
-    overlay.innerHTML = `
-      <div id="premium-settings-modal">
-        <div class="modal-header">
-          <div class="modal-title">
-            <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema Luxury & Animasi</span>
-          </div>
-          <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
-        </div>
+    // B. Top-Right Corner Button on Login Page
+    if (isLoginPage && !document.getElementById('premium-top-setting-btn')) {
+      const topBtn = document.createElement('div');
+      topBtn.id = 'premium-top-setting-btn';
+      topBtn.className = 'premium-top-setting-btn';
+      topBtn.innerHTML = '<i class="fa-solid fa-palette"></i> <span>Ubah Tema & Logo</span>';
+      document.body.appendChild(topBtn);
+      topBtn.addEventListener('click', () => openThemeModal());
+    }
 
-        <div class="modal-tabs">
-          <button class="modal-tab-btn active" data-tab="tab-colors"><i class="fa-solid fa-droplet"></i> Warna & Aksen</button>
-          <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Background</button>
-          <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo & Brand</button>
-          <button class="modal-tab-btn" data-tab="tab-announcement"><i class="fa-solid fa-bullhorn"></i> Pengumuman</button>
-          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sparkles"></i> Efek & Animasi</button>
-        </div>
+    // C. Navbar Button on Client Dashboard
+    if (!isLoginPage && !isAdminPage) {
+      const navContainer = document.querySelector('#app nav > div') || document.querySelector('#app nav');
+      if (navContainer && !document.getElementById('premium-nav-theme-btn')) {
+        const navBtn = document.createElement('button');
+        navBtn.id = 'premium-nav-theme-btn';
+        navBtn.className = 'premium-top-setting-btn';
+        navBtn.style.position = 'relative';
+        navBtn.style.top = '0';
+        navBtn.style.right = '0';
+        navBtn.style.marginRight = '12px';
+        navBtn.innerHTML = '<i class="fa-solid fa-palette"></i> <span>Tema</span>';
+        navBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openThemeModal();
+        });
+        navContainer.appendChild(navBtn);
+      }
+    }
 
-        <div class="modal-body">
-          <!-- TAB 1: WARNA -->
-          <div id="tab-colors" class="tab-pane active">
-            <div class="form-group">
-              <label class="form-label">Warna Utama (Primary Brand Accent)</label>
-              <span class="form-subtext">Pilih palet warna mewah instan atau pilih warna custom.</span>
-              <div class="color-presets-grid">
-                <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1" title="Indigo Luxury"></div>
-                <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6" title="Cyber Violet"></div>
-                <div class="color-preset-pill" style="background: #06b6d4;" data-color="#06b6d4" title="Neon Cyan"></div>
-                <div class="color-preset-pill" style="background: #10b981;" data-color="#10b981" title="Emerald Glow"></div>
-                <div class="color-preset-pill" style="background: #f43f5e;" data-color="#f43f5e" title="Crimson Ruby"></div>
-                <div class="color-preset-pill" style="background: #f59e0b;" data-color="#f59e0b" title="Sunset Gold"></div>
-                <div class="color-preset-pill" style="background: #3b82f6;" data-color="#3b82f6" title="Electric Blue"></div>
-                <div class="color-preset-pill" style="background: #ec4899;" data-color="#ec4899" title="Neon Pink"></div>
-              </div>
+    // D. Admin Sidebar Button in /admin/*
+    if (isAdminPage) {
+      const sidebarMenu = document.querySelector('.sidebar-menu');
+      if (sidebarMenu && !document.getElementById('premium-admin-sidebar-item')) {
+        const adminLi = document.createElement('li');
+        adminLi.id = 'premium-admin-sidebar-item';
+        adminLi.innerHTML = `
+          <a href="#" style="color: var(--theme-primary, #6366f1) !important; font-weight: 700;">
+            <i class="fa fa-paint-brush"></i> <span>Tema & Logo Setting</span>
+          </a>
+        `;
+        adminLi.addEventListener('click', (e) => {
+          e.preventDefault();
+          openThemeModal();
+        });
+        sidebarMenu.appendChild(adminLi);
+      }
+    }
+
+    // E. Construct Settings Modal
+    if (!document.getElementById('premium-settings-modal-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.id = 'premium-settings-modal-overlay';
+      overlay.innerHTML = `
+        <div id="premium-settings-modal">
+          <div class="modal-header">
+            <div class="modal-title">
+              <i class="fa-solid fa-palette"></i>
+              <span>Pengaturan Tema Luxury & Logo Panel</span>
             </div>
-
-            <div class="form-group">
-              <label class="form-label">Custom HEX Color</label>
-              <div class="custom-color-row">
-                <input type="color" id="cfg-primary-picker" class="color-picker-input" value="${activeSettings.primary_color}">
-                <input type="text" id="cfg-primary-hex" class="input-text" style="width: 140px;" value="${activeSettings.primary_color}">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Tingkat Efek Kaca (Glass Blur): <span id="val-blur" class="range-val-badge">${activeSettings.card_blur}px</span></label>
-              <div class="slider-container">
-                <input type="range" id="cfg-card-blur" class="input-range" min="0" max="30" value="${activeSettings.card_blur}">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Kepekatan Kartu (Card Opacity): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
-              <div class="slider-container">
-                <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="100" value="${Math.round(activeSettings.card_opacity * 100)}">
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 2: BACKGROUND -->
-          <div id="tab-bg" class="tab-pane">
-            <div class="form-group">
-              <label class="form-label">URL Background Dashboard</label>
-              <span class="form-subtext">Masukkan link gambar (JPG/PNG/WebP/GIF) untuk latar dashboard.</span>
-              <input type="text" id="cfg-dashboard-bg" class="input-text" placeholder="https://example.com/wallpaper.jpg" value="${activeSettings.dashboard_bg || ''}">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">URL Background Halaman Login</label>
-              <span class="form-subtext">Kosongkan jika ingin mengikuti background dashboard.</span>
-              <input type="text" id="cfg-login-bg" class="input-text" placeholder="https://example.com/login-bg.jpg" value="${activeSettings.login_bg || ''}">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Kegelapan Lapisan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
-              <span class="form-subtext">Tingkat kegelapan di atas wallpaper agar teks dan kartu server tetap terbaca jelas.</span>
-              <div class="slider-container">
-                <input type="range" id="cfg-bg-overlay" class="input-range" min="10" max="95" value="${Math.round(activeSettings.bg_overlay_opacity * 100)}">
-              </div>
-            </div>
+            <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
           </div>
 
-          <!-- TAB 3: LOGO & BRAND -->
-          <div id="tab-logo" class="tab-pane">
-            <div class="form-group">
-              <label class="form-label">URL Logo Halaman Login</label>
-              <span class="form-subtext">Logo ini akan otomatis menggantikan icon burung default Pterodactyl di form login.</span>
-              <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://example.com/logo.png" value="${activeSettings.login_logo || ''}">
-            </div>
+          <div class="modal-tabs">
+            <button class="modal-tab-btn active" data-tab="tab-colors"><i class="fa-solid fa-droplet"></i> Warna & Aksen</button>
+            <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Background</button>
+            <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo & Brand</button>
+            <button class="modal-tab-btn" data-tab="tab-announcement"><i class="fa-solid fa-bullhorn"></i> Pengumuman</button>
+            <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sparkles"></i> Animasi</button>
+          </div>
 
-            <div class="form-group">
-              <label class="form-label">URL Logo Navbar Dashboard</label>
-              <span class="form-subtext">Logo di pojok kiri atas navbar navigasi server.</span>
-              <input type="text" id="cfg-navbar-logo" class="input-text" placeholder="https://example.com/navbar-logo.png" value="${activeSettings.navbar_logo || ''}">
-            </div>
+          <div class="modal-body">
+            <!-- TAB 1: WARNA -->
+            <div id="tab-colors" class="tab-pane active">
+              <div class="form-group">
+                <label class="form-label">Warna Utama (Primary Brand Accent)</label>
+                <span class="form-subtext">Klik preset warna mewah berikut untuk pratinjau langsung:</span>
+                <div class="color-presets-grid">
+                  <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1" title="Indigo Luxury"></div>
+                  <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6" title="Cyber Violet"></div>
+                  <div class="color-preset-pill" style="background: #06b6d4;" data-color="#06b6d4" title="Neon Cyan"></div>
+                  <div class="color-preset-pill" style="background: #10b981;" data-color="#10b981" title="Emerald Glow"></div>
+                  <div class="color-preset-pill" style="background: #f43f5e;" data-color="#f43f5e" title="Crimson Ruby"></div>
+                  <div class="color-preset-pill" style="background: #f59e0b;" data-color="#f59e0b" title="Sunset Gold"></div>
+                  <div class="color-preset-pill" style="background: #3b82f6;" data-color="#3b82f6" title="Electric Blue"></div>
+                  <div class="color-preset-pill" style="background: #ec4899;" data-color="#ec4899" title="Neon Pink"></div>
+                </div>
+              </div>
 
-            <div class="form-group">
-              <label class="form-label">Tinggi Logo Login: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 50}px</span></label>
-              <div class="slider-container">
-                <input type="range" id="cfg-logo-height" class="input-range" min="30" max="110" value="${activeSettings.logo_height || 50}">
+              <div class="form-group">
+                <label class="form-label">Custom HEX Color</label>
+                <div class="custom-color-row">
+                  <input type="color" id="cfg-primary-picker" class="color-picker-input" value="${activeSettings.primary_color}">
+                  <input type="text" id="cfg-primary-hex" class="input-text" style="width: 140px;" value="${activeSettings.primary_color}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tingkat Efek Kaca (Glass Blur): <span id="val-blur" class="range-val-badge">${activeSettings.card_blur}px</span></label>
+                <div class="slider-container">
+                  <input type="range" id="cfg-card-blur" class="input-range" min="0" max="30" value="${activeSettings.card_blur}">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Kepekatan Kartu (Card Opacity): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
+                <div class="slider-container">
+                  <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="100" value="${Math.round(activeSettings.card_opacity * 100)}">
+                </div>
               </div>
             </div>
 
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Efek Cahaya Neon Logo (Glow)</div>
-                <div style="font-size:12px; color:#64748b;">Memberikan pendaran cahaya elegan di sekitar logo</div>
+            <!-- TAB 2: BACKGROUND -->
+            <div id="tab-bg" class="tab-pane">
+              <div class="form-group">
+                <label class="form-label">URL Wallpaper Background Dashboard</label>
+                <span class="form-subtext">Masukkan link gambar (JPG/PNG/WebP/GIF) untuk latar dashboard.</span>
+                <input type="text" id="cfg-dashboard-bg" class="input-text" placeholder="https://..." value="${activeSettings.dashboard_bg || ''}">
               </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-logo-glow" ${activeSettings.logo_glow ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
+
+              <div class="form-group">
+                <label class="form-label">URL Wallpaper Halaman Login</label>
+                <span class="form-subtext">Kosongkan jika ingin mengikuti background dashboard.</span>
+                <input type="text" id="cfg-login-bg" class="input-text" placeholder="https://..." value="${activeSettings.login_bg || ''}">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Kegelapan Lapisan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
+                <span class="form-subtext">Tingkat kegelapan di atas wallpaper agar teks dan kartu server tetap terbaca jelas.</span>
+                <div class="slider-container">
+                  <input type="range" id="cfg-bg-overlay" class="input-range" min="10" max="95" value="${Math.round(activeSettings.bg_overlay_opacity * 100)}">
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 3: LOGO & BRAND -->
+            <div id="tab-logo" class="tab-pane">
+              <div class="form-group">
+                <label class="form-label">URL Logo Halaman Login (PNG/JPG/SVG/WebP)</label>
+                <span class="form-subtext">Logo ini akan otomatis dipasang di atas form login. Jika dikosongkan, logo emblem default Pahri Cloud akan digunakan.</span>
+                <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/your-logo.png" value="${activeSettings.login_logo || ''}">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">URL Logo Navbar Dashboard</label>
+                <span class="form-subtext">Logo di pojok navigasi atas dashboard server.</span>
+                <input type="text" id="cfg-navbar-logo" class="input-text" placeholder="https://..." value="${activeSettings.navbar_logo || ''}">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Ukuran / Tinggi Logo: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 60}px</span></label>
+                <div class="slider-container">
+                  <input type="range" id="cfg-logo-height" class="input-range" min="30" max="120" value="${activeSettings.logo_height || 60}">
+                </div>
+              </div>
+
+              <div class="toggle-row">
+                <div>
+                  <div style="font-size:13.5px; font-weight:700;">Efek Cahaya Neon Logo (Glow)</div>
+                  <div style="font-size:12px; color:#64748b;">Pendaran pendar cahaya lembut di sekeliling logo</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="cfg-logo-glow" ${activeSettings.logo_glow ? 'checked' : ''}>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- TAB 4: ANNOUNCEMENT -->
+            <div id="tab-announcement" class="tab-pane">
+              <div class="toggle-row">
+                <div>
+                  <div style="font-size:13.5px; font-weight:700;">Aktifkan Banner Pengumuman</div>
+                  <div style="font-size:12px; color:#64748b;">Menampilkan siaran berita di atas dashboard</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="cfg-announcement-enabled" ${activeSettings.announcement_enabled ? 'checked' : ''}>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Teks Pengumuman</label>
+                <textarea id="cfg-announcement-text" class="input-text" rows="3" style="resize:vertical;">${activeSettings.announcement_text || ''}</textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Gaya Banner</label>
+                <select id="cfg-announcement-type" class="input-text">
+                  <option value="gradient" ${activeSettings.announcement_type === 'gradient' ? 'selected' : ''}>Luxury Gradient Accent</option>
+                  <option value="info" ${activeSettings.announcement_type === 'info' ? 'selected' : ''}>Cyan Info Alert</option>
+                  <option value="warning" ${activeSettings.announcement_type === 'warning' ? 'selected' : ''}>Sunset Warning</option>
+                  <option value="danger" ${activeSettings.announcement_type === 'danger' ? 'selected' : ''}>Crimson Urgent Alert</option>
+                </select>
+              </div>
+
+              <div class="toggle-row">
+                <div>
+                  <div style="font-size:13.5px; font-weight:700;">Teks Berjalan (Running Marquee)</div>
+                  <div style="font-size:12px; color:#64748b;">Animasi teks bergerak halus horizontal</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="cfg-announcement-marquee" ${activeSettings.announcement_marquee ? 'checked' : ''}>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- TAB 5: ANIMASI -->
+            <div id="tab-effects" class="tab-pane">
+              <div class="toggle-row">
+                <div>
+                  <div style="font-size:13.5px; font-weight:700;">Animated Ambient Glow Orbs</div>
+                  <div style="font-size:12px; color:#64748b;">Pendaran bola cahaya dinamis mengapung di latar belakang</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="cfg-animated-bg" ${activeSettings.animated_bg ? 'checked' : ''}>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-row">
+                <div>
+                  <div style="font-size:13.5px; font-weight:700;">Efek Angkat & Animasi Kartu (3D Hover Lift)</div>
+                  <div style="font-size:12px; color:#64748b;">Kartu server terangkat dengan bayangan neon saat kursor diarahkan</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="cfg-card-tilt" ${activeSettings.card_tilt ? 'checked' : ''}>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Custom CSS Tambahan</label>
+                <textarea id="cfg-custom-css" class="input-text" rows="3" style="font-family: var(--theme-mono); font-size: 12px;">${activeSettings.custom_css || ''}</textarea>
+              </div>
             </div>
           </div>
 
-          <!-- TAB 4: ANNOUNCEMENT -->
-          <div id="tab-announcement" class="tab-pane">
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Aktifkan Banner Pengumuman</div>
-                <div style="font-size:12px; color:#64748b;">Menampilkan banner broadcast di atas dashboard</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-announcement-enabled" ${activeSettings.announcement_enabled ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Teks Pengumuman (Mendukung HTML & Emojis)</label>
-              <textarea id="cfg-announcement-text" class="input-text" rows="3" style="resize:vertical;">${activeSettings.announcement_text || ''}</textarea>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Gaya Tampilan Banner</label>
-              <select id="cfg-announcement-type" class="input-text">
-                <option value="gradient" ${activeSettings.announcement_type === 'gradient' ? 'selected' : ''}>Luxury Gradient Accent</option>
-                <option value="info" ${activeSettings.announcement_type === 'info' ? 'selected' : ''}>Cyan Info Alert</option>
-                <option value="warning" ${activeSettings.announcement_type === 'warning' ? 'selected' : ''}>Sunset Warning</option>
-                <option value="danger" ${activeSettings.announcement_type === 'danger' ? 'selected' : ''}>Crimson Urgent Alert</option>
-              </select>
-            </div>
-
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Teks Berjalan (Running Marquee)</div>
-                <div style="font-size:12px; color:#64748b;">Animasi teks bergerak horizontal secara halus</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-announcement-marquee" ${activeSettings.announcement_marquee ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- TAB 5: EFEK & ANIMASI -->
-          <div id="tab-effects" class="tab-pane">
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Animated Ambient Glow Orbs</div>
-                <div style="font-size:12px; color:#64748b;">Efek pendaran bola cahaya dinamis mengapung di latar belakang</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-animated-bg" ${activeSettings.animated_bg ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Efek Angkat & Animasi Kartu Server (Hover Lift)</div>
-                <div style="font-size:12px; color:#64748b;">Transisi halus dan elevasi 3D saat kursor mendekati kartu server</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-card-tilt" ${activeSettings.card_tilt ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Custom CSS Tambahan</label>
-              <span class="form-subtext">Tambahkan kode CSS khusus jika ingin kustomisasi lebih lanjut.</span>
-              <textarea id="cfg-custom-css" class="input-text" rows="3" style="font-family: var(--theme-mono); font-size: 12px;" placeholder=".my-custom-class { ... }">${activeSettings.custom_css || ''}</textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button id="premium-btn-reset" class="btn-luxury btn-outline">
-            <i class="fa-solid fa-rotate-left"></i> Reset Default
-          </button>
-          <div style="display: flex; gap: 10px;">
-            <button id="premium-btn-save" class="btn-luxury btn-primary">
-              <i class="fa-solid fa-floppy-disk"></i> Simpan Pengaturan
+          <div class="modal-footer">
+            <button id="premium-btn-reset" class="btn-luxury btn-outline">
+              <i class="fa-solid fa-rotate-left"></i> Reset Default
             </button>
+            <div style="display: flex; gap: 10px;">
+              <button id="premium-btn-save" class="btn-luxury btn-primary">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan Pengaturan
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    `;
+      `;
 
-    document.body.appendChild(overlay);
+      document.body.appendChild(overlay);
 
-    // Event Bindings for Modal
-    fab.addEventListener('click', () => {
-      overlay.classList.add('modal-active');
-    });
-
-    document.getElementById('premium-modal-close').addEventListener('click', () => {
-      overlay.classList.remove('modal-active');
-    });
-
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        overlay.classList.remove('modal-active');
-      }
-    });
-
-    // Tab Switching
-    const tabButtons = overlay.querySelectorAll('.modal-tab-btn');
-    const tabPanes = overlay.querySelectorAll('.tab-pane');
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabButtons.forEach(b => b.classList.remove('active'));
-        tabPanes.forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        const target = document.getElementById(btn.getAttribute('data-tab'));
-        if (target) target.classList.add('active');
+      // Bindings
+      document.getElementById('premium-modal-close').addEventListener('click', closeThemeModal);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeThemeModal();
       });
-    });
 
-    // Color Presets Click
-    overlay.querySelectorAll('.color-preset-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        const color = pill.getAttribute('data-color');
-        document.getElementById('cfg-primary-picker').value = color;
-        document.getElementById('cfg-primary-hex').value = color;
-        overlay.querySelectorAll('.color-preset-pill').forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        // Live preview
-        applyTheme(Object.assign({}, activeSettings, { primary_color: color }));
+      // Tab Switching
+      const tabButtons = overlay.querySelectorAll('.modal-tab-btn');
+      const tabPanes = overlay.querySelectorAll('.tab-pane');
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabButtons.forEach(b => b.classList.remove('active'));
+          tabPanes.forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const target = document.getElementById(btn.getAttribute('data-tab'));
+          if (target) target.classList.add('active');
+        });
       });
-    });
 
-    // Color Picker Input Live Preview
-    const picker = document.getElementById('cfg-primary-picker');
-    const hexInput = document.getElementById('cfg-primary-hex');
-    picker.addEventListener('input', (e) => {
-      hexInput.value = e.target.value;
-      applyTheme(Object.assign({}, activeSettings, { primary_color: e.target.value }));
-    });
-    hexInput.addEventListener('input', (e) => {
-      if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
-        picker.value = e.target.value;
+      // Color Presets
+      overlay.querySelectorAll('.color-preset-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          const color = pill.getAttribute('data-color');
+          document.getElementById('cfg-primary-picker').value = color;
+          document.getElementById('cfg-primary-hex').value = color;
+          overlay.querySelectorAll('.color-preset-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          applyTheme(Object.assign({}, activeSettings, { primary_color: color }));
+        });
+      });
+
+      // Color Picker Live
+      const picker = document.getElementById('cfg-primary-picker');
+      const hexInput = document.getElementById('cfg-primary-hex');
+      picker.addEventListener('input', (e) => {
+        hexInput.value = e.target.value;
         applyTheme(Object.assign({}, activeSettings, { primary_color: e.target.value }));
-      }
-    });
-
-    // Blur Slider Live Preview
-    const blurSlider = document.getElementById('cfg-card-blur');
-    const blurVal = document.getElementById('val-blur');
-    blurSlider.addEventListener('input', (e) => {
-      blurVal.textContent = `${e.target.value}px`;
-      applyTheme(Object.assign({}, activeSettings, { card_blur: e.target.value }));
-    });
-
-    // Opacity Slider Live Preview
-    const opacitySlider = document.getElementById('cfg-card-opacity');
-    const opacityVal = document.getElementById('val-opacity');
-    opacitySlider.addEventListener('input', (e) => {
-      opacityVal.textContent = `${e.target.value}%`;
-      applyTheme(Object.assign({}, activeSettings, { card_opacity: (e.target.value / 100).toFixed(2) }));
-    });
-
-    // Overlay Slider Live Preview
-    const overlaySlider = document.getElementById('cfg-bg-overlay');
-    const overlayVal = document.getElementById('val-overlay');
-    overlaySlider.addEventListener('input', (e) => {
-      overlayVal.textContent = `${e.target.value}%`;
-      applyTheme(Object.assign({}, activeSettings, { bg_overlay_opacity: (e.target.value / 100).toFixed(2) }));
-    });
-
-    // Logo Height Slider Live Preview
-    const logoHeightSlider = document.getElementById('cfg-logo-height');
-    const logoHeightVal = document.getElementById('val-logo-height');
-    logoHeightSlider.addEventListener('input', (e) => {
-      logoHeightVal.textContent = `${e.target.value}px`;
-      applyTheme(Object.assign({}, activeSettings, { logo_height: e.target.value }));
-    });
-
-    // Save Button Handler
-    document.getElementById('premium-btn-save').addEventListener('click', () => {
-      const payload = {
-        primary_color: hexInput.value,
-        card_blur: blurSlider.value,
-        card_opacity: (opacitySlider.value / 100).toFixed(2),
-        dashboard_bg: document.getElementById('cfg-dashboard-bg').value.trim(),
-        login_bg: document.getElementById('cfg-login-bg').value.trim(),
-        bg_overlay_opacity: (overlaySlider.value / 100).toFixed(2),
-        login_logo: document.getElementById('cfg-login-logo').value.trim(),
-        navbar_logo: document.getElementById('cfg-navbar-logo').value.trim(),
-        logo_height: logoHeightSlider.value,
-        logo_glow: document.getElementById('cfg-logo-glow').checked,
-        announcement_enabled: document.getElementById('cfg-announcement-enabled').checked,
-        announcement_text: document.getElementById('cfg-announcement-text').value,
-        announcement_type: document.getElementById('cfg-announcement-type').value,
-        announcement_marquee: document.getElementById('cfg-announcement-marquee').checked,
-        animated_bg: document.getElementById('cfg-animated-bg').checked,
-        card_tilt: document.getElementById('cfg-card-tilt').checked,
-        custom_css: document.getElementById('cfg-custom-css').value
-      };
-
-      // Apply locally immediately
-      applyTheme(payload);
-      localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(activeSettings));
-
-      // Post to Server API
-      fetch('/themes/premium/api/settings.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(res => res.json())
-      .then(data => {
-        showToast('Pengaturan Tema Berhasil Disimpan!', 'fa-check-double');
-        overlay.classList.remove('modal-active');
-      })
-      .catch(err => {
-        console.warn('Simpan ke API server gagal, disimpan secara lokal di browser.', err);
-        showToast('Tersimpan di Browser (Local Storage)', 'fa-floppy-disk');
-        overlay.classList.remove('modal-active');
       });
-    });
+      hexInput.addEventListener('input', (e) => {
+        if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+          picker.value = e.target.value;
+          applyTheme(Object.assign({}, activeSettings, { primary_color: e.target.value }));
+        }
+      });
 
-    // Reset Button Handler
-    document.getElementById('premium-btn-reset').addEventListener('click', () => {
-      if (confirm('Kembalikan semua pengaturan ke nilai default tema?')) {
-        applyTheme(defaultSettings);
-        localStorage.removeItem('premium_pterodactyl_settings');
+      // Sliders Live Preview
+      const blurSlider = document.getElementById('cfg-card-blur');
+      const blurVal = document.getElementById('val-blur');
+      blurSlider.addEventListener('input', (e) => {
+        blurVal.textContent = `${e.target.value}px`;
+        applyTheme(Object.assign({}, activeSettings, { card_blur: e.target.value }));
+      });
+
+      const opacitySlider = document.getElementById('cfg-card-opacity');
+      const opacityVal = document.getElementById('val-opacity');
+      opacitySlider.addEventListener('input', (e) => {
+        opacityVal.textContent = `${e.target.value}%`;
+        applyTheme(Object.assign({}, activeSettings, { card_opacity: (e.target.value / 100).toFixed(2) }));
+      });
+
+      const overlaySlider = document.getElementById('cfg-bg-overlay');
+      const overlayVal = document.getElementById('val-overlay');
+      overlaySlider.addEventListener('input', (e) => {
+        overlayVal.textContent = `${e.target.value}%`;
+        applyTheme(Object.assign({}, activeSettings, { bg_overlay_opacity: (e.target.value / 100).toFixed(2) }));
+      });
+
+      const logoHeightSlider = document.getElementById('cfg-logo-height');
+      const logoHeightVal = document.getElementById('val-logo-height');
+      logoHeightSlider.addEventListener('input', (e) => {
+        logoHeightVal.textContent = `${e.target.value}px`;
+        applyTheme(Object.assign({}, activeSettings, { logo_height: e.target.value }));
+      });
+
+      // Live Logo URL change
+      document.getElementById('cfg-login-logo').addEventListener('input', (e) => {
+        applyTheme(Object.assign({}, activeSettings, { login_logo: e.target.value.trim() }));
+      });
+
+      // Save Handler
+      document.getElementById('premium-btn-save').addEventListener('click', () => {
+        const payload = {
+          primary_color: hexInput.value,
+          card_blur: blurSlider.value,
+          card_opacity: (opacitySlider.value / 100).toFixed(2),
+          dashboard_bg: document.getElementById('cfg-dashboard-bg').value.trim(),
+          login_bg: document.getElementById('cfg-login-bg').value.trim(),
+          bg_overlay_opacity: (overlaySlider.value / 100).toFixed(2),
+          login_logo: document.getElementById('cfg-login-logo').value.trim(),
+          navbar_logo: document.getElementById('cfg-navbar-logo').value.trim(),
+          logo_height: logoHeightSlider.value,
+          logo_glow: document.getElementById('cfg-logo-glow').checked,
+          announcement_enabled: document.getElementById('cfg-announcement-enabled').checked,
+          announcement_text: document.getElementById('cfg-announcement-text').value,
+          announcement_type: document.getElementById('cfg-announcement-type').value,
+          announcement_marquee: document.getElementById('cfg-announcement-marquee').checked,
+          animated_bg: document.getElementById('cfg-animated-bg').checked,
+          card_tilt: document.getElementById('cfg-card-tilt').checked,
+          custom_css: document.getElementById('cfg-custom-css').value
+        };
+
+        applyTheme(payload);
+        localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(activeSettings));
 
         fetch('/themes/premium/api/settings.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(defaultSettings)
-        }).then(() => {
-          showToast('Tema Dikembalikan ke Default!', 'fa-rotate-left');
-          overlay.classList.remove('modal-active');
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+          showToast('Pengaturan Tema Berhasil Disimpan!', 'fa-check-double');
+          closeThemeModal();
+        })
+        .catch(err => {
+          showToast('Tersimpan di Browser (Local Storage)', 'fa-floppy-disk');
+          closeThemeModal();
         });
-      }
-    });
+      });
+
+      // Reset Handler
+      document.getElementById('premium-btn-reset').addEventListener('click', () => {
+        if (confirm('Kembalikan semua pengaturan tema ke nilai default?')) {
+          applyTheme(defaultSettings);
+          localStorage.removeItem('premium_pterodactyl_settings');
+
+          fetch('/themes/premium/api/settings.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(defaultSettings)
+          }).then(() => {
+            showToast('Tema Dikembalikan ke Default!', 'fa-rotate-left');
+            closeThemeModal();
+          });
+        }
+      });
+    }
+
+    fab.addEventListener('click', openThemeModal);
   }
 
-  // 8. MutationObserver for React Hydration & Route Changes
+  function openThemeModal() {
+    const overlay = document.getElementById('premium-settings-modal-overlay');
+    if (overlay) {
+      overlay.classList.add('modal-active');
+    }
+  }
+
+  function closeThemeModal() {
+    const overlay = document.getElementById('premium-settings-modal-overlay');
+    if (overlay) {
+      overlay.classList.remove('modal-active');
+    }
+  }
+
+  // 8. MutationObserver for React Hydration & Page Transitions
   function setupReactWatcher() {
     const observer = new MutationObserver(() => {
-      updateLoginLogo();
+      injectOrUpdateLoginLogo();
       updateNavbarLogo();
       updateAnnouncement();
+      injectThemeButtonsAndModal();
     });
 
     observer.observe(document.body, {
@@ -693,33 +751,33 @@
       subtree: true
     });
 
-    // Interval checks for initial 5 seconds
-    let attempts = 0;
+    // Run every 500ms for first 5 seconds to catch React hydration
+    let count = 0;
     const interval = setInterval(() => {
-      updateLoginLogo();
+      injectOrUpdateLoginLogo();
       updateNavbarLogo();
       updateAnnouncement();
-      attempts++;
-      if (attempts >= 10) clearInterval(interval);
+      injectThemeButtonsAndModal();
+      count++;
+      if (count > 10) clearInterval(interval);
     }, 500);
   }
 
-  // 9. Main Bootstrap Routine
+  // 9. Bootstrap Routine
   function bootstrap() {
     initBackgroundDOM();
 
-    // Check Local Storage first for instant zero-flash render
-    const localCached = localStorage.getItem('premium_pterodactyl_settings');
-    if (localCached) {
+    // Instant local cache load
+    const cached = localStorage.getItem('premium_pterodactyl_settings');
+    if (cached) {
       try {
-        const parsed = JSON.parse(localCached);
-        applyTheme(parsed);
+        applyTheme(JSON.parse(cached));
       } catch (e) {}
     } else {
       applyTheme(defaultSettings);
     }
 
-    // Fetch from Server API
+    // Fetch from server API
     fetch('/themes/premium/api/settings.php')
       .then(res => res.json())
       .then(data => {
@@ -729,10 +787,10 @@
         }
       })
       .catch(err => {
-        console.log('Menggunakan konfigurasi cache lokal:', err);
+        console.log('Menggunakan konfigurasi cache lokal tema:', err);
       })
       .finally(() => {
-        injectSettingsUI();
+        injectThemeButtonsAndModal();
         setupReactWatcher();
       });
   }

@@ -1,96 +1,70 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Animated v2.0
-> **Tema Pterodactyl Panel v1.x Ultra-Modern, Glassmorphism, Penuh Animasi, & Dilengkapi Menu Pengaturan Tema Interaktif.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Animated v2.1
+> **Tema Pterodactyl Panel v1.15+ dengan Proteksi Password Lisensi, Floating Theme Customizer, dan Perbaikan Logo Login Otomatis.**
 
 ---
 
-## ✨ Fitur-Fitur Unggulan (New & Upgraded)
-
-1. **🎨 Tombol Tema Setting Interaktif (Floating Action Button & Modal Luxury)**
-   - Tombol mengambang (FAB) elegan di pojok kanan bawah beranimasi rotasi & pendaran cahaya.
-   - Panel modal glassmorphism mewah dengan 5 tab pengaturan lengkap.
-   - **Simpan ke Server API (`settings.json`)**: Pengaturan tersimpan permanen di server dan dapat diterapkan ke semua pengunjung, plus auto-fallback ke `localStorage`.
-   - **Live Preview Real-Time**: Perubahan warna, efek blur, dan slider langsung terlihat seketika saat diatur.
-
-2. **🌈 Kustomisasi Warna & Palet (Color Customizer)**
-   - Pilihan preset warna instan: *Cyber Violet, Indigo Luxury, Neon Cyan, Emerald Glow, Crimson Ruby, Sunset Gold, Electric Blue, Neon Pink*.
-   - Color Picker bebas (mendukung semua kode HEX/RGB).
-   - Pengaturan tingkat kepekatan kartu (*card opacity*) dan tingkat blur kaca (*glass blur*).
-
-3. **🖼️ Custom Background Dashboard & Halaman Login**
-   - Mendukung input URL gambar/wallpaper resolusi tinggi (Unsplash, Imgur, direct link, atau GIF animasi).
-   - Opsi terpisah untuk background dashboard dan background halaman login.
-   - Slider pengatur kegelapan *overlay* (agar teks dan statistik server tetap sangat nyaman dibaca).
-
-4. **🏷️ Fix Logo Login Otomatis (Mengikuti Pengaturan)**
-   - **Masalah Terpecahkan**: Di versi sebelumnya, form login Pterodactyl yang menggunakan React Single Page Application (SPA) sering menolak atau menimpa logo kustom saat dirender.
-   - **Solusi v2.0**: Menggunakan `MutationObserver` cerdas yang memantau hydration React secara real-time. Logo SVG burung bawaan Pterodactyl otomatis digantikan secara mulus dengan gambar logo kustom Anda.
-   - Slider pengatur tinggi/ukuran logo login (30px - 110px).
-   - Efek pendaran cahaya (*neon glow*) pada logo yang bisa diaktifkan/dinonaktifkan.
-   - Logo navbar di dashboard juga otomatis diperbarui!
-
-5. **📢 Banner Pengumuman Dinamis (Announcement / Running Text)**
-   - Menampilkan pengumuman penting bagi semua pengguna panel.
-   - Mendukung format teks berjalan halus (*running marquee*) atau teks statis.
-   - Mendukung format teks HTML & Emojis.
-   - Pilihan variasi gaya: *Luxury Gradient, Cyan Info, Amber Warning, Crimson Urgent Alert*.
-   - Tombol tutup/dismiss yang ramah pengguna.
-
-6. **✨ Efek Animasi & Glassmorphism Keren**
-   - *Animated Ambient Glow Orbs*: Pendaran bola cahaya dinamis mengapung di latar belakang dengan transisi fluid.
-   - *3D Card Hover & Elevate*: Kartu server terangkat dengan bayangan neon saat kursor diarahkan.
-   - *Pulse Status Indicator*: Lampu indikator status server (Running, Starting, Stopped) berkedip halus dengan efek pendaran cahaya.
-   - Scrollbar kustom futuristik dengan aksen warna tema.
-   - Input custom CSS tambahan langsung dari modal pengaturan.
+## 🔑 Kunci Lisensi / Password Instalasi
+Tema ini dilindungi sistem verifikasi kata laluan. Semasa menjalankan `install.sh`, masukkan salah satu password sah berikut:
+- **`PAHRI2026`**
+- **`FAKRULDEV`**
+*(Kata laluan boleh ditukar atau ditambah pada baris 20 fail `install.sh`)*.
 
 ---
 
-## 🚀 Panduan Instalasi Cepat
+## 📍 Di Mana Butang Pengaturan Tema Terletak?
 
-### Langkah 1: Masuk ke VPS via SSH
-Masuk sebagai user `root`:
+Untuk memastikan butang tidak lagi terlindung atau terlepas pandang:
+1. **Di Sudut Kiri Bawah (Bottom-Left)**:
+   - Terdapat **Butang Terapung (Floating Pill FAB)** berwarna neon ungu-sian dengan teks **`🎨 Tema Setting`**.
+   - *Mengapa di kiri?* Kerana di sudut kanan bawah terdapat widget Google reCAPTCHA yang menutupi skrin. Meletakkannya di kiri memastikan ia 100% bebas dari halangan!
+2. **Di Halaman Login (`/auth/login`)**:
+   - Terdapat butang pantas di **Sudut Kanan Atas**: **`✨ Ubah Tema & Logo`**.
+3. **Di Dashboard Klien (`/`)**:
+   - Terdapat butang **`🎨 Tema`** di bar navigasi atas (Navbar) bersebelahan nama pengguna.
+4. **Di Bahagian Admin Panel (`/admin/*`)**:
+   - Terdapat menu **`🎨 Tema & Logo Setting`** di Sidebar sebelah kiri.
+
+---
+
+## 🏷️ Bagaimana Logo Login Berfungsi?
+
+1. **Logo Dipaparkan Tepat Di Atas "Login to Continue"**:
+   - Jika anda belum menetapkan logo custom, sistem akan secara automatik memaparkan **Emblem Neon Cyberpunk "PAHRI CLOUD"** beranimasi, jadi kotak login tidak akan kosong lagi.
+2. **Menukar ke Logo Anda Sendiri**:
+   - Klik butang **`Tema Setting`** -> Buka tab **`Logo & Brand`**.
+   - Masukkan link URL gambar logo anda (format PNG, SVG, JPG, atau WebP dari Imgur / hosting anda).
+   - Laraskan saiz ketinggian logo (30px - 120px) dan aktifkan efek pendaran cahaya neon (*glow*).
+   - Klik **`Simpan Pengaturan`**; logo pada halaman login akan serta-merta berubah tanpa perlu refresh!
+
+---
+
+## 🚀 Panduan Pemasangan di VPS
+
+### 1. Masuk sebagai root & pergi ke folder /root
 ```bash
 sudo su
-```
-
-### Langkah 2: Download & Ekstrak Tema
-Pindah ke direktori utama atau `/root`:
-```bash
 cd /root
 ```
-Ekstrak arsip `install-temav2-main.zip`:
+
+### 2. Muat Turun & Ekstrak Tema
 ```bash
 unzip install-temav2-main.zip
 cd install-temav2-main
 ```
 
-### Langkah 3: Jalankan Installer Otomatis
-Beri izin eksekusi dan jalankan:
+### 3. Jalankan Installer
 ```bash
 chmod +x install.sh
 bash install.sh
 ```
+*Masukkan password lisensi:* `PAHRI2026` atau `FAKRULDEV`
 
-Installer otomatis akan:
-1. Membackup file `wrapper.blade.php` bawaan Pterodactyl ke `wrapper.blade.php.bak`.
-2. Menyalin seluruh aset tema ke `/var/www/pterodactyl/public/themes/premium`.
-3. Mengatur hak akses file `settings.json` dan `settings.php` agar dapat ditulis oleh web server.
-4. Membersihkan cache view Laravel (`php artisan view:clear`).
+### 4. Buka Browser & Bersihkan Cache
+Buka `https://panel.fakrulafif.com` lalu tekan **Ctrl + F5**. Butang tema dan logo akan terus kelihatan!
 
 ---
 
-## 🛠️ Panduan Konfigurasi Melalui Web UI
-
-1. Buka Pterodactyl Panel Anda di browser (misal: `https://panel.domainanda.com`).
-2. Tekan **Ctrl + F5** (Hard Refresh) untuk membersihkan cache lama browser Anda.
-3. Klik tombol **Tongkat Ajaib / Palette** di pojok kanan bawah.
-4. Pilih warna, masukkan link wallpaper, logo, atau tulis pengumuman sesuai keinginan Anda.
-5. Klik **"Simpan Pengaturan"**. Halaman akan langsung terupdate seketika!
-
----
-
-## 🔄 Cara Menghapus Tema (Uninstall / Restore)
-
-Jika Anda ingin mengembalikan tampilan Pterodactyl ke tema standar original:
+## 🔄 Cara Uninstall / Restore ke Default
 ```bash
 cd /root/install-temav2-main
 chmod +x uninstall.sh
@@ -98,5 +72,4 @@ bash uninstall.sh
 ```
 
 ---
-
-**Dibuat dan Dioptimalkan oleh FakrulDev & Fahri Hosting.**
+**Hak Cipta © FakrulDev & Fahri Hosting.**

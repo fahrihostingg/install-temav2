@@ -1,6 +1,6 @@
 /* ==========================================================================
-   FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.0)
-   Pterodactyl Panel Luxury Glassmorphism & Animated Suite
+   FAKRULDEV & FAHRI HOSTING - LUXURY PREMIUM ANIMATED THEME (v2.1 FIXED)
+   Pterodactyl Panel v1.15+ Luxury Glassmorphism & Animated Suite
    ========================================================================== */
 
 :root {
@@ -21,10 +21,7 @@
   --theme-mono: 'JetBrains Mono', monospace;
 }
 
-/* ==========================================================================
-   GLOBAL RESET & BASE STYLES
-   ========================================================================== */
-
+/* Base Styles */
 body, html {
   font-family: var(--theme-font) !important;
   background-color: var(--theme-bg-color) !important;
@@ -32,7 +29,7 @@ body, html {
   overflow-x: hidden;
 }
 
-/* Modern Glass Scrollbar */
+/* Custom Futuristic Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -55,56 +52,56 @@ body, html {
    ========================================================================== */
 
 #premium-bg-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -999;
-  pointer-events: none;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -999 !important;
+  pointer-events: none !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
   transition: background-image 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #premium-bg-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
   background: rgba(11, 15, 25, 0.75);
   backdrop-filter: blur(2px);
   transition: background 0.4s ease;
 }
 
-/* Animated Ambient Glow Orbs */
+/* Ambient Glowing Orbs */
 .premium-glow-orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.35;
-  pointer-events: none;
-  z-index: -998;
-  animation: orbFloat 14s ease-in-out infinite alternate;
+  position: fixed !important;
+  border-radius: 50% !important;
+  filter: blur(100px) !important;
+  opacity: 0.35 !important;
+  pointer-events: none !important;
+  z-index: -998 !important;
+  animation: orbFloat 14s ease-in-out infinite alternate !important;
 }
 .premium-glow-orb-1 {
-  width: 480px;
-  height: 480px;
-  top: -100px;
-  left: -100px;
+  width: 500px;
+  height: 500px;
+  top: -120px;
+  left: -120px;
   background: var(--theme-primary);
 }
 .premium-glow-orb-2 {
-  width: 400px;
-  height: 400px;
-  bottom: -80px;
-  right: -80px;
+  width: 420px;
+  height: 420px;
+  bottom: -90px;
+  right: -90px;
   background: var(--theme-secondary);
-  animation-delay: -6s;
-  animation-duration: 18s;
+  animation-delay: -6s !important;
+  animation-duration: 18s !important;
 }
 
 @keyframes orbFloat {
@@ -114,7 +111,7 @@ body, html {
 }
 
 /* ==========================================================================
-   LOGIN PAGE BEAUTIFICATION
+   LOGIN PAGE BEAUTIFICATION & LOGO
    ========================================================================== */
 
 /* Login Container Backdrop & Centering */
@@ -138,15 +135,15 @@ form[class*="LoginForm"] {
   backdrop-filter: blur(var(--theme-card-blur)) !important;
   -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
   border: 1px solid var(--theme-card-border) !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(var(--theme-primary-rgb), 0.15) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(var(--theme-primary-rgb), 0.2) !important;
   border-radius: var(--theme-radius) !important;
-  padding: 36px 32px !important;
+  padding: 38px 34px !important;
   animation: modalEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
   position: relative;
   overflow: hidden;
 }
 
-/* Elegant Top Glow Line on Login Box */
+/* Top Border Gleam Animation on Login Card */
 div[class*="LoginFormContainer"] > div::before,
 form[class*="LoginForm"]::before {
   content: '';
@@ -165,28 +162,65 @@ form[class*="LoginForm"]::before {
   100% { opacity: 0.4; filter: hue-rotate(0deg); }
 }
 
-/* Dynamic Login Logo Styling */
+/* Logo Box on Login Form */
 .premium-login-logo-wrapper {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  animation: logoFloatIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes logoFloatIn {
+  from { opacity: 0; transform: translateY(-15px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .premium-custom-login-logo {
-  max-height: 65px;
-  max-width: 250px;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 14px var(--theme-glow));
+  filter: drop-shadow(0 0 16px var(--theme-glow));
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
 }
-
 .premium-custom-login-logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.06);
+}
+
+/* Default Animated SVG Badge (When no custom image logo is set) */
+.premium-default-logo-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.premium-default-logo-badge:hover {
+  transform: scale(1.06);
+}
+
+.premium-svg-animated-emblem {
+  animation: emblemPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes emblemPulse {
+  0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 8px var(--theme-glow)); }
+  100% { transform: scale(1.05) rotate(2deg); filter: drop-shadow(0 0 20px var(--theme-glow)); }
+}
+
+.premium-logo-text-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--theme-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
 }
 
 /* Login Inputs */
@@ -217,80 +251,110 @@ form[class*="LoginForm"] button[type="submit"] {
   border-radius: var(--theme-radius-sm) !important;
   box-shadow: 0 4px 15px rgba(var(--theme-primary-rgb), 0.35) !important;
   transition: all 0.3s ease !important;
-  position: relative;
-  overflow: hidden;
 }
 div[class*="LoginFormContainer"] button[type="submit"]:hover,
 form[class*="LoginForm"] button[type="submit"]:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 24px rgba(var(--theme-primary-rgb), 0.55) !important;
 }
-div[class*="LoginFormContainer"] button[type="submit"]:active,
-form[class*="LoginForm"] button[type="submit"]:active {
-  transform: translateY(0) !important;
+
+/* ==========================================================================
+   BUTTON PENGATURAN TEMA (FLOATING & TOP CORNER)
+   ========================================================================== */
+
+/* Floating Button: Positioned Bottom-Left to avoid Google reCAPTCHA Badge at Bottom-Right */
+#premium-theme-fab {
+  position: fixed !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  right: auto !important;
+  z-index: 2147483647 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 10px 18px !important;
+  border-radius: 30px !important;
+  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 13.5px !important;
+  box-shadow: 0 8px 25px var(--theme-glow), 0 0 15px rgba(0,0,0,0.6) !important;
+  cursor: pointer !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  backdrop-filter: blur(10px) !important;
+  user-select: none !important;
+}
+
+#premium-theme-fab:hover {
+  transform: translateY(-3px) scale(1.06) !important;
+  box-shadow: 0 12px 35px var(--theme-glow), 0 0 25px var(--theme-primary) !important;
+}
+
+#premium-theme-fab i {
+  font-size: 16px;
+  animation: wandRotate 4s ease-in-out infinite alternate;
+}
+
+@keyframes wandRotate {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(25deg); }
+  100% { transform: rotate(-15deg); }
+}
+
+/* Top Corner Setting Trigger Button on Login & Dashboard */
+.premium-top-setting-btn {
+  position: fixed !important;
+  top: 18px !important;
+  right: 20px !important;
+  z-index: 2147483647 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #f8fafc !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.25s ease !important;
+}
+
+.premium-top-setting-btn:hover {
+  background: var(--theme-primary) !important;
+  border-color: var(--theme-primary) !important;
+  box-shadow: 0 6px 20px var(--theme-glow) !important;
+  transform: translateY(-2px) !important;
+}
+
+.premium-top-setting-btn i {
+  color: #06b6d4;
+  transition: color 0.2s;
+}
+.premium-top-setting-btn:hover i {
+  color: #fff;
 }
 
 /* ==========================================================================
-   NAVIGATION BAR & HEADER BEAUTIFICATION
+   DASHBOARD NAVIGATION & CARDS
    ========================================================================== */
 
-/* Top Navigation Bar */
 #app nav,
 header,
 div[class*="NavigationBar__Navigation"] {
-  background: rgba(11, 15, 25, 0.82) !important;
+  background: rgba(11, 15, 25, 0.85) !important;
   backdrop-filter: blur(var(--theme-card-blur)) !important;
   -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
   border-bottom: 1px solid var(--theme-card-border) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-  transition: all 0.3s ease;
 }
 
-/* Nav links & Active states */
-#app nav a,
-header a {
-  transition: all 0.25s ease !important;
-  position: relative;
-}
-#app nav a:hover,
-header a:hover {
-  color: var(--theme-primary) !important;
-}
-#app nav a.active,
-#app nav a[aria-current="page"] {
-  color: #ffffff !important;
-  font-weight: 700 !important;
-}
-#app nav a.active::after,
-#app nav a[aria-current="page"]::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 15%;
-  width: 70%;
-  height: 2.5px;
-  background: var(--theme-primary);
-  border-radius: 4px;
-  box-shadow: 0 0 10px var(--theme-glow);
-}
-
-/* Navbar Custom Logo */
-.premium-navbar-logo {
-  max-height: 40px;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 0 10px var(--theme-glow));
-  transition: transform 0.25s ease;
-}
-.premium-navbar-logo:hover {
-  transform: scale(1.08);
-}
-
-/* ==========================================================================
-   DASHBOARD CARDS, SERVER LIST & SERVERS
-   ========================================================================== */
-
-/* Server Card Styling */
+/* Server Cards */
 div[class*="ServerRow__ServerRowContainer"],
 div[class*="ServerRow__Container"],
 div[class*="Card__"],
@@ -306,63 +370,12 @@ div[class*="Card__"],
   position: relative;
 }
 
-/* Server Card Hover Animation & Tilt */
 div[class*="ServerRow__ServerRowContainer"]:hover,
 div[class*="ServerRow__Container"]:hover,
 div[class*="Card__"]:hover {
   transform: translateY(-4px) scale(1.008) !important;
   border-color: rgba(var(--theme-primary-rgb), 0.4) !important;
   box-shadow: 0 12px 32px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--theme-primary-rgb), 0.2) !important;
-}
-
-/* Glowing Left Accent Strip on Cards */
-div[class*="ServerRow__ServerRowContainer"]::before,
-div[class*="ServerRow__Container"]::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3.5px;
-  background: var(--theme-primary);
-  opacity: 0.6;
-  transition: all 0.3s ease;
-}
-div[class*="ServerRow__ServerRowContainer"]:hover::before,
-div[class*="ServerRow__Container"]:hover::before {
-  opacity: 1;
-  width: 5px;
-  box-shadow: 0 0 12px var(--theme-glow);
-}
-
-/* Server Status Glowing Pulse Badges */
-div[class*="ServerRow__StatusIndicator"][class*="running"],
-span[class*="status-running"],
-.status-running {
-  background: #10b981 !important;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6) !important;
-  animation: pulseRunning 2s infinite !important;
-}
-
-@keyframes pulseRunning {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-/* ==========================================================================
-   CONSOLE & TERMINAL BEAUTIFICATION
-   ========================================================================== */
-
-div[class*="Console__TerminalContainer"],
-.terminal-container,
-div[class*="Terminal__Container"] {
-  background: rgba(10, 14, 23, 0.9) !important;
-  border: 1px solid var(--theme-card-border) !important;
-  border-radius: var(--theme-radius) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
-  font-family: var(--theme-mono) !important;
-  backdrop-filter: blur(12px) !important;
 }
 
 /* ==========================================================================
@@ -456,7 +469,6 @@ div[class*="Terminal__Container"] {
   transform: scale(1.1);
 }
 
-/* Announcement Themes */
 .announcement-theme-gradient {
   background: linear-gradient(90deg, rgba(var(--theme-primary-rgb), 0.25), rgba(6, 182, 212, 0.25));
   backdrop-filter: blur(16px);
@@ -499,69 +511,19 @@ div[class*="Terminal__Container"] {
 }
 
 /* ==========================================================================
-   FLOATING THEME SETTINGS BUTTON & LUXURY MODAL
+   MODAL PENGATURAN TEMA LUXURY
    ========================================================================== */
 
-/* Floating Action Button (FAB) */
-#premium-theme-fab {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 99998;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%);
-  color: #ffffff;
-  box-shadow: 0 8px 25px var(--theme-glow), 0 0 15px rgba(0,0,0,0.4);
-  cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#premium-theme-fab:hover {
-  transform: scale(1.12) rotate(30deg);
-  box-shadow: 0 12px 35px var(--theme-glow);
-}
-
-#premium-theme-fab i {
-  font-size: 22px;
-}
-
-/* Floating Pulse Ring */
-#premium-theme-fab::after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border-radius: 50%;
-  border: 2px solid var(--theme-primary);
-  opacity: 0.8;
-  animation: fabPulse 2.5s infinite;
-  pointer-events: none;
-}
-
-@keyframes fabPulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(1.4); opacity: 0; }
-}
-
-/* Modal Overlay */
 #premium-settings-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 99999;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  z-index: 2147483647 !important;
   display: none;
   align-items: center;
   justify-content: center;
@@ -571,18 +533,17 @@ div[class*="Terminal__Container"] {
 }
 
 #premium-settings-modal-overlay.modal-active {
-  display: flex;
-  opacity: 1;
+  display: flex !important;
+  opacity: 1 !important;
 }
 
-/* Modal Container */
 #premium-settings-modal {
   width: 100%;
   max-width: 680px;
   max-height: 90vh;
-  background: rgba(15, 23, 42, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(var(--theme-primary-rgb), 0.25);
@@ -598,7 +559,6 @@ div[class*="Terminal__Container"] {
   to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-/* Modal Header */
 .modal-header {
   padding: 20px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -616,7 +576,6 @@ div[class*="Terminal__Container"] {
   font-weight: 700;
   color: #ffffff;
 }
-
 .modal-title i {
   color: var(--theme-primary);
   font-size: 20px;
@@ -636,13 +595,11 @@ div[class*="Terminal__Container"] {
   font-size: 14px;
   transition: all 0.2s ease;
 }
-
 .modal-close-btn:hover {
   background: rgba(239, 68, 68, 0.25);
   color: #ef4444;
 }
 
-/* Modal Navigation Tabs */
 .modal-tabs {
   display: flex;
   gap: 8px;
@@ -667,19 +624,16 @@ div[class*="Terminal__Container"] {
   white-space: nowrap;
   transition: all 0.25s ease;
 }
-
 .modal-tab-btn:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.06);
 }
-
 .modal-tab-btn.active {
   background: var(--theme-primary);
   color: #ffffff;
   box-shadow: 0 4px 12px var(--theme-glow);
 }
 
-/* Modal Content Body */
 .modal-body {
   padding: 24px;
   overflow-y: auto;
@@ -694,7 +648,6 @@ div[class*="Terminal__Container"] {
   flex-direction: column;
   gap: 18px;
 }
-
 .tab-pane.active {
   display: flex;
   animation: tabFadeIn 0.3s ease;
@@ -705,7 +658,6 @@ div[class*="Terminal__Container"] {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Form Groups & Inputs */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -738,14 +690,12 @@ div[class*="Terminal__Container"] {
   outline: none;
   transition: all 0.25s ease;
 }
-
 .input-text:focus {
   border-color: var(--theme-primary);
   box-shadow: 0 0 0 3px rgba(var(--theme-primary-rgb), 0.25);
   background: rgba(11, 15, 25, 0.95);
 }
 
-/* Color Presets Picker */
 .color-presets-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
@@ -765,16 +715,13 @@ div[class*="Terminal__Container"] {
   align-items: center;
   justify-content: center;
 }
-
 .color-preset-pill:hover {
   transform: translateY(-2px) scale(1.05);
 }
-
 .color-preset-pill.active {
   border-color: #ffffff;
   box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
 }
-
 .color-preset-pill.active::after {
   content: '✓';
   color: #fff;
@@ -783,7 +730,6 @@ div[class*="Terminal__Container"] {
   text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
-/* Custom Color Picker Row */
 .custom-color-row {
   display: flex;
   gap: 12px;
@@ -807,7 +753,6 @@ div[class*="Terminal__Container"] {
   border-radius: 10px;
 }
 
-/* Range Slider with Live Output */
 .slider-container {
   display: flex;
   align-items: center;
@@ -847,7 +792,6 @@ div[class*="Terminal__Container"] {
   text-align: center;
 }
 
-/* Modern Toggle Switch */
 .toggle-row {
   display: flex;
   align-items: center;
@@ -896,7 +840,6 @@ input:checked + .toggle-slider:before {
   transform: translateX(22px);
 }
 
-/* Modal Footer */
 .modal-footer {
   padding: 18px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -938,11 +881,11 @@ input:checked + .toggle-slider:before {
   color: #ffffff;
 }
 
-/* Toast Notifications */
 #premium-toast {
-  position: fixed;
-  bottom: 90px;
-  right: 24px;
+  position: fixed !important;
+  bottom: 85px !important;
+  left: 24px !important;
+  right: auto !important;
   background: rgba(15, 23, 42, 0.95);
   border: 1px solid var(--theme-primary);
   color: #ffffff;
@@ -951,7 +894,7 @@ input:checked + .toggle-slider:before {
   font-size: 13.5px;
   font-weight: 600;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--theme-glow);
-  z-index: 999999;
+  z-index: 2147483647 !important;
   display: none;
   align-items: center;
   gap: 10px;
