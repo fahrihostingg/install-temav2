@@ -509,9 +509,9 @@
         <div class="modal-header">
           <div class="modal-title">
             <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema & Logo Panel (v3.5 Pro)</span>
+            <span>Pengaturan Tema & Logo Panel (v3.9 Pro)</span>
           </div>
-          <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+          <button id="premium-modal-close" class="modal-close-btn" title="Tutup">✕</button>
         </div>
 
         <div class="modal-tabs">

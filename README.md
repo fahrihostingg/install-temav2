@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.8 Pro Master
-> **Tema Pterodactyl Panel v1.15+ dengan Pembaikan Penuh Pengesahan Lisensi Password, Pengekstrakan Mandiri (Self-Contained), Animasi Singkat & Bebas Glitch, dan Kad Login Proporsional.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.9 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Reka Bentuk Responsif Mudah Alih (Butang Tidak Terhimpit di Telefon), Installer Mandiri (Self-Contained), dan Penyimpanan Pautan Kekal.**
 
 ---
 
@@ -13,28 +13,27 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Pembaikan & Naik Taraf Utama (Versi 3.8):
+## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.9):
 
-1. **Pembaikan Ralat Verifikasi Password Lisensi (`image_a3235a.png`)**:
-   - **Punca Masalah:** Ralat terminal `line 76: [: -gt: unary operator expected` berlaku kerana pembolehubah persekitaran `$PWD` bertembung dengan pembolehubah Bash, menyebabkan input kata laluan tidak dibandingkan dengan betul.
-   - **Penyelesaian v3.8:**
-     - Logik semakan kata laluan ditulis semula dengan pembolehubah selamat (`$KEY`), semakan bersyarat yang ketat (`[ "$ATTEMPTS" -lt "$MAX_ATTEMPTS" ]`), dan pembersihan aksara rapi.
-     - Kata laluan kini **100% tepat dan disahkan serta-merta** tanpa ralat sintaks unary.
+1. **Pembaikan Butang Terhimpit di Paparan Telefon Bimbit (`1000023030.jpg`)**:
+   - **Punca Masalah:** Pada skrin telefon yang sempit, kedua-dua butang diletakkan bersebelahan tanpa ruang mencukupi, menyebabkan teks terlipat ke baris kedua (*Reset Default* dan *Simpan Pengaturan*) dan butang menjadi sempit/terhimpit.
+   - **Penyelesaian v3.9:**
+     - **Di Skrin Telefon (`max-width: 600px`):** Butang disusun secara menegak (*full-width 100%*). Butang utama **"Simpan Pengaturan"** berada di atas dengan saiz besar dan mudah ditekan oleh ibu jari, manakala butang **"Reset Default"** berada di bawahnya.
+     - Ditambah `white-space: nowrap !important;` bagi memastikan teks kekal sebaris dan tidak terlipat.
+     - **Di Skrin Laptop / Desktop:** Butang kekal tersusun rapi secara mendatar (*side-by-side*) seperti biasa.
+     - Kad template tema disusun kepada 2 lajur kemas pada paparan telefon (tidak lagi memanjang ke bawah).
+     - Butang tutup **`✕`** modal kini dipaparkan dengan warna putih cerah dan jelas di telefon pintar.
 
-2. **Installer 100% Mandiri (*Self-Contained*)**:
-   - Semua fail tema (CSS, JS, API, settings, dan blade wrapper) dimampatkan dan dibenamkan terus ke dalam fail `install.sh`.
-   - Skrip boleh dijalankan terus dari mana-mana folder, sama ada secara tempatan atau melalui snippet:
-     `bash <(curl -fsSL https://raw.githubusercontent.com/.../install.sh)`
+2. **Installer 100% Mandiri (*Self-Contained*) & Pengesahan Kata Laluan Pantas**:
+   - Semua fail tema dipakejkan terus ke dalam fail `install.sh`.
+   - Boleh dijalankan dari mana-mana folder atau melalui snippet curl tanpa ralat kekurangan fail.
+   - Pembolehubah keselamatan selamat daripada sebarang konflik pembolehubah Bash `$PWD`.
 
-3. **Animasi Singkat, Elegan & Bebas Glitch (`image_a24e5e.jpg`)**:
-   - Spinner pemuatan dihadkan pada bulatan kemas 32px (tiada lagi garisan menyerong berputar di atas modal carian).
-   - Animasi mikro sepantas 0.2s pada hover kad, butang, dan penunjuk status.
+3. **Penyimpanan Pautan & Data Kekal Sepenuhnya Selepas Refresh**:
+   - Data URL logo, wallpaper, saiz, dan teks pengumuman kekal tersimpan rapi dan tidak akan menjadi kosong lagi selepas pelayar disegarkan (*refresh*).
 
-4. **Penyimpanan Pautan Kekal Sepenuhnya Selepas Refresh (`image_a1c71d.png`)**:
-   - Dwi-storan serentak (*LocalStorage + settings.json*) memastikan tiada medan yang menjadi kosong selepas *refresh*.
-
-5. **Kad Login Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
-   - Lebar 680px, ruang dalaman yang megah, logo kemas (~150px), dan tajuk yang jelas di hadapan wallpaper angkasa.
+4. **Animasi Singkat & Bebas Glitch**:
+   - Animasi mikro sepantas 0.2s pada butang dan kad pelayan tanpa sebarang gangguan garisan melintang pada kotak carian.
 
 ---
 
@@ -45,7 +44,7 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v3.8-master.zip
+unzip install-temav2-v3.9-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh
