@@ -1,7 +1,7 @@
 /* ==========================================================================
-   FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.3 PRO MASTER
+   FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.4 PRO MASTER
    Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
-   Full Wallpaper Transparency | Ultra-Compact Login Card | Admin-Only Controls
+   Full Wallpaper Transparency | Ideal Proportioned Login Card | Admin-Only Controls
    ========================================================================== */
 
 :root {
@@ -169,7 +169,7 @@ div[class*="LoginContainer"],
 }
 
 /* ==========================================================================
-   4. HALAMAN LOGIN (KAD ULTRA-KOMPAK & KECIL, BERPUSAT, TIADA STRETCH)
+   4. HALAMAN LOGIN (KAD SEIMBANG & BESAR MENGIKUT PERMINTAAN USER)
    ========================================================================== */
 
 /* Bekas Luar Halaman Login - Ditengahkan Mendatar & Menegak */
@@ -181,7 +181,7 @@ div[class*="LoginFormContainer"],
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 16px !important;
+  padding: 24px 16px !important;
   box-sizing: border-box !important;
   background: transparent !important;
   position: relative !important;
@@ -189,10 +189,10 @@ div[class*="LoginFormContainer"],
   margin: 0 auto !important;
 }
 
-/* Kotak Pembungkus Keseluruhan - Had Maksimum 480px, Tidak Stretch */
+/* Kotak Pembungkus Keseluruhan - Saiz Luas & Proporsional 680px */
 div[class*="LoginFormContainer"] > div {
   width: 100% !important;
-  max-width: 480px !important;
+  max-width: 680px !important;
   min-height: 0 !important;
   height: auto !important;
   background: transparent !important;
@@ -208,23 +208,23 @@ div[class*="LoginFormContainer"] > div {
   flex: 0 0 auto !important;
 }
 
-/* Tajuk "Login to Continue" di Atas Kad */
+/* Tajuk "Login to Continue" di Atas Kad - Jelas & Segak */
 div[class*="LoginFormContainer"] h2,
 div[class*="LoginFormContainer"] h1 {
-  font-size: 21px !important;
+  font-size: 26px !important;
   font-weight: 700 !important;
   color: #ffffff !important;
   text-align: center !important;
-  margin: 0 0 14px 0 !important;
+  margin: 0 0 18px 0 !important;
   padding: 0 !important;
   letter-spacing: 0.5px !important;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6) !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* Formik Form Container */
 div[class*="LoginFormContainer"] form {
   width: 100% !important;
-  max-width: 480px !important;
+  max-width: 680px !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -235,7 +235,7 @@ div[class*="LoginFormContainer"] form {
   flex: 0 0 auto !important;
 }
 
-/* KAD LOGIN ULTRA-KOMPAK & KECIL (KACA GELAP MEWAH) */
+/* KAD LOGIN BESAR & PROPORSIONAL (PERSIS GARISAN MERAH GAMBAR USER) */
 div[class*="LoginFormContainer"] form > div,
 div[class*="LoginFormContainer"] .bg-white {
   display: flex !important;
@@ -246,18 +246,18 @@ div[class*="LoginFormContainer"] .bg-white {
   background-color: rgba(15, 23, 42, 0.82) !important;
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
-  border: 1px solid rgba(var(--theme-primary-rgb), 0.28) !important;
-  border-radius: 14px !important;
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 22px rgba(var(--theme-primary-rgb), 0.16) !important;
-  padding: 20px 22px !important;
+  border: 1px solid rgba(var(--theme-primary-rgb), 0.30) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.85), 0 0 30px rgba(var(--theme-primary-rgb), 0.20) !important;
+  padding: 38px 44px !important;
   width: 100% !important;
-  max-width: 480px !important;
+  max-width: 680px !important;
   height: auto !important;
-  min-height: 0 !important;
+  min-height: 330px !important;
   box-sizing: border-box !important;
   position: relative !important;
   overflow: hidden !important;
-  gap: 18px !important;
+  gap: 36px !important;
   flex: 0 0 auto !important;
 }
 
@@ -269,14 +269,14 @@ div[class*="LoginFormContainer"] .bg-white::before {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 3.5px;
   background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent);
 }
 
-/* LAJUR KIRI: LOGO KECIL LOGIN (IKUT ADMIN SETTINGS) */
+/* LAJUR KIRI: LOGO LOGIN */
 div[class*="LoginFormContainer"] form > div > div:first-child,
 div[class*="LoginFormContainer"] .bg-white > div:first-child {
-  flex: 0 0 32% !important;
+  flex: 0 0 40% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -284,27 +284,27 @@ div[class*="LoginFormContainer"] .bg-white > div:first-child {
   margin: 0 !important;
 }
 
-/* Gambar Logo Kecil di Dalam Kad (Saiz Padat ~85px) */
+/* Gambar Logo di Dalam Kad */
 div[class*="LoginFormContainer"] img {
   display: block !important;
   width: auto !important;
   height: auto !important;
-  max-width: 100px !important;
-  max-height: 85px !important;
+  max-width: 170px !important;
+  max-height: 160px !important;
   object-fit: contain !important;
   margin: 0 auto !important;
-  filter: drop-shadow(0 0 12px var(--theme-glow)) !important;
-  transition: transform 0.25s ease, filter 0.25s ease !important;
+  filter: drop-shadow(0 0 16px var(--theme-glow)) !important;
+  transition: transform 0.3s ease, filter 0.3s ease !important;
 }
 
 div[class*="LoginFormContainer"] img:hover {
-  transform: scale(1.06) !important;
+  transform: scale(1.05) !important;
 }
 
 /* LAJUR KANAN: FORM INPUT & LOGIN */
 div[class*="LoginFormContainer"] form > div > div:last-child,
 div[class*="LoginFormContainer"] .bg-white > div:last-child {
-  flex: 1 1 68% !important;
+  flex: 1 1 60% !important;
   width: 100% !important;
   display: flex !important;
   flex-direction: column !important;
@@ -313,32 +313,32 @@ div[class*="LoginFormContainer"] .bg-white > div:last-child {
 
 /* Label Input (USERNAME OR EMAIL, PASSWORD) */
 div[class*="LoginFormContainer"] label {
-  font-size: 10px !important;
+  font-size: 11.5px !important;
   font-weight: 700 !important;
   color: #94a3b8 !important;
   letter-spacing: 0.8px !important;
   text-transform: uppercase !important;
-  margin-bottom: 4px !important;
+  margin-bottom: 6px !important;
   display: block !important;
 }
 
 /* Medan Input (Username & Password) */
 div[class*="LoginFormContainer"] input {
   background: rgba(10, 15, 26, 0.85) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 8px !important;
   color: #ffffff !important;
-  padding: 8px 12px !important;
-  font-size: 13px !important;
+  padding: 11px 15px !important;
+  font-size: 14px !important;
   transition: all 0.25s ease !important;
   width: 100% !important;
   box-sizing: border-box !important;
-  margin-bottom: 10px !important;
+  margin-bottom: 14px !important;
 }
 
 div[class*="LoginFormContainer"] input:focus {
   border-color: var(--theme-primary) !important;
-  box-shadow: 0 0 0 2.5px rgba(var(--theme-primary-rgb), 0.35) !important;
+  box-shadow: 0 0 0 3px rgba(var(--theme-primary-rgb), 0.35) !important;
   background: rgba(10, 15, 26, 0.98) !important;
   outline: none !important;
 }
@@ -347,33 +347,33 @@ div[class*="LoginFormContainer"] input:focus {
 div[class*="LoginFormContainer"] button[type="submit"] {
   background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%) !important;
   border: none !important;
-  border-radius: 6px !important;
+  border-radius: 8px !important;
   color: #ffffff !important;
   font-weight: 700 !important;
-  font-size: 13px !important;
+  font-size: 14px !important;
   letter-spacing: 0.6px !important;
   text-transform: uppercase !important;
-  padding: 9px !important;
+  padding: 12px !important;
   width: 100% !important;
   cursor: pointer !important;
-  box-shadow: 0 4px 14px rgba(var(--theme-primary-rgb), 0.45) !important;
+  box-shadow: 0 4px 18px rgba(var(--theme-primary-rgb), 0.45) !important;
   transition: all 0.25s ease !important;
-  margin-top: 2px !important;
+  margin-top: 4px !important;
 }
 
 div[class*="LoginFormContainer"] button[type="submit"]:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 6px 18px rgba(var(--theme-primary-rgb), 0.65) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 22px rgba(var(--theme-primary-rgb), 0.65) !important;
 }
 
 /* Pautan FORGOT PASSWORD? */
 div[class*="LoginFormContainer"] a {
   color: #94a3b8 !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   text-align: center !important;
   display: block !important;
-  margin-top: 10px !important;
+  margin-top: 14px !important;
   transition: color 0.2s ease !important;
   text-decoration: none !important;
   text-transform: uppercase !important;
@@ -388,9 +388,9 @@ div[class*="LoginFormContainer"] a:hover {
 /* Footer Copyright di Bawah Kad */
 div[class*="LoginFormContainer"] p {
   color: #64748b !important;
-  font-size: 11.5px !important;
+  font-size: 12px !important;
   text-align: center !important;
-  margin-top: 14px !important;
+  margin-top: 18px !important;
 }
 
 div[class*="LoginFormContainer"] p a {
@@ -400,12 +400,13 @@ div[class*="LoginFormContainer"] p a {
 }
 
 /* Responsif untuk Mobile */
-@media (max-width: 540px) {
+@media (max-width: 640px) {
   div[class*="LoginFormContainer"] form > div,
   div[class*="LoginFormContainer"] .bg-white {
     flex-direction: column !important;
-    padding: 18px 16px !important;
-    gap: 14px !important;
+    padding: 24px 20px !important;
+    gap: 20px !important;
+    min-height: auto !important;
   }
 
   div[class*="LoginFormContainer"] form > div > div:first-child,
@@ -415,8 +416,8 @@ div[class*="LoginFormContainer"] p a {
   }
 
   div[class*="LoginFormContainer"] img {
-    max-height: 75px !important;
-    max-width: 90px !important;
+    max-height: 110px !important;
+    max-width: 130px !important;
   }
 }
 
