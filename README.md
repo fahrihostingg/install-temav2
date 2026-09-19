@@ -7,15 +7,16 @@
 
 ## 🚀 Panduan Pemasangan di VPS
 
-### Kaedah 1 (Input Bash):
+### kaedah 1 (input bash):
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/fahrihostingg/install-temav2/main/install.sh)
+ bash <(curl -fsSL https://raw.githubusercontent.com/fahrihostingg/install-temav2/main/install.sh)
 ```
 
-### Kaedah 2 (Jalankan terus fail install.sh dari mana-mana folder):
+### kaedah 2 (masukkan password):
+```text
 *Masukkan password sah:* **dapat di wa.me/fkrlz__**.
-
-Selepas selesai, buka semula panel anda. Kad pelayan di Dashboard kini telus kaca sepenuhnya mengikut tema!
+```
+selepas selesai, buka semula panel anda. kad pelayan di Dashboard kini telus kaca sepenuhnya mengikut tema!
 
 ---
 **Hak Cipta © FakrulDev & Fahri Hosting.**
