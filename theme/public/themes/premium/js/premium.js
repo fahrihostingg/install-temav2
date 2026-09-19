@@ -1,6 +1,7 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.6 (FULL GLASSMORPHISM & CONSOLE)
- * Pterodactyl Panel Luxury Transparent Suite - Complete Overhaul
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.0 ULTIMATE EDITION
+ * Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
+ * Full Server Transparency | Responsive Login | Admin-Only Controls
  */
 
 (function () {
@@ -162,19 +163,26 @@
     root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 14}px`);
     root.style.setProperty('--theme-card-bg', `rgba(15, 23, 42, ${activeSettings.card_opacity || 0.72})`);
 
-    // Full-Screen Wallpaper
+    // Full-Screen Wallpaper Setup
     const bgContainer = document.getElementById('premium-bg-container');
     const bgOverlay = document.getElementById('premium-bg-overlay');
     const isLoginPage = window.location.pathname.includes('/auth/');
 
-    if (bgContainer && bgOverlay) {
-      const bgImg = isLoginPage 
-        ? (activeSettings.login_bg || activeSettings.dashboard_bg || '')
-        : (activeSettings.dashboard_bg || '');
+    const bgImg = isLoginPage 
+      ? (activeSettings.login_bg || activeSettings.dashboard_bg || '')
+      : (activeSettings.dashboard_bg || '');
 
-      if (bgImg && !bgContainer.style.backgroundImage.includes(bgImg)) {
+    if (bgImg) {
+      if (bgContainer && !bgContainer.style.backgroundImage.includes(bgImg)) {
         bgContainer.style.backgroundImage = `url('${bgImg}')`;
       }
+      document.body.style.backgroundImage = `url('${bgImg}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center center';
+      document.body.style.backgroundAttachment = 'fixed';
+    }
+
+    if (bgOverlay) {
       bgOverlay.style.background = `rgba(11, 15, 25, ${activeSettings.bg_overlay_opacity || 0.65})`;
     }
 
@@ -208,34 +216,22 @@
     runPageEnhancements();
   }
 
-  // 3. Guaranteed Login Logo Fix (Inside Unified Form Card, 100% URL Matching)
+  // 3. Guaranteed Login Logo Fix (Inside Form Card, Responsive on Laptop/Android/iPhone)
   function injectOrUpdateLoginLogo() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     if (!isLoginPage) return;
 
-    // Search for "Login to Continue" title
-    let titleEl = null;
-    const allHeaders = document.querySelectorAll('h1, h2, h3, h4');
-    for (let i = 0; i < allHeaders.length; i++) {
-      const txt = (allHeaders[i].textContent || '').trim();
-      if (txt.includes('Login to Continue')) {
-        titleEl = allHeaders[i];
-        break;
-      }
-    }
+    const form = document.querySelector('form');
+    if (!form) return;
 
-    if (!titleEl) return;
-
-    const parentCard = titleEl.parentNode;
     let logoBox = document.getElementById('premium-login-logo-box');
-
     if (!logoBox) {
       logoBox = document.createElement('div');
       logoBox.id = 'premium-login-logo-box';
       logoBox.className = 'premium-login-logo-wrapper';
-      parentCard.insertBefore(logoBox, titleEl);
-    } else if (logoBox.nextSibling !== titleEl) {
-      parentCard.insertBefore(logoBox, titleEl);
+      form.insertBefore(logoBox, form.firstChild);
+    } else if (logoBox.parentNode !== form) {
+      form.insertBefore(logoBox, form.firstChild);
     }
 
     const logoUrl = (activeSettings.login_logo || '').trim();
@@ -252,14 +248,14 @@
              class="premium-custom-login-logo" 
              src="${logoUrl}" 
              alt="Logo" 
-             style="max-height: ${logoHeight}px; max-width: 250px; width: auto; height: auto; object-fit: contain; margin: 0 auto; display: block; ${glowFilter}" />
+             style="max-height: ${logoHeight}px; max-width: 220px; width: auto; height: auto; object-fit: contain; margin: 0 auto; display: block; ${glowFilter}" />
       `;
     } else {
       if (logoBox.querySelector('.premium-default-logo-badge')) return;
 
       logoBox.innerHTML = `
         <div class="premium-default-logo-badge" style="${glowFilter}" title="Tetapkan logo di Tetapan Tema">
-          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="56" height="56">
+          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="pEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="var(--theme-primary, #6366f1)"/>
@@ -369,9 +365,13 @@
     }, 3500);
   }
 
-  // 7. Inject Admin Sidebar Item: ONLY 1 BUTTON DIRECTLY UNDER "Application API"
+  // 7. Inject Admin Sidebar Item: ONLY 1 BUTTON DIRECTLY UNDER "Application API" (PRO DESIGN)
   function injectAdminSidebarItem() {
     if (!window.location.pathname.startsWith('/admin')) return;
+
+    // Remove any stray floating buttons completely
+    const stray = ['#premium-theme-fab', '.premium-top-setting-btn', '#premium-nav-theme-btn'];
+    stray.forEach(s => document.querySelectorAll(s).forEach(e => e.remove()));
 
     if (document.getElementById('admin-theme-sidebar-item')) return;
 
@@ -404,7 +404,10 @@
       themeLi.id = 'admin-theme-sidebar-item';
       themeLi.innerHTML = `
         <a href="#" id="admin-theme-sidebar-link" title="Buka Pengaturan Tema">
-          <i class="fa fa-palette"></i> <span>Tema</span>
+          <div>
+            <i class="fa fa-palette"></i> <span>Tema Panel</span>
+          </div>
+          <span class="admin-theme-pro-badge">PRO</span>
         </a>
       `;
 
@@ -417,53 +420,7 @@
     }
   }
 
-  // 8. Inject Theme Buttons for Client & Login (Compact 42px Circle)
-  function injectClientButtons() {
-    const isLoginPage = window.location.pathname.includes('/auth/');
-    const isAdminPage = window.location.pathname.startsWith('/admin');
-
-    if (isAdminPage) return;
-
-    let fab = document.getElementById('premium-theme-fab');
-    if (!fab) {
-      fab = document.createElement('div');
-      fab.id = 'premium-theme-fab';
-      fab.title = 'Pengaturan Tema';
-      fab.innerHTML = '<i class="fa-solid fa-palette"></i>';
-      document.body.appendChild(fab);
-      fab.addEventListener('click', openThemeModal);
-    }
-
-    if (isLoginPage && !document.getElementById('premium-top-setting-btn')) {
-      const topBtn = document.createElement('div');
-      topBtn.id = 'premium-top-setting-btn';
-      topBtn.className = 'premium-top-setting-btn';
-      topBtn.innerHTML = '<i class="fa-solid fa-palette"></i> <span>Tema</span>';
-      document.body.appendChild(topBtn);
-      topBtn.addEventListener('click', openThemeModal);
-    }
-
-    if (!isLoginPage && !isAdminPage) {
-      const navContainer = document.querySelector('#app nav > div') || document.querySelector('#app nav');
-      if (navContainer && !document.getElementById('premium-nav-theme-btn')) {
-        const navBtn = document.createElement('button');
-        navBtn.id = 'premium-nav-theme-btn';
-        navBtn.className = 'premium-top-setting-btn';
-        navBtn.style.position = 'relative';
-        navBtn.style.top = '0';
-        navBtn.style.right = '0';
-        navBtn.style.marginRight = '12px';
-        navBtn.innerHTML = '<i class="fa-solid fa-palette"></i> <span>Tema</span>';
-        navBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          openThemeModal();
-        });
-        navContainer.appendChild(navBtn);
-      }
-    }
-  }
-
-  // 9. Build Theme Settings Modal
+  // 8. Build Theme Settings Modal (Accessible from Admin Sidebar)
   function buildThemeModal() {
     if (document.getElementById('premium-settings-modal-overlay')) return;
 
@@ -489,7 +446,7 @@
         </div>
 
         <div class="modal-body">
-          <!-- TAB 1: 10 TEMPLATES (COLD, HACKER, SOFT, CYBERPUNK, LUXURY, DLL) -->
+          <!-- TAB 1: 10 TEMPLATES -->
           <div id="tab-templates" class="tab-pane active">
             <div class="form-group">
               <label class="form-label">Pilih Template Tema Siap Pakai (1-Klik)</label>
@@ -644,7 +601,7 @@
             </div>
           </div>
 
-          <!-- TAB 3: LOGO & BRAND (100% MENGIKUT LINK URL DENGAN PRATINJAU LANGSUNG) -->
+          <!-- TAB 3: LOGO & BRAND -->
           <div id="tab-logo" class="tab-pane">
             <div class="form-group">
               <label class="form-label">URL Logo Halaman Login (PNG/JPG/SVG/WebP/GIF)</label>
@@ -695,7 +652,6 @@
 
             <div class="form-group">
               <label class="form-label">Kegelapan Lapisan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
-              <span class="form-subtext">Kurangkan peratusan jika mahukan gambar wallpaper lebih jelas & terang:</span>
               <div class="slider-container">
                 <input type="range" id="cfg-bg-overlay" class="input-range" min="10" max="95" value="${Math.round(activeSettings.bg_overlay_opacity * 100)}">
               </div>
@@ -744,7 +700,6 @@
           <div id="tab-effects" class="tab-pane">
             <div class="form-group">
               <label class="form-label">Ketelusan Kad (Card Opacity): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
-              <span class="form-subtext">Rendahkan untuk membuat kad lebih lutsinar (transparent) supaya wallpaper nampak jelas:</span>
               <div class="slider-container">
                 <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="95" value="${Math.round(activeSettings.card_opacity * 100)}">
               </div>
@@ -784,7 +739,6 @@
       if (e.target === overlay) closeThemeModal();
     });
 
-    // Tab Navigation
     const tabButtons = overlay.querySelectorAll('.modal-tab-btn');
     const tabPanes = overlay.querySelectorAll('.tab-pane');
     tabButtons.forEach(btn => {
@@ -797,7 +751,6 @@
       });
     });
 
-    // Template 1-Click
     overlay.querySelectorAll('.template-preset-card').forEach(card => {
       card.addEventListener('click', () => {
         const key = card.getAttribute('data-template');
@@ -827,7 +780,6 @@
       });
     });
 
-    // Mix Color Click
     overlay.querySelectorAll('.mix-color-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const p = pill.getAttribute('data-p');
@@ -844,7 +796,6 @@
       });
     });
 
-    // Single Color Click
     overlay.querySelectorAll('.color-preset-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const color = pill.getAttribute('data-color');
@@ -856,7 +807,6 @@
       });
     });
 
-    // Color Pickers
     const pPicker = document.getElementById('cfg-primary-picker');
     const pHex = document.getElementById('cfg-primary-hex');
     pPicker.addEventListener('input', (e) => {
@@ -883,7 +833,6 @@
       }
     });
 
-    // Logo Live Preview Box
     const logoInput = document.getElementById('cfg-login-logo');
     const previewContainer = document.getElementById('logo-preview-container');
 
@@ -903,7 +852,6 @@
       applyTheme(Object.assign({}, activeSettings, { login_logo: url }));
     });
 
-    // Sliders
     const blurSlider = document.getElementById('cfg-card-blur');
     const blurVal = document.getElementById('val-blur');
     blurSlider.addEventListener('input', (e) => {
@@ -932,7 +880,6 @@
       applyTheme(Object.assign({}, activeSettings, { logo_height: e.target.value }));
     });
 
-    // Save Button
     document.getElementById('premium-btn-save').addEventListener('click', () => {
       const payload = {
         primary_color: pHex.value,
@@ -972,7 +919,6 @@
       });
     });
 
-    // Reset Button
     document.getElementById('premium-btn-reset').addEventListener('click', () => {
       if (confirm('Kembalikan semua tetapan tema ke nilai asal?')) {
         applyTheme(defaultSettings);
@@ -1006,7 +952,7 @@
     }
   }
 
-  // 10. Run Page Enhancements (Controlled & Zero-Lag)
+  // 9. Run Page Enhancements (Controlled & Zero-Lag)
   function runPageEnhancements() {
     isMutating = true;
     try {
@@ -1014,7 +960,6 @@
       updateNavbarLogo();
       updateAnnouncement();
       injectAdminSidebarItem();
-      injectClientButtons();
     } finally {
       setTimeout(() => {
         isMutating = false;
@@ -1022,7 +967,7 @@
     }
   }
 
-  // 11. Throttled Watcher (Zero Lag, Max 4 checks per second)
+  // 10. Throttled Watcher (Zero Lag)
   function setupWatcher() {
     const observer = new MutationObserver(() => {
       if (isMutating) return;
@@ -1047,7 +992,7 @@
     }, 400);
   }
 
-  // 12. Main Bootstrap
+  // 11. Main Bootstrap
   function bootstrap() {
     initBackgroundDOM();
     buildThemeModal();
