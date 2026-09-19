@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.5 Pro Master
-> **Tema Pterodactyl Panel v1.15+ dengan Penyimpanan Pautan Kekal (Tiada Reset Kosong Lepas Refresh), Animasi Loading & Visual Lengkap, Kad Login Proporsional, dan Kawalan Khusus Admin.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.6 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Output Installer Terminal Cyberpunk Mewah, Animasi Singkat & Elegan (Bebas Glitch), Penyimpanan Pautan Kekal, dan Kad Login Proporsional.**
 
 ---
 
@@ -13,23 +13,24 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.5):
+## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.6):
 
-1. **Pautan & Data Kekal Sepenuhnya Selepas Refresh (`image_a1c71d.png`)**:
-   - **Punca Medan Menjadi Kosong:** Sebelum ini borang modal tidak menyelaraskan (*sync*) data tetapan yang telah dimuat turun dari storan/pelayan ke dalam kotak input setelah modal dibina, mengakibatkan medan kelihatan kosong selepas pelayar dimuat semula.
-   - **Penyelesaian v3.5:**
-     - Ditambah fungsi `syncSettingsToModal()` yang secara automatik mengisi semula semua URL logo, wallpaper, saiz, dan tetapan ke dalam borang sebaik sahaja modal dibuka atau halaman disegarkan.
-     - Menggunakan sistem dwi-storan serentak (*Dual Storage: LocalStorage + Server File settings.json*) dengan kawalan `Cache-Control: no-cache`, memastikan semua pautan kekal utuh sehingga anda menukarnya sendiri.
+1. **Output `install.sh` Baharu yang Ultra-Keren (Cyberpunk / Terminal Luxury)**:
+   - **Banner ASCII Cyberpunk Berwarna:** Logo grafik bergaya *hacker luxury* Fahri Hosting × FakrulDev.
+   - **Gerbang Keselamatan & Verifikasi Lisensi Bergaya:** Paparan pengesahan kunci lisensi yang kemas dengan semakan status pintar.
+   - **Kotak Kemajuan Berperingkat (*Step-by-Step Box*):** Setiap langkah pemasangan dikesan dengan semakan status `[ OK ]` yang rapi.
+   - **Kad Ringkasan Penamat (*Completion Card*):** Paparan kad mewah berbingkai kemas dengan panduan penting pengguna.
 
-2. **Koleksi Animasi Moden & Efek Visual Pro**:
-   - 🌀 **Animasi Loading Neon (Orbital Spinner):** Semua penunjuk pemuatan (*loading spinner*) panel kini berputar dengan dwi-garisan neon bercahaya (*glowing orbital ring*).
-   - ⚡ **Jalur Kemajuan Shimmer (Progress Beam):** Garisan pemuatan di bahagian atas skrin memancar dengan kilauan gradien bergerak (*neon shimmer*).
-   - ✨ **Efek Bernafas Bercahaya (Floating Glow):** Kad login mempunyai kesan cahaya bernafas halus yang terapung di hadapan wallpaper angkasa.
-   - 🟢 **Denyutan Status Pelayan (Online Pulse):** Penunjuk status pelayan hijau berdenyut dengan cahaya neon aktif.
-   - 👑 **Lencana PRO Berdenyut:** Lencana `PRO` Tema Panel di sidebar admin berdenyut secara elegan.
+2. **Animasi Diperhalusi (Singkat, Bersih & Elegan - Bebas Glitch `image_a24e5e.jpg`)**:
+   - **Pembaikan Ralat Garisan Menyerong di Kotak Carian:** Spinner pemuatan telah dihadkan khusus pada saiz padat 32px bulat sempurna. Tiada lagi masalah garisan menyerong atau elemen berpusing di seluruh kotak modal carian.
+   - **Animasi Singkat & Responsif:** Membuang efek garisan bergerak (*infinite shimmer*) yang berlebihan dan menggantikannya dengan interaksi mikro sepantas **0.2s** (hover kad, butang bersinar lembut, modal pop-in pantas, dan denyutan status hijau).
+   - Antara muka kekal mewah, tenang, dan pantas tanpa sebarang gangguan visual.
 
-3. **Kad Login Selesa & Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
-   - Saiz kad ditetapkan pada lebar **680px** dengan ruang dalaman yang luas, logo kemas (~150px), dan tajuk yang jelas.
+3. **Pautan & Data Kekal Sepenuhnya Selepas Refresh**:
+   - Menggunakan fungsi penyelarasan automatik `syncSettingsToModal()` dan sistem dwi-storan (*LocalStorage + settings.json* pelayan). Semua pautan logo, wallpaper, dan tetapan tidak akan menjadi kosong lagi selepas *refresh*.
+
+4. **Kad Login Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
+   - Lebar 680px, ruang dalaman yang megah, logo kemas (~150px), dan tajuk yang jelas di hadapan wallpaper angkasa.
 
 ---
 
@@ -39,7 +40,7 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v3.5-master.zip
+unzip install-temav2-v3.6-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh

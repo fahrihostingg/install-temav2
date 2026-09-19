@@ -1252,7 +1252,7 @@ div[class*="Modal__ModalContainer"] {
 }
 
 /* ==========================================================================
-   9. ANIMASI & EFEK VISUAL PRO (LOADING, PULSE, SHIMMER & GLOW)
+   9. ANIMASI SINGKAT & EFEK VISUAL PRO (CLEAN, ELEGAN & TIDAK OVER)
    ========================================================================== */
 
 @keyframes premiumSpin {
@@ -1260,109 +1260,55 @@ div[class*="Modal__ModalContainer"] {
   100% { transform: rotate(360deg); }
 }
 
-@keyframes neonShimmer {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes borderGlowMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes cardFloatingGlow {
-  0% {
-    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.85), 0 0 20px rgba(var(--theme-primary-rgb), 0.15);
-  }
-  50% {
-    box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(var(--theme-primary-rgb), 0.32);
-  }
-  100% {
-    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.85), 0 0 20px rgba(var(--theme-primary-rgb), 0.15);
-  }
+@keyframes statusPulseGreen {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 3px #10b981); }
+  50% { opacity: 0.6; filter: drop-shadow(0 0 7px #10b981); }
 }
 
 @keyframes proBadgePulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 8px var(--theme-glow);
-  }
-  50% {
-    transform: scale(1.08);
-    box-shadow: 0 0 16px var(--theme-glow);
-  }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 6px var(--theme-glow); }
+  50% { transform: scale(1.05); box-shadow: 0 0 12px var(--theme-glow); }
 }
 
-@keyframes statusPulseGreen {
-  0%, 100% {
-    opacity: 1;
-    filter: drop-shadow(0 0 4px #10b981);
-  }
-  50% {
-    opacity: 0.6;
-    filter: drop-shadow(0 0 10px #10b981);
-  }
+@keyframes modalPopIn {
+  0% { opacity: 0; transform: scale(0.97) translateY(8px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-@keyframes badgeHeartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+/* Spinner Loading Pterodactyl - Bersaiz Bulat Padat Sahaja (Tiada Garisan Melintang) */
+svg[class*="Spinner"],
+.spinner-svg {
+  animation: premiumSpin 0.75s linear infinite !important;
 }
 
-/* Spinner Loading Pterodactyl (Neon Glow Orbital Spinner) */
-div[class*="Spinner"],
-.spinner,
-div[class*="LoadingIndicator"],
-div[class*="spinner"] {
-  border-width: 3px !important;
-  border-style: solid !important;
-  border-color: rgba(var(--theme-primary-rgb), 0.18) !important;
+div[class*="Spinner__Spinner"],
+.spinner-circle {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  border-radius: 50% !important;
+  border: 3px solid rgba(var(--theme-primary-rgb), 0.2) !important;
   border-top-color: var(--theme-primary) !important;
-  border-right-color: var(--theme-secondary) !important;
-  filter: drop-shadow(0 0 10px var(--theme-glow)) !important;
-  animation: premiumSpin 0.75s cubic-bezier(0.4, 0.1, 0.3, 0.9) infinite !important;
+  animation: premiumSpin 0.75s linear infinite !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
 }
 
-/* Progress Bar Animasi di Bahagian Atas Skrin */
-div[class*="ProgressBar__Container"] > div,
-div[class*="ProgressBar"] > div,
-div[role="progressbar"] {
-  background: linear-gradient(90deg, var(--theme-primary), var(--theme-secondary), var(--theme-primary)) !important;
-  background-size: 200% 100% !important;
-  animation: neonShimmer 2s linear infinite !important;
-  box-shadow: 0 0 14px var(--theme-glow) !important;
-  height: 3.5px !important;
+/* Modal Pop-In Animasi Singkat & Kemas (0.2s) */
+#premium-settings-modal {
+  animation: modalPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Garisan Animasi Bercahaya di Atas Kad Login & Kad-Kad Penting */
-div[class*="LoginFormContainer"] form > div::before,
-div[class*="LoginFormContainer"] .bg-white::before,
-#premium-settings-modal::before {
-  background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent) !important;
-  background-size: 200% 100% !important;
-  animation: borderGlowMove 4s ease infinite !important;
-}
-
-/* Efek Bernafas Bercahaya pada Kad Login */
-div[class*="LoginFormContainer"] form > div,
-div[class*="LoginFormContainer"] .bg-white {
-  animation: cardFloatingGlow 6s ease-in-out infinite alternate !important;
-}
-
-/* Lencana PRO di Sidebar Berdenyut */
+/* Lencana PRO di Sidebar Berdenyut Halus */
 .admin-theme-pro-badge {
-  animation: proBadgePulse 2.5s infinite ease-in-out !important;
+  animation: proBadgePulse 3s infinite ease-in-out !important;
 }
 
-/* Denyutan Status Online pada Kad Pelayan */
+/* Denyutan Status Online pada Kad Pelayan (Subtle & Tidak Menyilau) */
 a[class*="ServerRow"] .status-bar,
 [class*="ServerRow"] .status-bar {
-  animation: statusPulseGreen 2s infinite ease-in-out !important;
-}
-
-/* Ikon Pengumuman Berdenyut Halus */
-.announcement-badge i {
-  animation: badgeHeartbeat 2s infinite ease-in-out !important;
+  animation: statusPulseGreen 3s infinite ease-in-out !important;
 }
