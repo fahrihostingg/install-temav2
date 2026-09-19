@@ -1,9 +1,9 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.7 Pro Master
-> **Tema Pterodactyl Panel v1.15+ dengan Installer Mandiri (Self-Contained / Boleh Dijalankan via Curl Langsung), Animasi Singkat & Elegan Tanpa Ralat, dan Simpanan Pautan Kekal.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.8 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Pembaikan Penuh Pengesahan Lisensi Password, Pengekstrakan Mandiri (Self-Contained), Animasi Singkat & Bebas Glitch, dan Kad Login Proporsional.**
 
 ---
 
-## 🔑 Kunci Lisensi / Password Instalasi
+## 🔑 Kunci Lisensi / Password Sah Instalasi
 Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 - **`fakrul!2808`**
 - **`fakruldev`**
@@ -13,47 +13,50 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.7):
+## ✨ Pembaikan & Naik Taraf Utama (Versi 3.8):
 
-1. **Penyelesaian Ralat Langkah 3/5: "Folder sumber tema tidak lengkap!" (`image_a2b6c1.png`)**:
-   - **Punca Ralat:** Apabila skrip dijalankan dari luar direktori atau melalui arahan satu baris `curl`, fail `install.sh` tidak menemui folder `theme/` di direktori semasa.
-   - **Penyelesaian v3.7:**
-     - Skrip `install.sh` kini **100% Mandiri (*Self-Contained / Standalone*)**. Semua aset tema (CSS, JS, API, settings, dan blade wrapper) telah dipakejkan terus ke dalam skrip.
-     - Sekiranya folder tema fizikal tidak dikesan, skrip akan mengekstrak aset terbenam secara automatik ke folder sementara.
-     - Skrip kini boleh dijalankan dari mana-mana lokasi, sama ada di dalam folder, dari `/root`, mahupun melalui `bash <(curl -fsSL ...)`.
+1. **Pembaikan Ralat Verifikasi Password Lisensi (`image_a3235a.png`)**:
+   - **Punca Masalah:** Ralat terminal `line 76: [: -gt: unary operator expected` berlaku kerana pembolehubah persekitaran `$PWD` bertembung dengan pembolehubah Bash, menyebabkan input kata laluan tidak dibandingkan dengan betul.
+   - **Penyelesaian v3.8:**
+     - Logik semakan kata laluan ditulis semula dengan pembolehubah selamat (`$KEY`), semakan bersyarat yang ketat (`[ "$ATTEMPTS" -lt "$MAX_ATTEMPTS" ]`), dan pembersihan aksara rapi.
+     - Kata laluan kini **100% tepat dan disahkan serta-merta** tanpa ralat sintaks unary.
 
-2. **Animasi Diperhalusi (Singkat, Bersih, Keren & Bebas Glitch `image_a24e5e.jpg`)**:
-   - **Pembaikan Garisan Menyerong di Kotak Carian:** Pemuat *spinner* telah dikunci ketat pada saiz bulat padat 32px. Tiada lagi masalah garisan berputar atau kesan visual pelik yang memotong kotak carian.
-   - **Animasi Singkat (0.2s):** Efek pergerakan berlebihan telah dibuang dan digantikan dengan animasi mikro yang pantas dan selesa di mata.
+2. **Installer 100% Mandiri (*Self-Contained*)**:
+   - Semua fail tema (CSS, JS, API, settings, dan blade wrapper) dimampatkan dan dibenamkan terus ke dalam fail `install.sh`.
+   - Skrip boleh dijalankan terus dari mana-mana folder, sama ada secara tempatan atau melalui snippet:
+     `bash <(curl -fsSL https://raw.githubusercontent.com/.../install.sh)`
 
-3. **Penyimpanan Pautan & Data Kekal Sepenuhnya Selepas Refresh (`image_a1c71d.png`)**:
-   - Fungsi automatik `syncSettingsToModal()` memulihkan semua URL logo, wallpaper, saiz, dan teks setiap kali pelayar disegarkan atau menu admin dibuka.
+3. **Animasi Singkat, Elegan & Bebas Glitch (`image_a24e5e.jpg`)**:
+   - Spinner pemuatan dihadkan pada bulatan kemas 32px (tiada lagi garisan menyerong berputar di atas modal carian).
+   - Animasi mikro sepantas 0.2s pada hover kad, butang, dan penunjuk status.
 
-4. **Kad Login Seimbang & Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
-   - Bersaiz lebar 680px dengan ketinggian padat dan logo kemas di hadapan wallpaper angkasa.
+4. **Penyimpanan Pautan Kekal Sepenuhnya Selepas Refresh (`image_a1c71d.png`)**:
+   - Dwi-storan serentak (*LocalStorage + settings.json*) memastikan tiada medan yang menjadi kosong selepas *refresh*.
+
+5. **Kad Login Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
+   - Lebar 680px, ruang dalaman yang megah, logo kemas (~150px), dan tajuk yang jelas di hadapan wallpaper angkasa.
 
 ---
 
 ## 🚀 Panduan Pemasangan di VPS
 
-### Kaedah 1 (Disyorkan - Ekstrak ZIP):
+### Kaedah 1 (Ekstrak ZIP):
 ```bash
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v3.7-master.zip
+unzip install-temav2-v3.8-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh
 ```
 
-### Kaedah 2 (Jalankan dari mana-mana folder / GitHub):
+### Kaedah 2 (Jalankan terus fail install.sh dari mana-mana folder):
 ```bash
+chmod +x install.sh
 bash install.sh
-# Atau jika menggunakan curl dari repo anda:
-bash <(curl -fsSL https://raw.githubusercontent.com/.../install.sh)
 ```
-*Masukkan password:* **`fakrul!2808`** atau **`PAHRI2026`**.
+*Masukkan password sah:* **`fakrul!2808`** atau **`PAHRI2026`**.
 
 Selepas selesai, buka semula panel anda di pelayar web dan tekan **`Ctrl + F5`** (Hard Refresh).
 

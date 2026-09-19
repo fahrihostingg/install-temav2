@@ -1,28 +1,24 @@
 #!/bin/bash
 # ==============================================================================
-# SCRIPT INSTALLER TEMA PREMIUM LUXURY & HIGH-PERFORMANCE v3.7 PRO MASTER
+# SCRIPT INSTALLER TEMA PREMIUM LUXURY & HIGH-PERFORMANCE v3.8 PRO MASTER
 # Self-Contained Edition - Sesuai untuk bash lokal & bash <(curl ...)
 # Developed for Pterodactyl Panel v1.x (v1.15+ Compatible)
 # By FakrulDev & Fahri Hosting
 # ==============================================================================
 
-# Definisi Warna Terminal Cyberpunk / Luxury
-CYAN='[1;36m'
-BLUE='[1;34m'
-GREEN='[1;32m'
-PURPLE='[1;35m'
-YELLOW='[1;33m'
-RED='[1;31m'
-WHITE='[1;37m'
-GRAY='[0;90m'
-NC='[0m' # No Color
+CYAN='\033[1;36m'
+BLUE='\033[1;34m'
+GREEN='\033[1;32m'
+PURPLE='\033[1;35m'
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+WHITE='\033[1;37m'
+GRAY='\033[0;90m'
+NC='\033[0m'
 
 clear
 
-# ------------------------------------------------------------------------------
-# BANNER ASCII ART CYBERPUNK MEWAH
-# ------------------------------------------------------------------------------
-echo -e ""
+echo -e "${CYAN}"
 cat << "BANNER"
   ███████╗ █████╗ ██╗  ██╗██████╗ ██╗   ██╗██╗     ██████╗ ███████╗██╗   ██╗
   ██╔════╝██╔══██╗██║ ██╔╝██╔══██╗██║   ██║██║     ██╔══██╗██╔════╝██║   ██║
@@ -31,12 +27,12 @@ cat << "BANNER"
   ██║     ██║  ██║██║  ██╗██║  ██║╚██████╔╝███████╗██████╔╝███████╗ ╚████╔╝ 
   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═════╝ ╚══════╝  ╚═══╝  
 BANNER
-echo -e ""
+echo -e "${NC}"
 
-echo -e "╔═════════════════════════════════════════════════════════════════════════╗"
-echo -e "║           ⚡ FAHRI HOSTING × FAKRULDEV — THEME SUITE PRO ⚡             ║"
-echo -e "║         Luxury Glassmorphism & High-Performance Suite for Panel        ║"
-echo -e "╚═════════════════════════════════════════════════════════════════════════╝"
+echo -e "${PURPLE}╔═════════════════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${PURPLE}║${WHITE}           ⚡ FAHRI HOSTING × FAKRULDEV — THEME SUITE PRO ⚡             ${PURPLE}║${NC}"
+echo -e "${PURPLE}║${CYAN}         Luxury Glassmorphism & High-Performance Suite for Panel        ${PURPLE}║${NC}"
+echo -e "${PURPLE}╚═════════════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
 # ------------------------------------------------------------------------------
@@ -44,60 +40,59 @@ echo ""
 # ------------------------------------------------------------------------------
 VALID_PASSWORDS=("fakrul!2808" "fakruldev" "pahri" "fahri" "PAHRI2026" "FAKRULDEV" "FAKRUL2026")
 
-echo -e "┌── [ 🔒 SISTEM KESELAMATAN & LISENSI ] ──────────────────────────────────┐"
-echo -e "│ Pakej ini dilindungi khusus untuk pelanggan berlesen sah.              │"
-echo -e "└────────────────────────────────────────────────────────────────────────┘"
+echo -e "${YELLOW}┌── [ 🔒 SISTEM KESELAMATAN & LISENSI ] ──────────────────────────────────┐${NC}"
+echo -e "${YELLOW}│${NC} Pakej ini dilindungi khusus untuk pelanggan berlesen sah.              ${YELLOW}│${NC}"
+echo -e "${YELLOW}└────────────────────────────────────────────────────────────────────────┘${NC}"
 echo ""
 
 AUTHENTICATED=0
 ATTEMPTS=0
 MAX_ATTEMPTS=3
 
-while [  -lt  ]; do
-  echo -ne "🔑 Sila masukkan Password Lisensi: "
+while [ "$ATTEMPTS" -lt "$MAX_ATTEMPTS" ]; do
+  echo -ne "${CYAN}🔑 Sila masukkan Password Lisensi: ${NC}"
   read -s RAW_INPUT
   echo ""
-  USER_INPUT=""
+  USER_INPUT=$(echo "$RAW_INPUT" | tr -d '\r\n[:space:]')
 
-  echo -ne "[ ⏳ ] Mengesahkan kunci keselamatan..."
+  echo -ne "${BLUE}[ ⏳ ] Mengesahkan kunci keselamatan...${NC}"
   sleep 0.4
 
-  for PWD in ""; do
-    if [ "" == "/working_dir" ]; then
+  for KEY in "${VALID_PASSWORDS[@]}"; do
+    if [ "$USER_INPUT" == "$KEY" ]; then
       AUTHENTICATED=1
       break 2
     fi
   done
 
-  ATTEMPTS=1
-  REMAINING=0
+  ATTEMPTS=$((ATTEMPTS + 1))
+  REMAINING=$((MAX_ATTEMPTS - ATTEMPTS))
 
-  echo -e "[ ✕ ] Kunci lisensi tidak sah! Sila cuba lagi.                            "
-  if [  -gt 0 ]; then
-    echo -e "Peluang percubaan berbaki: /
-"
+  echo -e "\r${RED}[ ✕ ] Kunci lisensi tidak sah! Sila cuba lagi.                            ${NC}"
+  if [ "$REMAINING" -gt 0 ]; then
+    echo -e "${GRAY}Peluang percubaan berbaki: ${REMAINING}/${MAX_ATTEMPTS}${NC}\n"
   fi
 done
 
-if [  -ne 1 ]; then
+if [ "$AUTHENTICATED" -ne 1 ]; then
   echo ""
-  echo -e "╔═════════════════════════════════════════════════════════════════════════╗"
-  echo -e "║           AKSES DITOLAK! Percubaan melebihi had keselamatan.            ║"
-  echo -e "╚═════════════════════════════════════════════════════════════════════════╝"
+  echo -e "${RED}╔═════════════════════════════════════════════════════════════════════════╗${NC}"
+  echo -e "${RED}║           AKSES DITOLAK! Percubaan melebihi had keselamatan.            ║${NC}"
+  echo -e "${RED}╚═════════════════════════════════════════════════════════════════════════╝${NC}"
   exit 1
 fi
 
-echo -e "[ ✓ ] KUNCI LISENSI SAH: Akses Dibenarkan (VIP Master Key Activated)!   "
+echo -e "\r${GREEN}[ ✓ ] KUNCI LISENSI SAH: Akses Dibenarkan (VIP Master Key Activated)!   ${NC}"
 echo ""
 
 # ------------------------------------------------------------------------------
 # 2. STATUS STEP PROGRESS BOX
 # ------------------------------------------------------------------------------
-echo -e "┌── [ PROSES PEMASANGAN PTERODACTYL THEME ] ─────────────────────────────┐"
-echo -e "│                                                                         │"
+echo -e "${PURPLE}┌── [ PROSES PEMASANGAN PTERODACTYL THEME ] ─────────────────────────────┐${NC}"
+echo -e "${PURPLE}│${NC}                                                                         ${PURPLE}│${NC}"
 
 # LANGKAH 1: KESAN DIREKTORI PANEL
-echo -ne "│  [ 1/5 ] 🔍 Mengesan Direktori Pterodactyl Panel...                    "
+echo -ne "${PURPLE}│${NC}  [ 1/5 ] 🔍 Mengesan Direktori Pterodactyl Panel...                    "
 sleep 0.3
 
 PANEL_DIR=""
@@ -109,55 +104,54 @@ elif [ -d "/var/www/ptero" ]; then
   PANEL_DIR="/var/www/ptero"
 else
   read -p "Masukkan laluan penuh panel (cth: /var/www/pterodactyl): " CUSTOM_DIR
-  if [ -d "" ]; then
-    PANEL_DIR=""
+  if [ -d "$CUSTOM_DIR" ]; then
+    PANEL_DIR="$CUSTOM_DIR"
   else
-    echo -e "│  [ 1/5 ] ✕ Ralat: Direktori panel tidak ditemui!                       │"
-    echo -e "└────────────────────────────────────────────────────────────────────────┘"
+    echo -e "\r${PURPLE}│${RED}  [ 1/5 ] ✕ Ralat: Direktori panel tidak ditemui!                       ${PURPLE}│${NC}"
+    echo -e "${PURPLE}└────────────────────────────────────────────────────────────────────────┘${NC}"
     exit 1
   fi
 fi
-echo -e "│  [ 1/5 ] ✓ Direktori Panel Dikesan:               │"
+echo -e "\r${PURPLE}│${GREEN}  [ 1/5 ] ✓ Direktori Panel Dikesan: ${PANEL_DIR}              ${PURPLE}│${NC}"
 
 # LANGKAH 2: BACKUP
-echo -ne "│  [ 2/5 ] 📦 Membuat Sandaran Keselamatan (Backup Asal)...               "
+echo -ne "${PURPLE}│${NC}  [ 2/5 ] 📦 Membuat Sandaran Keselamatan (Backup Asal)...               "
 sleep 0.3
 
-SCRIPT_DIR=""
-WRAPPER_FILE="/resources/views/templates/wrapper.blade.php"
-BACKUP_FILE=".bak_orig"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+WRAPPER_FILE="$PANEL_DIR/resources/views/templates/wrapper.blade.php"
+BACKUP_FILE="${WRAPPER_FILE}.bak_orig"
 
-if [ -f "" ] && [ ! -f "" ]; then
-  cp "" ""
+if [ -f "$WRAPPER_FILE" ] && [ ! -f "$BACKUP_FILE" ]; then
+  cp "$WRAPPER_FILE" "$BACKUP_FILE"
 fi
-echo -e "│  [ 2/5 ] ✓ Sandaran Fail Asal Sedia (.bak_orig)                        │"
+echo -e "\r${PURPLE}│${GREEN}  [ 2/5 ] ✓ Sandaran Fail Asal Sedia (.bak_orig)                        ${PURPLE}│${NC}"
 
 # LANGKAH 3: MEMASANG ASSET TEMA (DENGAN PENYAHKODAN AUTOMATIK / STANDALONE SUPPORT)
-echo -ne "│  [ 3/5 ] 🚀 Menyuntik Enjin CSS/JS & Tetapan Tema...                   "
+echo -ne "${PURPLE}│${NC}  [ 3/5 ] 🚀 Menyuntik Enjin CSS/JS & Tetapan Tema...                   "
 sleep 0.4
 
-mkdir -p "/public/themes/premium/css"
-mkdir -p "/public/themes/premium/js"
-mkdir -p "/public/themes/premium/api"
-mkdir -p "/public/themes/premium/data"
+mkdir -p "$PANEL_DIR/public/themes/premium/css"
+mkdir -p "$PANEL_DIR/public/themes/premium/js"
+mkdir -p "$PANEL_DIR/public/themes/premium/api"
+mkdir -p "$PANEL_DIR/public/themes/premium/data"
 
-# Cari folder tema dari pelbagai kemungkinan lokasi
 THEME_SRC=""
-if [ -d "/theme" ]; then
-  THEME_SRC="/theme"
-elif [ -d "/working_dir/theme" ]; then
-  THEME_SRC="/working_dir/theme"
-elif [ -d "/working_dir/install-temav2-main/theme" ]; then
-  THEME_SRC="/working_dir/install-temav2-main/theme"
+if [ -d "$SCRIPT_DIR/theme" ]; then
+  THEME_SRC="$SCRIPT_DIR/theme"
+elif [ -d "$(pwd)/theme" ]; then
+  THEME_SRC="$(pwd)/theme"
+elif [ -d "$(pwd)/install-temav2-main/theme" ]; then
+  THEME_SRC="$(pwd)/install-temav2-main/theme"
 elif [ -d "/root/install-temav2-main/theme" ]; then
   THEME_SRC="/root/install-temav2-main/theme"
 fi
 
-# Sekiranya fail dijalankan melalui curl langsung, buka arkib tema terbenam (embedded)
-if [ -z "" ] || [ ! -d "" ]; then
-  TEMP_EXTRACT="/tmp/ptero_theme_pkg_14351"
-  mkdir -p ""
-  base64 -d << 'PAYLOAD_EOF' | tar -xz -C "" 2>/dev/null
+TEMP_EXTRACT=""
+if [ -z "$THEME_SRC" ] || [ ! -d "$THEME_SRC" ]; then
+  TEMP_EXTRACT="/tmp/ptero_theme_pkg_$$"
+  mkdir -p "$TEMP_EXTRACT"
+  base64 -d << 'PAYLOAD_EOF' | tar -xz -C "$TEMP_EXTRACT" 2>/dev/null
 H4sIADlurmoC/+2923IjObYo1s/1FSh1T5GcISneSala1U1dqkpTuh1RNT29+/RRgyRIZiuZyclM
 6tI1erL94jgOx3HsB4cjHDscjvPgFz+fCP+Nf8D7E7wWgMxEZiLJpIqqqpkWZ7pEZgILwMLCumFh
 obxZ3vz+jN6+ZXTInK8e5VMRn7S/lUq9Hn7H59VKrVr9itx+9Qk+c9ejDjT/1e/zU2uTqWdM2U61
@@ -547,35 +541,33 @@ DMxfHn37moUpKVNKLXvfZ6Z9o4UiVmWyV+GSU+Ehh/iGr9jSq19dUMAAHIi1HOcLUS6/fNIOrDFe
 IBRNuBxwL+I6g+Qk/RrO0a/JKUryoXB4327izIBeuikU0yeL7enz9Hn6PH2ePk+fj//8/8kobOsA
 CAIA
 PAYLOAD_EOF
-  if [ -d "/theme" ]; then
-    THEME_SRC="/theme"
+  if [ -d "$TEMP_EXTRACT/theme" ]; then
+    THEME_SRC="$TEMP_EXTRACT/theme"
   fi
 fi
 
-if [ -d "" ]; then
-  cp -r "/public/themes/premium/"* "/public/themes/premium/"
-  if [ -f "/resources/views/templates/wrapper.blade.php" ]; then
-    cp "/resources/views/templates/wrapper.blade.php" ""
+if [ -d "$THEME_SRC" ]; then
+  cp -r "$THEME_SRC/public/themes/premium/"* "$PANEL_DIR/public/themes/premium/"
+  if [ -f "$THEME_SRC/resources/views/templates/wrapper.blade.php" ]; then
+    cp "$THEME_SRC/resources/views/templates/wrapper.blade.php" "$WRAPPER_FILE"
   fi
-  # Bersihkan folder sementara jika digunakan
-  [ -d "" ] && rm -rf ""
+  [ -n "$TEMP_EXTRACT" ] && [ -d "$TEMP_EXTRACT" ] && rm -rf "$TEMP_EXTRACT"
 else
-  echo -e "│  [ 3/5 ] ✕ Ralat: Folder sumber tema tidak ditemui!                    │"
-  echo -e "└────────────────────────────────────────────────────────────────────────┘"
+  echo -e "\r${PURPLE}│${RED}  [ 3/5 ] ✕ Ralat: Folder sumber tema tidak ditemui!                    ${PURPLE}│${NC}"
+  echo -e "${PURPLE}└────────────────────────────────────────────────────────────────────────┘${NC}"
   exit 1
 fi
 
-ADMIN_FILE="/resources/views/layouts/admin.blade.php"
-if [ -f "" ]; then
-  if ! grep -q "premium.css" ""; then
-    sed -i '/<\/head>/i \    <link rel="stylesheet" href="/themes/premium/css/premium.css?v=3.7">
-    <script src="/themes/premium/js/premium.js?v=3.7" defer></script>' ""
+ADMIN_FILE="$PANEL_DIR/resources/views/layouts/admin.blade.php"
+if [ -f "$ADMIN_FILE" ]; then
+  if ! grep -q "premium.css" "$ADMIN_FILE"; then
+    sed -i '/<\/head>/i \    <link rel="stylesheet" href="/themes/premium/css/premium.css?v=3.8">\n    <script src="/themes/premium/js/premium.js?v=3.8" defer></script>' "$ADMIN_FILE"
   fi
 fi
-echo -e "│  [ 3/5 ] ✓ Fail Tema, Wrapper & Enjin Admin Berjaya Disuntik!          │"
+echo -e "\r${PURPLE}│${GREEN}  [ 3/5 ] ✓ Fail Tema, Wrapper & Enjin Admin Berjaya Disuntik!          ${PURPLE}│${NC}"
 
 # LANGKAH 4: PERMISSIONS
-echo -ne "│  [ 4/5 ] 🛡️  Mengatur Hak Milik Pelayan Web & Kebenaran Fail...        "
+echo -ne "${PURPLE}│${NC}  [ 4/5 ] 🛡️  Mengatur Hak Milik Pelayan Web & Kebenaran Fail...        "
 sleep 0.3
 
 if id "www-data" &>/dev/null; then
@@ -586,54 +578,54 @@ else
   WEB_USER="root:root"
 fi
 
-chown -R  "/public/themes/premium"
-chown  ""
-if [ -f "" ]; then
-  chown  ""
+chown -R $WEB_USER "$PANEL_DIR/public/themes/premium"
+chown $WEB_USER "$WRAPPER_FILE"
+if [ -f "$ADMIN_FILE" ]; then
+  chown $WEB_USER "$ADMIN_FILE"
 fi
 
-chmod -R 755 "/public/themes/premium"
-chmod -R 777 "/public/themes/premium/api"
-chmod -R 777 "/public/themes/premium/data"
-chmod 666 "/public/themes/premium/api/settings.json" 2>/dev/null || true
-chmod 666 "/public/themes/premium/data/settings.json" 2>/dev/null || true
-chmod 666 "/public/themes/premium/data/.secret" 2>/dev/null || true
-echo -e "│  [ 4/5 ] ✓ Hak Milik Diatur () & Data Terbuka (777)            │"
+chmod -R 755 "$PANEL_DIR/public/themes/premium"
+chmod -R 777 "$PANEL_DIR/public/themes/premium/api"
+chmod -R 777 "$PANEL_DIR/public/themes/premium/data"
+chmod 666 "$PANEL_DIR/public/themes/premium/api/settings.json" 2>/dev/null || true
+chmod 666 "$PANEL_DIR/public/themes/premium/data/settings.json" 2>/dev/null || true
+chmod 666 "$PANEL_DIR/public/themes/premium/data/.secret" 2>/dev/null || true
+echo -e "\r${PURPLE}│${GREEN}  [ 4/5 ] ✓ Hak Milik Diatur ($WEB_USER) & Data Terbuka (777)            ${PURPLE}│${NC}"
 
 # LANGKAH 5: CLEAR CACHE
-echo -ne "│  [ 5/5 ] ⚡ Membersihkan Cache Laravel Panel...                         "
+echo -ne "${PURPLE}│${NC}  [ 5/5 ] ⚡ Membersihkan Cache Laravel Panel...                         "
 sleep 0.4
 
-cd "" || exit
+cd "$PANEL_DIR" || exit
 if command -v php &>/dev/null; then
   php artisan view:clear > /dev/null 2>&1
   php artisan config:clear > /dev/null 2>&1
   php artisan cache:clear > /dev/null 2>&1
 fi
-echo -e "│  [ 5/5 ] ✓ Semua Cache Paparan Laravel Berjaya Dibersihkan!            │"
+echo -e "\r${PURPLE}│${GREEN}  [ 5/5 ] ✓ Semua Cache Paparan Laravel Berjaya Dibersihkan!            ${PURPLE}│${NC}"
 
-echo -e "│                                                                         │"
-echo -e "└── [ SELESAI 100% ] ─────────────────────────────────────────────────────┘"
+echo -e "${PURPLE}│${NC}                                                                         ${PURPLE}│${NC}"
+echo -e "${PURPLE}└── [ SELESAI 100% ] ─────────────────────────────────────────────────────┘${NC}"
 echo ""
 
 # ------------------------------------------------------------------------------
 # KAD RANGKUMAN PENYELESAIAN (LUXURY FINISH BOX)
 # ------------------------------------------------------------------------------
-echo -e "╔═════════════════════════════════════════════════════════════════════════╗"
-echo -e "║                 🎉 PEMASANGAN TEMA BERJAYA DISELESAIKAN! 🎉            ║"
-echo -e "╠═════════════════════════════════════════════════════════════════════════╣"
-echo -e "║                                                                         ║"
-echo -e "║  • Status Lesen     : AKTIF & SAH (Pro Master Edition)                  ║"
-echo -e "║  • Versi Tema       : v3.7 PRO MASTER (Self-Contained & Standalone)      ║"
-echo -e "║  • Pengarang        : FakrulDev & Fahri Hosting                         ║"
-echo -e "║  • Panel Domain     : https://panel.fakrulafif.com                      ║"
-echo -e "║                                                                         ║"
-echo -e "║  📌 PANDUAN PENTING PENGGUNA:                                            ║"
-echo -e "║  1. Buka pelayar web dan tekan kekunci:                                 ║"
-echo -e "║     👉 [ Ctrl + F5 ] (Hard Refresh)                                     ║"
-echo -e "║  2. Untuk mengubah tema, logo, wallpaper & banner:                      ║"
-echo -e "║     👉 Log masuk akaun Admin -> Menu Sidebar Kiri -> Tema Panel (PRO)   ║"
-echo -e "║  3. Semua pautan data kini kekal tersimpan secara automatik!            ║"
-echo -e "║                                                                         ║"
-echo -e "╚═════════════════════════════════════════════════════════════════════════╝"
+echo -e "${CYAN}╔═════════════════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${CYAN}║${WHITE}                 🎉 PEMASANGAN TEMA BERJAYA DISELESAIKAN! 🎉            ${CYAN}║${NC}"
+echo -e "${CYAN}╠═════════════════════════════════════════════════════════════════════════╣${NC}"
+echo -e "${CYAN}║${NC}                                                                         ${CYAN}║${NC}"
+echo -e "${CYAN}║${GREEN}  • Status Lesen     : AKTIF & SAH (Pro Master Edition)                  ${CYAN}║${NC}"
+echo -e "${CYAN}║${WHITE}  • Versi Tema       : v3.8 PRO MASTER (Fixed Auth & Standalone Engine)   ${CYAN}║${NC}"
+echo -e "${CYAN}║${CYAN}  • Pengarang        : FakrulDev & Fahri Hosting                         ${CYAN}║${NC}"
+echo -e "${CYAN}║${YELLOW}  • Panel Domain     : https://panel.fakrulafif.com                      ${CYAN}║${NC}"
+echo -e "${CYAN}║${NC}                                                                         ${CYAN}║${NC}"
+echo -e "${CYAN}║${WHITE}  📌 PANDUAN PENTING PENGGUNA:                                            ${CYAN}║${NC}"
+echo -e "${CYAN}║${NC}  1. Buka pelayar web dan tekan kekunci:                                 ${CYAN}║${NC}"
+echo -e "${CYAN}║${YELLOW}     👉 [ Ctrl + F5 ] (Hard Refresh)                                     ${CYAN}║${NC}"
+echo -e "${CYAN}║${NC}  2. Untuk mengubah tema, logo, wallpaper & banner:                      ${CYAN}║${NC}"
+echo -e "${CYAN}║${WHITE}     👉 Log masuk akaun Admin -> Menu Sidebar Kiri -> ${CYAN}Tema Panel (PRO)${NC}   ${CYAN}║${NC}"
+echo -e "${CYAN}║${NC}  3. Semua pautan data kini kekal tersimpan secara automatik!            ${CYAN}║${NC}"
+echo -e "${CYAN}║${NC}                                                                         ${CYAN}║${NC}"
+echo -e "${CYAN}╚═════════════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
