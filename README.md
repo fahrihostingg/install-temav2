@@ -7,7 +7,7 @@
 
 ## 🚀 Panduan Pemasangan di VPS
 
-### Kaedah 1 (Ekstrak ZIP):
+### Kaedah 1 (Input Bash):
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/fahrihostingg/install-temav2/main/install.sh)
 ```
