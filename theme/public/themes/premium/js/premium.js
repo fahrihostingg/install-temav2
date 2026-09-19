@@ -1,7 +1,7 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.1 PRO MASTER
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.2 PRO MASTER
  * Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
- * Full Wallpaper Transparency | Centered Compact Login | Admin-Only Button
+ * Full Wallpaper Transparency | Two-Column Compact Login | Admin-Only Controls
  */
 
 (function () {
@@ -17,23 +17,23 @@
     theme_mode: 'dark',
     dashboard_bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
     login_bg: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
-    bg_overlay_opacity: '0.55',
+    bg_overlay_opacity: '0.50',
     login_logo: '',
     navbar_logo: '',
-    logo_height: '52',
+    logo_height: '145',
     logo_glow: true,
-    card_blur: '10',
-    card_opacity: '0.45',
+    card_blur: '12',
+    card_opacity: '0.38',
     announcement_enabled: true,
     announcement_text: '🔥 <b>Selamat Datang!</b> Panel Cloud & Game Server siap digunakan 24/7. Hubungi admin untuk bantuan teknis.',
     announcement_type: 'gradient',
-    announcement_marquee: true,
+    announcement_marquee: false,
     custom_css: ''
   };
 
   let activeSettings = Object.assign({}, defaultSettings);
 
-  // 10 One-Click Complete Theme Templates
+  // 12 One-Click Complete Theme Templates
   const themeTemplates = {
     cold: {
       name: 'Cold Glacier',
@@ -41,15 +41,15 @@
       secondary: '#0284c7',
       bg: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&w=2070&auto=format&fit=crop',
       blur: '12',
-      opacity: '0.45'
+      opacity: '0.38'
     },
     hacker: {
       name: 'Cyber Matrix',
       primary: '#00ff66',
       secondary: '#059669',
       bg: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop',
-      blur: '8',
-      opacity: '0.55'
+      blur: '10',
+      opacity: '0.42'
     },
     soft: {
       name: 'Soft Lavender',
@@ -57,63 +57,79 @@
       secondary: '#f472b6',
       bg: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop',
       blur: '14',
-      opacity: '0.42'
+      opacity: '0.35'
     },
     cyberpunk: {
       name: 'Cyberpunk 2077',
       primary: '#f43f5e',
       secondary: '#06b6d4',
       bg: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=2047&auto=format&fit=crop',
-      blur: '10',
-      opacity: '0.48'
+      blur: '12',
+      opacity: '0.40'
     },
     luxury_gold: {
       name: 'Obsidian Gold',
       primary: '#f59e0b',
       secondary: '#fbbf24',
       bg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop',
-      blur: '10',
-      opacity: '0.50'
+      blur: '12',
+      opacity: '0.40'
     },
     bloodmoon: {
       name: 'Bloodmoon Crimson',
       primary: '#e11d48',
       secondary: '#9f1239',
       bg: 'https://images.unsplash.com/photo-1507499739999-097706ad8914?q=80&w=2070&auto=format&fit=crop',
-      blur: '10',
-      opacity: '0.48'
+      blur: '12',
+      opacity: '0.40'
     },
     deep_ocean: {
       name: 'Deep Ocean',
       primary: '#0ea5e9',
       secondary: '#6366f1',
       bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
-      blur: '10',
-      opacity: '0.45'
+      blur: '12',
+      opacity: '0.38'
     },
     electric: {
       name: 'Electric Violet',
       primary: '#8b5cf6',
       secondary: '#3b82f6',
       bg: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop',
-      blur: '10',
-      opacity: '0.48'
+      blur: '12',
+      opacity: '0.40'
     },
     emerald: {
       name: 'Emerald Mint',
       primary: '#10b981',
       secondary: '#14b8a6',
       bg: 'https://images.unsplash.com/photo-1511497584788-87676104235f?q=80&w=2070&auto=format&fit=crop',
-      blur: '10',
-      opacity: '0.45'
+      blur: '12',
+      opacity: '0.38'
     },
     sunset: {
       name: 'Sunset Twilight',
       primary: '#f97316',
       secondary: '#ec4899',
       bg: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop',
-      blur: '10',
-      opacity: '0.45'
+      blur: '12',
+      opacity: '0.38'
+    },
+    midnight: {
+      name: 'Midnight Phantom',
+      primary: '#64748b',
+      secondary: '#38bdf8',
+      bg: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop',
+      blur: '16',
+      opacity: '0.35'
+    },
+    toxic: {
+      name: 'Toxic Neon',
+      primary: '#a3e635',
+      secondary: '#06b6d4',
+      bg: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=2070&auto=format&fit=crop',
+      blur: '12',
+      opacity: '0.40'
     }
   };
 
@@ -160,8 +176,9 @@
     root.style.setProperty('--theme-secondary', activeSettings.secondary_color);
     root.style.setProperty('--theme-secondary-rgb', sRgbStr);
     root.style.setProperty('--theme-glow', glowStr);
-    root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 10}px`);
-    root.style.setProperty('--theme-card-bg', `rgba(11, 15, 25, ${activeSettings.card_opacity || 0.45})`);
+    root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 12}px`);
+    root.style.setProperty('--theme-card-opacity', activeSettings.card_opacity || '0.38');
+    root.style.setProperty('--theme-card-bg', `rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38})`);
 
     // Full-Screen Wallpaper
     const bgContainer = document.getElementById('premium-bg-container');
@@ -183,7 +200,7 @@
     }
 
     if (bgOverlay) {
-      bgOverlay.style.background = `rgba(11, 15, 25, ${activeSettings.bg_overlay_opacity || 0.55})`;
+      bgOverlay.style.background = `rgba(11, 15, 25, ${activeSettings.bg_overlay_opacity || 0.50})`;
     }
 
     let styleTag = document.getElementById('premium-dynamic-theme-style');
@@ -200,6 +217,9 @@
         --theme-secondary: ${activeSettings.secondary_color} !important;
         --theme-secondary-rgb: ${sRgbStr} !important;
         --theme-glow: ${glowStr} !important;
+        --theme-card-opacity: ${activeSettings.card_opacity || 0.38} !important;
+        --theme-card-bg: rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38}) !important;
+        --theme-card-blur: ${activeSettings.card_blur || 12}px !important;
       }
       button.btn-primary, button[type="submit"], .bg-primary-500, .bg-blue-600 {
         background: linear-gradient(135deg, ${activeSettings.primary_color} 0%, ${activeSettings.secondary_color} 100%) !important;
@@ -210,79 +230,47 @@
       .text-primary-500, .text-blue-500, .text-cyan-400 {
         color: ${activeSettings.primary_color} !important;
       }
+      /* Pastikan Kad Pelayan di Dashboard Telus Kaca 100% Ikut Tema */
+      a[class*="ServerRow"], div[class*="ServerRow"], [class*="ServerRow"], a[href*="/server/"] {
+        background: rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38}) !important;
+        background-color: rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38}) !important;
+        border-left-color: ${activeSettings.primary_color} !important;
+      }
       ${activeSettings.custom_css || ''}
     `;
 
     runPageEnhancements();
   }
 
-  // 3. Guaranteed Login Logo Fix (Replaces Small Logo Inside Compact Form Card)
-  function injectOrUpdateLoginLogo() {
-    const isLoginPage = window.location.pathname.includes('/auth/');
-    if (!isLoginPage) return;
+  // 3. Guaranteed Login Logo Replacement (Directly replaces the mascot in left column)
+  function updateLoginLogo() {
+    if (!window.location.pathname.includes('/auth/')) return;
 
-    const form = document.querySelector('form');
-    if (!form) return;
-
-    let titleEl = null;
-    const allHeaders = form.querySelectorAll('h1, h2, h3, h4');
-    for (let i = 0; i < allHeaders.length; i++) {
-      const txt = (allHeaders[i].textContent || '').trim();
-      if (txt.includes('Login to Continue')) {
-        titleEl = allHeaders[i];
-        break;
-      }
-    }
-
-    const card = titleEl ? titleEl.parentNode : form;
-    const refNode = titleEl || form.firstChild;
-
-    let logoBox = document.getElementById('premium-login-logo-box');
-    if (!logoBox) {
-      logoBox = document.createElement('div');
-      logoBox.id = 'premium-login-logo-box';
-      logoBox.className = 'premium-login-logo-wrapper';
-      card.insertBefore(logoBox, refNode);
-    } else if (logoBox.nextSibling !== refNode) {
-      card.insertBefore(logoBox, refNode);
-    }
-
+    const loginImg = document.querySelector('div[class*="LoginFormContainer"] img, form img');
     const logoUrl = (activeSettings.login_logo || '').trim();
-    const logoHeight = activeSettings.logo_height || '52';
+    const logoHeight = activeSettings.logo_height || '145';
     const logoGlow = activeSettings.logo_glow !== false;
-    const glowFilter = logoGlow ? `filter: drop-shadow(0 0 14px var(--theme-glow));` : '';
+    const glowFilter = logoGlow ? `drop-shadow(0 0 16px var(--theme-glow))` : 'none';
 
-    if (logoUrl) {
-      const curImg = logoBox.querySelector('#premium-login-logo-img');
-      if (curImg && curImg.src === logoUrl) return;
-
-      logoBox.innerHTML = `
-        <img id="premium-login-logo-img" 
-             class="premium-custom-login-logo" 
-             src="${logoUrl}" 
-             alt="Logo" 
-             style="max-height: ${logoHeight}px; max-width: 180px; width: auto; height: auto; object-fit: contain; margin: 0 auto 6px auto; display: block; ${glowFilter}" />
-      `;
-    } else {
-      if (logoBox.querySelector('.premium-default-logo-badge')) return;
-
-      logoBox.innerHTML = `
-        <div class="premium-default-logo-badge" style="${glowFilter}" title="Tetapkan logo di Tetapan Tema">
-          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="44" height="44">
-            <defs>
-              <linearGradient id="pEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="var(--theme-primary, #6366f1)"/>
-                <stop offset="100%" stop-color="var(--theme-secondary, #06b6d4)"/>
-              </linearGradient>
-            </defs>
-            <polygon points="40,8 72,26 72,54 40,72 8,54 8,26" fill="rgba(99, 102, 241, 0.18)" stroke="url(#pEmblemGrad)" stroke-width="2.5" />
-            <polygon points="40,18 62,31 62,49 40,62 18,49 18,31" fill="none" stroke="url(#pEmblemGrad)" stroke-width="1.5" stroke-dasharray="4,2" />
-            <path d="M40 25 L40 55 M27 40 L53 40" stroke="url(#pEmblemGrad)" stroke-width="3" stroke-linecap="round" />
-            <circle cx="40" cy="40" r="5" fill="var(--theme-secondary, #06b6d4)" />
-          </svg>
-          <span class="premium-logo-text-title">TEMA PANEL</span>
-        </div>
-      `;
+    if (loginImg) {
+      if (logoUrl) {
+        if (loginImg.src !== logoUrl) {
+          loginImg.src = logoUrl;
+        }
+        loginImg.style.maxHeight = `${logoHeight}px`;
+        loginImg.style.maxWidth = '210px';
+        loginImg.style.width = 'auto';
+        loginImg.style.height = 'auto';
+        loginImg.style.objectFit = 'contain';
+        loginImg.style.display = 'block';
+        loginImg.style.margin = '0 auto';
+        loginImg.style.filter = glowFilter;
+      } else {
+        loginImg.style.maxHeight = `${logoHeight}px`;
+        loginImg.style.maxWidth = '210px';
+        loginImg.style.objectFit = 'contain';
+        loginImg.style.filter = glowFilter;
+      }
     }
   }
 
@@ -336,8 +324,10 @@
 
       const app = document.getElementById('app');
       const nav = document.querySelector('#app nav') || document.querySelector('header');
-      if (nav && nav.parentNode) {
-        nav.parentNode.insertBefore(bar, nav.nextSibling);
+      if (nav && nav.nextElementSibling) {
+        nav.parentNode.insertBefore(bar, nav.nextElementSibling);
+      } else if (nav && nav.parentNode) {
+        nav.parentNode.appendChild(bar);
       } else if (app) {
         app.prepend(bar);
       }
@@ -382,7 +372,7 @@
   function injectAdminSidebarItem() {
     if (!window.location.pathname.startsWith('/admin')) return;
 
-    // Bersihkan sebarang butang terapung
+    // Bersihkan sebarang butang terapung yang tidak diingini
     const stray = ['#premium-theme-fab', '.premium-top-setting-btn', '#premium-nav-theme-btn'];
     stray.forEach(s => document.querySelectorAll(s).forEach(e => e.remove()));
 
@@ -444,26 +434,26 @@
         <div class="modal-header">
           <div class="modal-title">
             <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema & Logo Panel</span>
+            <span>Pengaturan Tema & Logo Panel (v3.2 Pro)</span>
           </div>
           <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <div class="modal-tabs">
-          <button class="modal-tab-btn active" data-tab="tab-templates"><i class="fa-solid fa-wand-magic-sparkles"></i> Template 1-Klik</button>
+          <button class="modal-tab-btn active" data-tab="tab-templates"><i class="fa-solid fa-wand-magic-sparkles"></i> 12 Template Tema</button>
           <button class="modal-tab-btn" data-tab="tab-colors"><i class="fa-solid fa-droplet"></i> Warna & Mix</button>
           <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo & Brand</button>
           <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Wallpaper</button>
           <button class="modal-tab-btn" data-tab="tab-announcement"><i class="fa-solid fa-bullhorn"></i> Pengumuman</button>
-          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Efek Kaca</button>
+          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Kaca & Pelayan</button>
         </div>
 
         <div class="modal-body">
-          <!-- TAB 1: 10 TEMPLATES -->
+          <!-- TAB 1: 12 TEMPLATES -->
           <div id="tab-templates" class="tab-pane active">
             <div class="form-group">
               <label class="form-label">Pilih Template Tema Siap Pakai (1-Klik)</label>
-              <span class="form-subtext">Klik mana-mana template untuk memuat tema dan latar belakang serta-merta:</span>
+              <span class="form-subtext">Klik template pilihan untuk memuat padanan warna, wallpaper dan gaya kaca secara pantas:</span>
               <div class="templates-preset-grid">
                 <div class="template-preset-card" data-template="cold">
                   <div class="template-card-icon">❄️</div>
@@ -554,6 +544,24 @@
                     <span class="template-card-dot" style="background:#ec4899;"></span>
                   </div>
                 </div>
+
+                <div class="template-preset-card" data-template="midnight">
+                  <div class="template-card-icon">🌌</div>
+                  <div class="template-card-title">Midnight Phantom</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#64748b;"></span>
+                    <span class="template-card-dot" style="background:#38bdf8;"></span>
+                  </div>
+                </div>
+
+                <div class="template-preset-card" data-template="toxic">
+                  <div class="template-card-icon">☣️</div>
+                  <div class="template-card-title">Toxic Neon</div>
+                  <div class="template-card-palette">
+                    <span class="template-card-dot" style="background:#a3e635;"></span>
+                    <span class="template-card-dot" style="background:#06b6d4;"></span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -571,6 +579,8 @@
                 <div class="mix-color-pill" style="background: linear-gradient(135deg, #f97316, #e11d48);" data-p="#f97316" data-s="#e11d48">Molten Lava</div>
                 <div class="mix-color-pill" style="background: linear-gradient(135deg, #eab308, #84cc16);" data-p="#eab308" data-s="#84cc16">Lime Gold</div>
                 <div class="mix-color-pill" style="background: linear-gradient(135deg, #6366f1, #06b6d4);" data-p="#6366f1" data-s="#06b6d4">Royal Azure</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #a855f7, #ec4899);" data-p="#a855f7" data-s="#ec4899">Amethyst Pink</div>
+                <div class="mix-color-pill" style="background: linear-gradient(135deg, #14b8a6, #3b82f6);" data-p="#14b8a6" data-s="#3b82f6">Teal Ocean</div>
               </div>
             </div>
 
@@ -593,6 +603,8 @@
                 <div class="color-preset-pill" style="background: #06b6d4;" data-color="#06b6d4"></div>
                 <div class="color-preset-pill" style="background: #0ea5e9;" data-color="#0ea5e9"></div>
                 <div class="color-preset-pill" style="background: #3b82f6;" data-color="#3b82f6"></div>
+                <div class="color-preset-pill" style="background: #a3e635;" data-color="#a3e635"></div>
+                <div class="color-preset-pill" style="background: #64748b;" data-color="#64748b"></div>
               </div>
             </div>
 
@@ -614,16 +626,16 @@
             </div>
           </div>
 
-          <!-- TAB 3: LOGO & BRAND (MENUKAR LOGO KECIL SAHAJA) -->
+          <!-- TAB 3: LOGO & BRAND (MENUKAR LOGO KAD LOGIN) -->
           <div id="tab-logo" class="tab-pane">
             <div class="form-group">
-              <label class="form-label">URL Logo Halaman Login (Ganti Logo Kecil)</label>
-              <span class="form-subtext">Pautan ini HANYA menggantikan logo kecil di atas form login (bukan latar belakang):</span>
+              <label class="form-label">URL Logo Halaman Login (Menggantikan Maskot Kiri)</label>
+              <span class="form-subtext">Logo ini akan dipaparkan di lajur kiri kad login (bersaiz kompak & berpusat):</span>
               <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/example.png" value="${activeSettings.login_logo || ''}">
             </div>
 
             <div class="form-group">
-              <label class="form-label">Pratinjau Logo Kecil (Live Preview)</label>
+              <label class="form-label">Pratinjau Logo Login (Live Preview)</label>
               <div id="logo-preview-container" class="logo-preview-box"></div>
             </div>
 
@@ -633,9 +645,9 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Ketinggian Logo Kecil: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 52}px</span></label>
+              <label class="form-label">Ketinggian Logo Login: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 145}px</span></label>
               <div class="slider-container">
-                <input type="range" id="cfg-logo-height" class="input-range" min="25" max="90" value="${activeSettings.logo_height || 52}">
+                <input type="range" id="cfg-logo-height" class="input-range" min="60" max="190" value="${activeSettings.logo_height || 145}">
               </div>
             </div>
 
@@ -654,19 +666,30 @@
           <div id="tab-bg" class="tab-pane">
             <div class="form-group">
               <label class="form-label">URL Wallpaper Dashboard & Server (Full-Screen)</label>
-              <span class="form-subtext">Latar belakang penuh yang akan kelihatan menyatu dengan kad pelayan:</span>
+              <span class="form-subtext">Latar belakang penuh yang akan menyatu secara lutsinar di belakang kad pelayan:</span>
               <input type="text" id="cfg-dashboard-bg" class="input-text" placeholder="https://..." value="${activeSettings.dashboard_bg || ''}">
             </div>
 
             <div class="form-group">
+              <label class="form-label">Preset Wallpaper Pantas</label>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                <button type="button" class="btn-luxury btn-outline quick-bg-btn" data-bg="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop">Motherboard Circuit</button>
+                <button type="button" class="btn-luxury btn-outline quick-bg-btn" data-bg="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop">Deep Space Earth</button>
+                <button type="button" class="btn-luxury btn-outline quick-bg-btn" data-bg="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=2047&auto=format&fit=crop">Cyber City</button>
+                <button type="button" class="btn-luxury btn-outline quick-bg-btn" data-bg="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop">Violet Waves</button>
+                <button type="button" class="btn-luxury btn-outline quick-bg-btn" data-bg="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop">Matrix Code</button>
+                <button type="button" class="btn-luxury btn-outline quick-bg-btn" data-bg="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop">Dark Mountains</button>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
               <label class="form-label">URL Wallpaper Halaman Login</label>
-              <span class="form-subtext">Gambar latar belakang khusus untuk skrin login (berasingan dari logo kecil):</span>
+              <span class="form-subtext">Gambar latar belakang khusus untuk skrin login:</span>
               <input type="text" id="cfg-login-bg" class="input-text" placeholder="https://..." value="${activeSettings.login_bg || ''}">
             </div>
 
             <div class="form-group">
               <label class="form-label">Kegelapan Lapisan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
-              <span class="form-subtext">Kurangkan peratusan jika mahukan gambar latar belakang lebih jelas:</span>
               <div class="slider-container">
                 <input type="range" id="cfg-bg-overlay" class="input-range" min="10" max="95" value="${Math.round(activeSettings.bg_overlay_opacity * 100)}">
               </div>
@@ -685,16 +708,15 @@
               </label>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px;">
               <label class="form-label">Teks Pengumuman</label>
               <textarea id="cfg-announcement-text" class="input-text" rows="3">${activeSettings.announcement_text || ''}</textarea>
             </div>
 
             <div class="form-group">
               <label class="form-label">Pilihan Warna Banner Pengumuman</label>
-              <span class="form-subtext">Pilih warna banner yang anda sukai:</span>
               <select id="cfg-announcement-type" class="input-text">
-                <option value="gradient" ${activeSettings.announcement_type === 'gradient' ? 'selected' : ''}>Theme Gradient (Menyatu dengan warna tema)</option>
+                <option value="gradient" ${activeSettings.announcement_type === 'gradient' ? 'selected' : ''}>Theme Gradient (Menyatu dengan tema)</option>
                 <option value="info" ${activeSettings.announcement_type === 'info' ? 'selected' : ''}>Cyan Info Alert</option>
                 <option value="emerald" ${activeSettings.announcement_type === 'emerald' ? 'selected' : ''}>Emerald Hijau (Success)</option>
                 <option value="warning" ${activeSettings.announcement_type === 'warning' ? 'selected' : ''}>Sunset Amber (Warning)</option>
@@ -707,6 +729,7 @@
             <div class="toggle-row">
               <div>
                 <div style="font-size:13px; font-weight:700;">Teks Berjalan (Marquee)</div>
+                <div style="font-size:11px; color:#94a3b8;">Nyahaktifkan untuk teks kekal diam (statik) yang kemas & mudah dibaca serta-merta.</div>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="cfg-announcement-marquee" ${activeSettings.announcement_marquee ? 'checked' : ''}>
@@ -718,10 +741,10 @@
           <!-- TAB 6: EFEK KACA & TRANSPARAN KAD PELAYAN -->
           <div id="tab-effects" class="tab-pane">
             <div class="form-group">
-              <label class="form-label">Ketelusan Kad Pelayan: <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
-              <span class="form-subtext">Rendahkan untuk membuat kad pelayan menyatu sepenuhnya dengan wallpaper latar:</span>
+              <label class="form-label">Ketelusan Kad Pelayan (Dashboard): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
+              <span class="form-subtext">Rendahkan untuk membuat kad pelayan di dashboard menyatu sepenuhnya dengan wallpaper latar:</span>
               <div class="slider-container">
-                <input type="range" id="cfg-card-opacity" class="input-range" min="20" max="85" value="${Math.round(activeSettings.card_opacity * 100)}">
+                <input type="range" id="cfg-card-opacity" class="input-range" min="15" max="80" value="${Math.round(activeSettings.card_opacity * 100)}">
               </div>
             </div>
 
@@ -772,6 +795,7 @@
       });
     });
 
+    // 12 Templates Click Handler
     overlay.querySelectorAll('.template-preset-card').forEach(card => {
       card.addEventListener('click', () => {
         const key = card.getAttribute('data-template');
@@ -801,6 +825,17 @@
       });
     });
 
+    // Quick Wallpapers
+    overlay.querySelectorAll('.quick-bg-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const bgUrl = btn.getAttribute('data-bg');
+        document.getElementById('cfg-dashboard-bg').value = bgUrl;
+        applyTheme(Object.assign({}, activeSettings, { dashboard_bg: bgUrl }));
+        showToast('Wallpaper Berjaya Ditukar!');
+      });
+    });
+
+    // Mix Colors
     overlay.querySelectorAll('.mix-color-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const p = pill.getAttribute('data-p');
@@ -817,6 +852,7 @@
       });
     });
 
+    // Single Colors
     overlay.querySelectorAll('.color-preset-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const color = pill.getAttribute('data-color');
@@ -862,7 +898,7 @@
       if (url && url.trim() !== '') {
         previewContainer.innerHTML = `<img src="${url.trim()}" class="logo-preview-img" alt="Pratinjau Logo" onerror="this.parentNode.innerHTML='<span class=\\'logo-preview-empty\\'><i class=\\'fa-solid fa-triangle-exclamation\\' style=\\'color:#f43f5e;\\'></i> URL Gambar tidak sah</span>';" />`;
       } else {
-        previewContainer.innerHTML = `<span class="logo-preview-empty"><i class="fa-solid fa-circle-info"></i> Tiada URL (Emblem 'TEMA PANEL' akan digunakan)</span>`;
+        previewContainer.innerHTML = `<span class="logo-preview-empty"><i class="fa-solid fa-circle-info"></i> Tiada URL (Maskot Asal Bercahaya Akan Digunakan)</span>`;
       }
     }
 
@@ -979,7 +1015,7 @@
   function runPageEnhancements() {
     isMutating = true;
     try {
-      injectOrUpdateLoginLogo();
+      updateLoginLogo();
       updateNavbarLogo();
       updateAnnouncement();
       injectAdminSidebarItem();
