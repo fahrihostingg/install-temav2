@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.9 Pro Master
-> **Tema Pterodactyl Panel v1.15+ dengan Reka Bentuk Responsif Mudah Alih (Butang Tidak Terhimpit di Telefon), Installer Mandiri (Self-Contained), dan Penyimpanan Pautan Kekal.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v4.0 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Paparan Tab Pelayan & Pengurus Fail Sempurna di Telefon Bimbit (Persis Seperti Laptop), Bebas Teks Terpotong, Butang Tidak Terhimpit, dan Installer Mandiri.**
 
 ---
 
@@ -13,27 +13,25 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.9):
+## ✨ Pembaikan & Naik Taraf Utama (Versi 4.0):
 
-1. **Pembaikan Butang Terhimpit di Paparan Telefon Bimbit (`1000023030.jpg`)**:
-   - **Punca Masalah:** Pada skrin telefon yang sempit, kedua-dua butang diletakkan bersebelahan tanpa ruang mencukupi, menyebabkan teks terlipat ke baris kedua (*Reset Default* dan *Simpan Pengaturan*) dan butang menjadi sempit/terhimpit.
-   - **Penyelesaian v3.9:**
-     - **Di Skrin Telefon (`max-width: 600px`):** Butang disusun secara menegak (*full-width 100%*). Butang utama **"Simpan Pengaturan"** berada di atas dengan saiz besar dan mudah ditekan oleh ibu jari, manakala butang **"Reset Default"** berada di bawahnya.
-     - Ditambah `white-space: nowrap !important;` bagi memastikan teks kekal sebaris dan tidak terlipat.
-     - **Di Skrin Laptop / Desktop:** Butang kekal tersusun rapi secara mendatar (*side-by-side*) seperti biasa.
-     - Kad template tema disusun kepada 2 lajur kemas pada paparan telefon (tidak lagi memanjang ke bawah).
-     - Butang tutup **`✕`** modal kini dipaparkan dengan warna putih cerah dan jelas di telefon pintar.
+1. **Pembaikan Paparan Telefon Bimbit Menjadi Sama Persis Seperti Laptop (`1000023063.jpg` vs `ba3c43f6-8670-4fbf-a8de-9ed4fe252196`)**:
+   - **Punca Tab Terpotong Jadi 2 Huruf (`Co`, `Fil`, `Da`, `Sc`):** Sebelum ini selector kad pelayan (`a[href*="/server/"]`) secara tidak sengaja turut menggayakan pautan tab sub-navigasi pelayan dan fail. Pada skrin telefon, gaya kad memaksa tab bersaiz besar sehingga kesemua 10 tab terhimpit dan teks dipotong ke 2 huruf.
+   - **Penyelesaian v4.0:**
+     - Selector kad pelayan dihadkan **100% khusus untuk senarai pelayan di Dashboard sahaja**.
+     - Tab navigasi pelayan kini menyokong **tatalan mendatar licin (*smooth horizontal swipe*)** dengan paparan nama penuh: **Console, Files, Databases, Schedules, Users, Backups, Network, Startup, Settings, Activity** sama persis seperti pada paparan laptop!
+     - Tiada lagi dua garisan melintang aneh di atas dan bawah bar tab.
+     - Kotak sempadan (*border*) aneh pada baris fail dan breadcrumb `home / container` telah dibuang sepenuhnya, menjadikan senarai fail kemas, bersih, dan elegan.
 
-2. **Installer 100% Mandiri (*Self-Contained*) & Pengesahan Kata Laluan Pantas**:
-   - Semua fail tema dipakejkan terus ke dalam fail `install.sh`.
-   - Boleh dijalankan dari mana-mana folder atau melalui snippet curl tanpa ralat kekurangan fail.
-   - Pembolehubah keselamatan selamat daripada sebarang konflik pembolehubah Bash `$PWD`.
+2. **Pembaikan Butang Modal Tidak Terhimpit di Telefon (`1000023030.jpg`)**:
+   - Pada skrin telefon, butang *"Simpan Pengaturan"* dan *"Reset Default"* disusun menegak dengan kelebaran penuh (100%), sangat selesa ditekan ibu jari tanpa sebarang teks terlipat.
 
-3. **Penyimpanan Pautan & Data Kekal Sepenuhnya Selepas Refresh**:
-   - Data URL logo, wallpaper, saiz, dan teks pengumuman kekal tersimpan rapi dan tidak akan menjadi kosong lagi selepas pelayar disegarkan (*refresh*).
+3. **Installer 100% Mandiri (*Self-Contained*) & Bebas Ralat Lisensi**:
+   - Pakej tema dimampatkan terus ke dalam fail `install.sh`. Boleh dijalankan dari mana-mana folder atau terus melalui arahan curl.
+   - Pengesahan kata laluan selamat daripada konflik pembolehubah sistem Linux `$PWD`.
 
-4. **Animasi Singkat & Bebas Glitch**:
-   - Animasi mikro sepantas 0.2s pada butang dan kad pelayan tanpa sebarang gangguan garisan melintang pada kotak carian.
+4. **Simpanan Pautan Kekal Sepenuhnya Selepas Refresh**:
+   - Dwi-storan serentak (*LocalStorage + settings.json*) memastikan tiada medan yang menjadi kosong selepas *refresh*.
 
 ---
 
@@ -44,7 +42,7 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v3.9-master.zip
+unzip install-temav2-v4.0-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh
@@ -57,7 +55,7 @@ bash install.sh
 ```
 *Masukkan password sah:* **`fakrul!2808`** atau **`PAHRI2026`**.
 
-Selepas selesai, buka semula panel anda di pelayar web dan tekan **`Ctrl + F5`** (Hard Refresh).
+Selepas selesai, buka semula panel anda di telefon dan komputer riba, kemudian tekan **`Ctrl + F5`** (atau *clear cache* pelayar telefon).
 
 ---
 **Hak Cipta © FakrulDev & Fahri Hosting.**

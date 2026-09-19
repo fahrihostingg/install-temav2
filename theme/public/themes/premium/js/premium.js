@@ -233,7 +233,7 @@
         color: ${activeSettings.primary_color} !important;
       }
       /* Pastikan Kad Pelayan di Dashboard Telus Kaca 100% Ikut Tema */
-      a[class*="ServerRow"], div[class*="ServerRow"], [class*="ServerRow"], a[href*="/server/"] {
+      div[class*="DashboardContainer"] a[href^="/server/"], a[class*="ServerRow__ServerRowContainer"], div[class*="DashboardContainer"] [class*="ServerRow"] {
         background: rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38}) !important;
         background-color: rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38}) !important;
         border-left-color: ${activeSettings.primary_color} !important;

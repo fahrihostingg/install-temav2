@@ -436,15 +436,13 @@ div[class*="NavigationBar__Navigation"] {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* KAD PELAYAN DI DASHBOARD - TELUS KACA 100% MENYATU DENGAN WALLPAPER */
-a[class*="ServerRow"],
-div[class*="ServerRow"],
-[class*="ServerRow"],
-a[href*="/server/"],
-div[class*="DashboardContainer"] a,
-div[class*="DashboardContainer"] > div > a,
-.server-card,
-.server-row {
+/* KAD PELAYAN DI DASHBOARD - TELUS KACA 100% MENYATU DENGAN WALLPAPER (HANYA DASHBOARD) */
+div[class*="DashboardContainer"] a[href^="/server/"],
+div[class*="DashboardContainer"] div[class*="ServerRow"],
+div[class*="DashboardContainer"] [class*="ServerRow"],
+div[class*="DashboardContainer"] > div > div > a,
+a[class*="ServerRow__ServerRowContainer"],
+.server-card {
   background: rgba(11, 15, 25, var(--theme-card-opacity, 0.38)) !important;
   background-color: rgba(11, 15, 25, var(--theme-card-opacity, 0.38)) !important;
   backdrop-filter: blur(var(--theme-card-blur, 12px)) !important;
@@ -459,18 +457,16 @@ div[class*="DashboardContainer"] > div > a,
   text-decoration: none !important;
 }
 
-a[class*="ServerRow"] > div,
-[class*="ServerRow"] > div {
+div[class*="DashboardContainer"] a[href^="/server/"] > div,
+a[class*="ServerRow__ServerRowContainer"] > div {
   background: transparent !important;
   background-color: transparent !important;
 }
 
 /* Efek Hover Pada Kad Pelayan */
-a[class*="ServerRow"]:hover,
-div[class*="ServerRow"]:hover,
-[class*="ServerRow"]:hover,
-a[href*="/server/"]:hover,
-div[class*="DashboardContainer"] a:hover {
+div[class*="DashboardContainer"] a[href^="/server/"]:hover,
+a[class*="ServerRow__ServerRowContainer"]:hover,
+div[class*="DashboardContainer"] [class*="ServerRow"]:hover {
   transform: translateY(-2px) scale(1.006) !important;
   background: rgba(var(--theme-primary-rgb), 0.15) !important;
   background-color: rgba(var(--theme-primary-rgb), 0.15) !important;
@@ -479,26 +475,26 @@ div[class*="DashboardContainer"] a:hover {
 }
 
 /* Teks & Statistik di Dalam Kad Pelayan */
-a[class*="ServerRow"] h4,
-[class*="ServerRow"] h4,
-a[class*="ServerRow"] p[class*="font-semibold"],
-[class*="ServerRow"] p[class*="font-semibold"],
-a[class*="ServerRow"] .text-lg,
-[class*="ServerRow"] .text-lg {
+div[class*="DashboardContainer"] a[href^="/server/"] h4,
+a[class*="ServerRow__ServerRowContainer"] h4,
+div[class*="DashboardContainer"] a[href^="/server/"] p[class*="font-semibold"],
+a[class*="ServerRow__ServerRowContainer"] p[class*="font-semibold"],
+div[class*="DashboardContainer"] a[href^="/server/"] .text-lg,
+a[class*="ServerRow__ServerRowContainer"] .text-lg {
   color: #ffffff !important;
   font-weight: 700 !important;
   letter-spacing: 0.3px !important;
 }
 
-a[class*="ServerRow"] svg,
-[class*="ServerRow"] svg {
+div[class*="DashboardContainer"] a[href^="/server/"] svg,
+a[class*="ServerRow__ServerRowContainer"] svg {
   color: var(--theme-primary) !important;
   filter: drop-shadow(0 0 8px var(--theme-glow)) !important;
 }
 
 /* Status Bar / Penunjuk Status Pelayan */
-a[class*="ServerRow"] .status-bar,
-[class*="ServerRow"] .status-bar,
+div[class*="DashboardContainer"] a[href^="/server/"] .status-bar,
+a[class*="ServerRow__ServerRowContainer"] .status-bar,
 div[class*="StatusIndicator"] {
   border-radius: 4px !important;
   box-shadow: 0 0 10px currentColor !important;
@@ -692,39 +688,83 @@ input[placeholder*="Search"]:focus {
    7. SERVER CONSOLE & FILE MANAGER (BUTANG GLOW & SENARAI FAIL ELEGANT)
    ========================================================================== */
 
-/* SubNavigation Tabs */
+/* SubNavigation Tabs - Scrollable Horizontally on Mobile (Teks Tidak Terpotong) */
 div[class*="SubNavigation"],
 nav[class*="SubNavigation"] {
-  background: rgba(11, 15, 25, 0.65) !important;
+  background: rgba(11, 15, 25, 0.75) !important;
   backdrop-filter: blur(var(--theme-card-blur)) !important;
   -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
   border-bottom: 1px solid var(--theme-card-border) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  white-space: nowrap !important;
+  padding: 6px 12px !important;
+  gap: 8px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-div[class*="SubNavigation"] a {
-  transition: all 0.2s ease !important;
+div[class*="SubNavigation"]::-webkit-scrollbar,
+nav[class*="SubNavigation"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Setiap Tab Navigasi - Teks Penuh, Tidak Terpotong & Tidak Terhimpit */
+div[class*="SubNavigation"] a,
+nav[class*="SubNavigation"] a {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
   color: #94a3b8 !important;
-  position: relative !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
-div[class*="SubNavigation"] a:hover {
+
+div[class*="SubNavigation"] a:hover,
+nav[class*="SubNavigation"] a:hover {
   color: #ffffff !important;
+  background: rgba(var(--theme-primary-rgb), 0.12) !important;
+  border-color: rgba(var(--theme-primary-rgb), 0.3) !important;
 }
+
 div[class*="SubNavigation"] a.active,
-div[class*="SubNavigation"] a[aria-current="page"] {
+div[class*="SubNavigation"] a[aria-current="page"],
+nav[class*="SubNavigation"] a.active,
+nav[class*="SubNavigation"] a[aria-current="page"] {
   color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(var(--theme-primary-rgb), 0.35) 0%, rgba(var(--theme-secondary-rgb), 0.25) 100%) !important;
+  border: 1px solid var(--theme-primary) !important;
+  box-shadow: 0 0 12px var(--theme-glow) !important;
   font-weight: 700 !important;
 }
-div[class*="SubNavigation"] a.active::after,
-div[class*="SubNavigation"] a[aria-current="page"]::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 10%;
-  width: 80%;
-  height: 2.5px;
-  background: var(--theme-primary);
-  border-radius: 4px;
-  box-shadow: 0 0 10px var(--theme-glow);
+
+/* Pastikan pautan di dalam Breadcrumb & Pengurus Fail Bersih Tanpa Border Pelayan */
+div[class*="FileManagerContainer"] a,
+div[class*="FileManager"] a,
+div[class*="Breadcrumb"] a,
+div[class*="Breadcrumb"] span {
+  border: none !important;
+  box-shadow: none !important;
+  border-left: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
 }
 
 /* Terminal Console */
