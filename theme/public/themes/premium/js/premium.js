@@ -1,7 +1,7 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.2 PRO MASTER
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.3 PRO MASTER
  * Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
- * Full Wallpaper Transparency | Two-Column Compact Login | Admin-Only Controls
+ * Full Wallpaper Transparency | Ultra-Compact Login Card | Admin-Only Controls
  */
 
 (function () {
@@ -20,7 +20,7 @@
     bg_overlay_opacity: '0.50',
     login_logo: '',
     navbar_logo: '',
-    logo_height: '145',
+    logo_height: '85',
     logo_glow: true,
     card_blur: '12',
     card_opacity: '0.38',
@@ -180,14 +180,15 @@
     root.style.setProperty('--theme-card-opacity', activeSettings.card_opacity || '0.38');
     root.style.setProperty('--theme-card-bg', `rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38})`);
 
-    // Full-Screen Wallpaper
+    // Full-Screen Wallpaper (Login background falls back safely to space wallpaper, NEVER replaces small logo)
     const bgContainer = document.getElementById('premium-bg-container');
     const bgOverlay = document.getElementById('premium-bg-overlay');
     const isLoginPage = window.location.pathname.includes('/auth/');
 
+    const defaultSpaceBg = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
     const bgImg = isLoginPage 
-      ? (activeSettings.login_bg || activeSettings.dashboard_bg || '')
-      : (activeSettings.dashboard_bg || '');
+      ? (activeSettings.login_bg || defaultSpaceBg)
+      : (activeSettings.dashboard_bg || defaultSettings.dashboard_bg);
 
     if (bgImg) {
       if (bgContainer && !bgContainer.style.backgroundImage.includes(bgImg)) {
@@ -242,15 +243,15 @@
     runPageEnhancements();
   }
 
-  // 3. Guaranteed Login Logo Replacement (Directly replaces the mascot in left column)
+  // 3. Guaranteed Login Logo Replacement (HANYA menukar logo kecil di dalam kad login)
   function updateLoginLogo() {
     if (!window.location.pathname.includes('/auth/')) return;
 
     const loginImg = document.querySelector('div[class*="LoginFormContainer"] img, form img');
     const logoUrl = (activeSettings.login_logo || '').trim();
-    const logoHeight = activeSettings.logo_height || '145';
+    const logoHeight = activeSettings.logo_height || '85';
     const logoGlow = activeSettings.logo_glow !== false;
-    const glowFilter = logoGlow ? `drop-shadow(0 0 16px var(--theme-glow))` : 'none';
+    const glowFilter = logoGlow ? `drop-shadow(0 0 12px var(--theme-glow))` : 'none';
 
     if (loginImg) {
       if (logoUrl) {
@@ -258,7 +259,7 @@
           loginImg.src = logoUrl;
         }
         loginImg.style.maxHeight = `${logoHeight}px`;
-        loginImg.style.maxWidth = '210px';
+        loginImg.style.maxWidth = '100px';
         loginImg.style.width = 'auto';
         loginImg.style.height = 'auto';
         loginImg.style.objectFit = 'contain';
@@ -267,7 +268,7 @@
         loginImg.style.filter = glowFilter;
       } else {
         loginImg.style.maxHeight = `${logoHeight}px`;
-        loginImg.style.maxWidth = '210px';
+        loginImg.style.maxWidth = '100px';
         loginImg.style.objectFit = 'contain';
         loginImg.style.filter = glowFilter;
       }
@@ -434,7 +435,7 @@
         <div class="modal-header">
           <div class="modal-title">
             <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema & Logo Panel (v3.2 Pro)</span>
+            <span>Pengaturan Tema & Logo Panel (v3.3 Pro)</span>
           </div>
           <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -442,7 +443,7 @@
         <div class="modal-tabs">
           <button class="modal-tab-btn active" data-tab="tab-templates"><i class="fa-solid fa-wand-magic-sparkles"></i> 12 Template Tema</button>
           <button class="modal-tab-btn" data-tab="tab-colors"><i class="fa-solid fa-droplet"></i> Warna & Mix</button>
-          <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo & Brand</button>
+          <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo Kecil Login</button>
           <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Wallpaper</button>
           <button class="modal-tab-btn" data-tab="tab-announcement"><i class="fa-solid fa-bullhorn"></i> Pengumuman</button>
           <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Kaca & Pelayan</button>
@@ -626,16 +627,16 @@
             </div>
           </div>
 
-          <!-- TAB 3: LOGO & BRAND (MENUKAR LOGO KAD LOGIN) -->
+          <!-- TAB 3: LOGO KECIL LOGIN (HANYA MENUKAR LOGO KECIL, BUKAN WALLPAPER) -->
           <div id="tab-logo" class="tab-pane">
             <div class="form-group">
-              <label class="form-label">URL Logo Halaman Login (Menggantikan Maskot Kiri)</label>
-              <span class="form-subtext">Logo ini akan dipaparkan di lajur kiri kad login (bersaiz kompak & berpusat):</span>
-              <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/example.png" value="${activeSettings.login_logo || ''}">
+              <label class="form-label">URL Logo Kecil Login (Hanya Menukar Logo di Kad, BUKAN Wallpaper)</label>
+              <span class="form-subtext">Pautan ini <b>HANYA</b> menukar ikon/logo kecil pada kad login. Gambar latar belakang penuh dikawal berasingan di Tab Wallpaper:</span>
+              <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/logo-kecil.png" value="${activeSettings.login_logo || ''}">
             </div>
 
             <div class="form-group">
-              <label class="form-label">Pratinjau Logo Login (Live Preview)</label>
+              <label class="form-label">Pratinjau Logo Kecil (Live Preview)</label>
               <div id="logo-preview-container" class="logo-preview-box"></div>
             </div>
 
@@ -645,9 +646,9 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Ketinggian Logo Login: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 145}px</span></label>
+              <label class="form-label">Ketinggian Logo Kecil: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 85}px</span></label>
               <div class="slider-container">
-                <input type="range" id="cfg-logo-height" class="input-range" min="60" max="190" value="${activeSettings.logo_height || 145}">
+                <input type="range" id="cfg-logo-height" class="input-range" min="45" max="130" value="${activeSettings.logo_height || 85}">
               </div>
             </div>
 
@@ -665,7 +666,7 @@
           <!-- TAB 4: WALLPAPER BACKGROUND PENUH -->
           <div id="tab-bg" class="tab-pane">
             <div class="form-group">
-              <label class="form-label">URL Wallpaper Dashboard & Server (Full-Screen)</label>
+              <label class="form-label">URL Wallpaper Dashboard & Server (Penuh Skrin)</label>
               <span class="form-subtext">Latar belakang penuh yang akan menyatu secara lutsinar di belakang kad pelayan:</span>
               <input type="text" id="cfg-dashboard-bg" class="input-text" placeholder="https://..." value="${activeSettings.dashboard_bg || ''}">
             </div>
@@ -683,8 +684,8 @@
             </div>
 
             <div class="form-group" style="margin-top: 12px;">
-              <label class="form-label">URL Wallpaper Halaman Login</label>
-              <span class="form-subtext">Gambar latar belakang khusus untuk skrin login:</span>
+              <label class="form-label">URL Wallpaper Halaman Login (Penuh Skrin)</label>
+              <span class="form-subtext">Gambar latar belakang penuh untuk skrin login (bukan logo kecil):</span>
               <input type="text" id="cfg-login-bg" class="input-text" placeholder="https://..." value="${activeSettings.login_bg || ''}">
             </div>
 
@@ -898,7 +899,7 @@
       if (url && url.trim() !== '') {
         previewContainer.innerHTML = `<img src="${url.trim()}" class="logo-preview-img" alt="Pratinjau Logo" onerror="this.parentNode.innerHTML='<span class=\\'logo-preview-empty\\'><i class=\\'fa-solid fa-triangle-exclamation\\' style=\\'color:#f43f5e;\\'></i> URL Gambar tidak sah</span>';" />`;
       } else {
-        previewContainer.innerHTML = `<span class="logo-preview-empty"><i class="fa-solid fa-circle-info"></i> Tiada URL (Maskot Asal Bercahaya Akan Digunakan)</span>`;
+        previewContainer.innerHTML = `<span class="logo-preview-empty"><i class="fa-solid fa-circle-info"></i> Tiada URL (Maskot Asal Bercahaya Digunakan)</span>`;
       }
     }
 
