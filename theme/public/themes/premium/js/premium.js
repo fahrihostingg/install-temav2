@@ -1,12 +1,11 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.5 (ULTRA-FAST & ZERO-LAG)
- * Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.6 (FULL GLASSMORPHISM & CONSOLE)
+ * Pterodactyl Panel Luxury Transparent Suite - Complete Overhaul
  */
 
 (function () {
   'use strict';
 
-  // Guard flag to completely prevent infinite MutationObserver loops
   let isMutating = false;
   let debounceTimer = null;
 
@@ -17,13 +16,13 @@
     theme_mode: 'dark',
     dashboard_bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
     login_bg: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
-    bg_overlay_opacity: '0.75',
+    bg_overlay_opacity: '0.65',
     login_logo: '',
     navbar_logo: '',
-    logo_height: '65',
+    logo_height: '70',
     logo_glow: true,
-    card_blur: '12',
-    card_opacity: '0.85',
+    card_blur: '14',
+    card_opacity: '0.72',
     announcement_enabled: true,
     announcement_text: '🔥 <b>Selamat Datang!</b> Panel Cloud & Game Server siap digunakan 24/7. Hubungi admin untuk bantuan teknis.',
     announcement_type: 'gradient',
@@ -33,87 +32,87 @@
 
   let activeSettings = Object.assign({}, defaultSettings);
 
-  // Ready-to-Use 1-Click Theme Templates
+  // 10 One-Click Complete Theme Templates
   const themeTemplates = {
     cold: {
       name: 'Cold Glacier',
       primary: '#38bdf8',
       secondary: '#0284c7',
       bg: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&w=2070&auto=format&fit=crop',
-      blur: '14',
-      opacity: '0.80'
+      blur: '16',
+      opacity: '0.68'
     },
     hacker: {
       name: 'Cyber Matrix',
       primary: '#00ff66',
       secondary: '#059669',
       bg: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop',
-      blur: '8',
-      opacity: '0.92'
+      blur: '10',
+      opacity: '0.78'
     },
     soft: {
       name: 'Soft Lavender',
       primary: '#c084fc',
       secondary: '#f472b6',
       bg: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop',
-      blur: '14',
-      opacity: '0.78'
+      blur: '18',
+      opacity: '0.65'
     },
     cyberpunk: {
       name: 'Cyberpunk 2077',
       primary: '#f43f5e',
       secondary: '#06b6d4',
       bg: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=2047&auto=format&fit=crop',
-      blur: '12',
-      opacity: '0.85'
+      blur: '14',
+      opacity: '0.72'
     },
     luxury_gold: {
       name: 'Obsidian Gold',
       primary: '#f59e0b',
       secondary: '#fbbf24',
       bg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop',
-      blur: '12',
-      opacity: '0.90'
+      blur: '14',
+      opacity: '0.75'
     },
     bloodmoon: {
       name: 'Bloodmoon Crimson',
       primary: '#e11d48',
       secondary: '#9f1239',
       bg: 'https://images.unsplash.com/photo-1507499739999-097706ad8914?q=80&w=2070&auto=format&fit=crop',
-      blur: '12',
-      opacity: '0.88'
+      blur: '14',
+      opacity: '0.74'
     },
     deep_ocean: {
       name: 'Deep Ocean',
       primary: '#0ea5e9',
       secondary: '#6366f1',
       bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
-      blur: '12',
-      opacity: '0.82'
+      blur: '14',
+      opacity: '0.70'
     },
     electric: {
       name: 'Electric Violet',
       primary: '#8b5cf6',
       secondary: '#3b82f6',
       bg: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop',
-      blur: '12',
-      opacity: '0.85'
+      blur: '14',
+      opacity: '0.72'
     },
     emerald: {
       name: 'Emerald Mint',
       primary: '#10b981',
       secondary: '#14b8a6',
       bg: 'https://images.unsplash.com/photo-1511497584788-87676104235f?q=80&w=2070&auto=format&fit=crop',
-      blur: '12',
-      opacity: '0.82'
+      blur: '14',
+      opacity: '0.70'
     },
     sunset: {
       name: 'Sunset Twilight',
       primary: '#f97316',
       secondary: '#ec4899',
       bg: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop',
-      blur: '12',
-      opacity: '0.82'
+      blur: '14',
+      opacity: '0.70'
     }
   };
 
@@ -130,7 +129,7 @@
     };
   }
 
-  // 1. Initialize Background Containers
+  // 1. Initialize Full-Screen Fixed Wallpaper
   function initBackgroundDOM() {
     if (!document.getElementById('premium-bg-container')) {
       const bg = document.createElement('div');
@@ -144,7 +143,7 @@
     }
   }
 
-  // 2. Apply Theme CSS Variables
+  // 2. Apply Theme CSS Variables & Wallpaper
   function applyTheme(settings) {
     activeSettings = Object.assign({}, activeSettings, settings);
 
@@ -160,9 +159,10 @@
     root.style.setProperty('--theme-secondary', activeSettings.secondary_color);
     root.style.setProperty('--theme-secondary-rgb', sRgbStr);
     root.style.setProperty('--theme-glow', glowStr);
-    root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 12}px`);
-    root.style.setProperty('--theme-card-bg', `rgba(17, 24, 39, ${activeSettings.card_opacity || 0.85})`);
+    root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 14}px`);
+    root.style.setProperty('--theme-card-bg', `rgba(15, 23, 42, ${activeSettings.card_opacity || 0.72})`);
 
+    // Full-Screen Wallpaper
     const bgContainer = document.getElementById('premium-bg-container');
     const bgOverlay = document.getElementById('premium-bg-overlay');
     const isLoginPage = window.location.pathname.includes('/auth/');
@@ -175,7 +175,7 @@
       if (bgImg && !bgContainer.style.backgroundImage.includes(bgImg)) {
         bgContainer.style.backgroundImage = `url('${bgImg}')`;
       }
-      bgOverlay.style.background = `rgba(11, 15, 25, ${activeSettings.bg_overlay_opacity || 0.75})`;
+      bgOverlay.style.background = `rgba(11, 15, 25, ${activeSettings.bg_overlay_opacity || 0.65})`;
     }
 
     let styleTag = document.getElementById('premium-dynamic-theme-style');
@@ -208,7 +208,7 @@
     runPageEnhancements();
   }
 
-  // 3. Guaranteed Login Logo Fix (Inside Card, 100% URL Matching, No Card Breaking)
+  // 3. Guaranteed Login Logo Fix (Inside Unified Form Card, 100% URL Matching)
   function injectOrUpdateLoginLogo() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     if (!isLoginPage) return;
@@ -226,42 +226,40 @@
 
     if (!titleEl) return;
 
-    const parentNode = titleEl.parentNode;
+    const parentCard = titleEl.parentNode;
     let logoBox = document.getElementById('premium-login-logo-box');
 
     if (!logoBox) {
       logoBox = document.createElement('div');
       logoBox.id = 'premium-login-logo-box';
       logoBox.className = 'premium-login-logo-wrapper';
-      parentNode.insertBefore(logoBox, titleEl);
+      parentCard.insertBefore(logoBox, titleEl);
     } else if (logoBox.nextSibling !== titleEl) {
-      parentNode.insertBefore(logoBox, titleEl);
+      parentCard.insertBefore(logoBox, titleEl);
     }
 
     const logoUrl = (activeSettings.login_logo || '').trim();
-    const logoHeight = activeSettings.logo_height || '65';
+    const logoHeight = activeSettings.logo_height || '70';
     const logoGlow = activeSettings.logo_glow !== false;
-    const glowFilter = logoGlow ? `filter: drop-shadow(0 0 14px var(--theme-glow));` : '';
+    const glowFilter = logoGlow ? `filter: drop-shadow(0 0 16px var(--theme-glow));` : '';
 
     if (logoUrl) {
       const curImg = logoBox.querySelector('#premium-login-logo-img');
-      if (curImg && curImg.src === logoUrl) {
-        return; // Content is already up to date, skip DOM mutation
-      }
+      if (curImg && curImg.src === logoUrl) return;
+
       logoBox.innerHTML = `
         <img id="premium-login-logo-img" 
              class="premium-custom-login-logo" 
              src="${logoUrl}" 
              alt="Logo" 
-             style="max-height: ${logoHeight}px; max-width: 240px; width: auto; height: auto; object-fit: contain; margin: 0 auto; display: block; ${glowFilter}" />
+             style="max-height: ${logoHeight}px; max-width: 250px; width: auto; height: auto; object-fit: contain; margin: 0 auto; display: block; ${glowFilter}" />
       `;
     } else {
-      if (logoBox.querySelector('.premium-default-logo-badge')) {
-        return; // Default logo already present, skip DOM mutation
-      }
+      if (logoBox.querySelector('.premium-default-logo-badge')) return;
+
       logoBox.innerHTML = `
-        <div class="premium-default-logo-badge" style="${glowFilter}" title="Tetapkan pautan URL logo di Tetapan Tema">
-          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="50" height="50">
+        <div class="premium-default-logo-badge" style="${glowFilter}" title="Tetapkan logo di Tetapan Tema">
+          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="56" height="56">
             <defs>
               <linearGradient id="pEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="var(--theme-primary, #6366f1)"/>
@@ -371,7 +369,7 @@
     }, 3500);
   }
 
-  // 7. Inject Admin Sidebar Item (HANYA 1 BUTANG DI BAWAH APPLICATION API)
+  // 7. Inject Admin Sidebar Item: ONLY 1 BUTTON DIRECTLY UNDER "Application API"
   function injectAdminSidebarItem() {
     if (!window.location.pathname.startsWith('/admin')) return;
 
@@ -419,7 +417,7 @@
     }
   }
 
-  // 8. Inject Theme Buttons for Client & Login (Compact Fixed Circle)
+  // 8. Inject Theme Buttons for Client & Login (Compact 42px Circle)
   function injectClientButtons() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     const isAdminPage = window.location.pathname.startsWith('/admin');
@@ -487,15 +485,15 @@
           <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo & Brand</button>
           <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Wallpaper</button>
           <button class="modal-tab-btn" data-tab="tab-announcement"><i class="fa-solid fa-bullhorn"></i> Pengumuman</button>
-          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Efek</button>
+          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Efek Kaca</button>
         </div>
 
         <div class="modal-body">
-          <!-- TAB 1: 10 TEMPLATES (COLD, HACKER, SOFT, CYBERPUNK, DLL) -->
+          <!-- TAB 1: 10 TEMPLATES (COLD, HACKER, SOFT, CYBERPUNK, LUXURY, DLL) -->
           <div id="tab-templates" class="tab-pane active">
             <div class="form-group">
-              <label class="form-label">Pilih Template Tema Siap Pakai</label>
-              <span class="form-subtext">Klik untuk memuat palet warna, wallpaper dan gaya panel serta-merta:</span>
+              <label class="form-label">Pilih Template Tema Siap Pakai (1-Klik)</label>
+              <span class="form-subtext">Klik mana-mana template untuk memuat tema dan latar belakang serta-merta:</span>
               <div class="templates-preset-grid">
                 <div class="template-preset-card" data-template="cold">
                   <div class="template-card-icon">❄️</div>
@@ -607,7 +605,7 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Pilihan Warna Tunggal (16 Palet)</label>
+              <label class="form-label">Pilihan Warna Tunggal</label>
               <div class="color-presets-grid">
                 <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1"></div>
                 <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6"></div>
@@ -646,11 +644,11 @@
             </div>
           </div>
 
-          <!-- TAB 3: LOGO & BRAND (100% URL DENGAN PRATINJAU LANGSUNG) -->
+          <!-- TAB 3: LOGO & BRAND (100% MENGIKUT LINK URL DENGAN PRATINJAU LANGSUNG) -->
           <div id="tab-logo" class="tab-pane">
             <div class="form-group">
               <label class="form-label">URL Logo Halaman Login (PNG/JPG/SVG/WebP/GIF)</label>
-              <span class="form-subtext">Tampal pautan gambar logo anda (Imgur, Cloudinary, atau direct link):</span>
+              <span class="form-subtext">Tampal pautan gambar logo anda (Imgur, direct link, dll):</span>
               <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/example.png" value="${activeSettings.login_logo || ''}">
             </div>
 
@@ -665,9 +663,9 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Ketinggian / Saiz Logo: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 65}px</span></label>
+              <label class="form-label">Ketinggian / Saiz Logo: <span id="val-logo-height" class="range-val-badge">${activeSettings.logo_height || 70}px</span></label>
               <div class="slider-container">
-                <input type="range" id="cfg-logo-height" class="input-range" min="30" max="120" value="${activeSettings.logo_height || 65}">
+                <input type="range" id="cfg-logo-height" class="input-range" min="30" max="130" value="${activeSettings.logo_height || 70}">
               </div>
             </div>
 
@@ -682,10 +680,11 @@
             </div>
           </div>
 
-          <!-- TAB 4: WALLPAPER BACKGROUND -->
+          <!-- TAB 4: WALLPAPER BACKGROUND PENUH -->
           <div id="tab-bg" class="tab-pane">
             <div class="form-group">
-              <label class="form-label">URL Wallpaper Dashboard</label>
+              <label class="form-label">URL Wallpaper Dashboard (Full-Screen)</label>
+              <span class="form-subtext">Gambar akan meliputi seluruh skrin secara penuh di belakang kad lutsinar:</span>
               <input type="text" id="cfg-dashboard-bg" class="input-text" placeholder="https://..." value="${activeSettings.dashboard_bg || ''}">
             </div>
 
@@ -695,7 +694,8 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Kegelapan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
+              <label class="form-label">Kegelapan Lapisan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
+              <span class="form-subtext">Kurangkan peratusan jika mahukan gambar wallpaper lebih jelas & terang:</span>
               <div class="slider-container">
                 <input type="range" id="cfg-bg-overlay" class="input-range" min="10" max="95" value="${Math.round(activeSettings.bg_overlay_opacity * 100)}">
               </div>
@@ -740,19 +740,20 @@
             </div>
           </div>
 
-          <!-- TAB 6: EFEK & KACA -->
+          <!-- TAB 6: EFEK KACA & TRANSPARAN -->
           <div id="tab-effects" class="tab-pane">
             <div class="form-group">
-              <label class="form-label">Tingkat Efek Kaca (Glass Blur): <span id="val-blur" class="range-val-badge">${activeSettings.card_blur}px</span></label>
+              <label class="form-label">Ketelusan Kad (Card Opacity): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
+              <span class="form-subtext">Rendahkan untuk membuat kad lebih lutsinar (transparent) supaya wallpaper nampak jelas:</span>
               <div class="slider-container">
-                <input type="range" id="cfg-card-blur" class="input-range" min="0" max="25" value="${activeSettings.card_blur}">
+                <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="95" value="${Math.round(activeSettings.card_opacity * 100)}">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label">Kepekatan Kad (Card Opacity): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
+              <label class="form-label">Tingkat Efek Kaca (Glass Blur): <span id="val-blur" class="range-val-badge">${activeSettings.card_blur}px</span></label>
               <div class="slider-container">
-                <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="100" value="${Math.round(activeSettings.card_opacity * 100)}">
+                <input type="range" id="cfg-card-blur" class="input-range" min="0" max="25" value="${activeSettings.card_blur}">
               </div>
             </div>
 
@@ -1005,7 +1006,7 @@
     }
   }
 
-  // 10. Run Page Enhancements (Controlled & Idempotent)
+  // 10. Run Page Enhancements (Controlled & Zero-Lag)
   function runPageEnhancements() {
     isMutating = true;
     try {
@@ -1038,7 +1039,6 @@
       subtree: true
     });
 
-    // 4 initial checks for React hydration
     let count = 0;
     const interval = setInterval(() => {
       runPageEnhancements();

@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Animated v2.4
-> **Tema Pterodactyl Panel v1.15+ dengan Koleksi Template 1-Klik (Cold, Hacker, Soft, Cyberpunk, Luxury, dll), Mix Colors, Pratinjau Logo Langsung, dan Pembaikan Susun Atur Kad Login.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Full Glassmorphism v2.6
+> **Tema Pterodactyl Panel v1.15+ dengan Latar Belakang Penuh (Full-Screen Wallpaper), Kad Kaca Lutsinar (Glassmorphism), Penambahbaikan Console & Files, serta Form Login Normal & Bergaya.**
 
 ---
 
@@ -13,56 +13,48 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Ciri-Ciri Baharu (Versi 2.4):
+## ✨ Naik Taraf Baharu (Versi 2.6):
 
-1. **🎨 10 Template Siap Pakai (1-Click Presets)**:
-   - ❄️ **Cold Glacier**: Nuansa ais dingin, biru kutub & kesan beku elegan.
-   - 💻 **Cyber Matrix**: Hijau terminal hacker cyberpunk dengan latar kod digital.
-   - 🌸 **Soft Pastel**: Warna lavender & merah jambu lembut yang menenangkan.
-   - 🔮 **Cyberpunk 2077**: Kontras neon merah & sian masa depan.
-   - 👑 **Obsidian Gold**: Emas diraja mewah berpadu latar hitam pekat.
-   - 🩸 **Bloodmoon Crimson**: Merah darah menyala ksatria kegelapan.
-   - 🌊 **Deep Ocean**: Biru laut dalam tenang & misterius.
-   - ⚡ **Electric Violet**: Aura kilat ungu elektrik bertenaga.
-   - 🍃 **Emerald Mint**: Hijau zamrud segar bernuansa alam.
-   - 🌅 **Sunset Twilight**: Jingga senja berpadu lembayung merah.
+1. **Latar Belakang Penuh (Full-Screen Wallpaper) & Kad Kaca Lutsinar**:
+   - Gambar wallpaper kini meliputi **100% skrin penuh** (tiada lagi latar hitam padu yang menutup gambar).
+   - Semua bekas utama, kad pelayan, dan jadual diubah menjadi **efek kaca lutsinar (*glassmorphism*)** dengan bayangan lembut, menjadikan wallpaper nampak cantik di belakangnya.
+   - Ketelusan kad boleh dilaraskan di modal tetapan (*Card Opacity* & *Glass Blur*).
 
-2. **🌈 Mix Color (Gradien Dwi-Warna)**:
-   - Gabungan dua warna untuk aksen butang dan pendaran cahaya (Cyber Pulse, Matrix Cyan, Fire & Gold, Sakura Neon, Molten Lava, Arctic Mint, Lime Gold, Royal Azure).
-   - Dilengkapi dua Color Picker bebas untuk warna utama & warna sekunder.
+2. **Halaman Login Biasa yang Keren (Standard & Centered)**:
+   - Membaiki susun atur kad login yang sebelum ini kelihatan seperti tiang sempit atau terbelah.
+   - Kad login kini menjadi satu kotak kaca premium berpusat (lebar 440px) lengkap dengan:
+     - Logo jenama di bahagian atas mengikut pautan URL dalam tetapan admin.
+     - Tajuk *"Login to Continue"*.
+     - Medan input Username/Email & Password yang kemas.
+     - Butang Login bercahaya neon.
+   - Gambar maskot burung yang mengganggu telah disembunyikan sepenuhnya.
 
-3. **🏷️ Pembaikan Logo Login (100% Ikut Pautan URL yang Diberikan)**:
-   - Menambah **Kotak Pratinjau Logo Langsung (Live Preview)** di dalam modal tema: gambar logo terus kelihatan sebaik sahaja URL ditaip atau ditampal.
-   - Logo diletakkan kemas tepat di dalam kad form login di atas *"Login to Continue"*.
-   - Gambar maskot besar yang sebelum ini menolak form ke tepi telah dibuang/diselaraskan supaya kad login kekal berpusat dan tidak terbelah dua.
+3. **Penambahbaikan Halaman Console, Files, Databases, dll. (`/server/...`)**:
+   - **Console:** Terminal bertemakan kaca gelap obsidian moden, kad statistik pelayan (Uptime, CPU, RAM, Disk) berbentuk kad kaca lutsinar bercahaya.
+   - **Butang Kuasa Pelayan:** Butang *Start* (Emerald Gradient), *Restart* (Amber Gold), dan *Stop* (Crimson Red) dengan efek hover neon 3D.
+   - **Files Manager:** Baris fail berkilat dengan sorotan interaktif apabila kursor diarahkan, editor kod kaca lutsinar.
+   - **Databases, Schedules, Users, Backups, Network:** Dialog modal dan jadual kini selaras dengan tema kaca mewah.
 
-4. **📌 Hanya 1 Butang di Admin Panel**:
-   - Menu **`Tema`** terletak kemas tepat di bawah **`Application API`** dalam sidebar kiri Admin mengikut saiz asal menu. Tiada bar besar atau butang pelik di skrin.
-
----
-
-## 🚀 Panduan Pemasangan di VPS
-
-### Kaedah 1: Menggunakan Perintah 1-Baris (Curl terus dari VPS):
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/fahrihostingg/install-temav2/main/install.sh)
-```
-*Masukkan password:* `fakrul!2808` atau `PAHRI2026`
+4. **10 Template Siap Pakai & Mix Color**:
+   - Pilihan pantas: *Cold Glacier, Cyber Matrix (Hacker), Soft Lavender, Cyberpunk 2077, Obsidian Gold, Bloodmoon, Deep Ocean, Electric Violet, Emerald Mint, Sunset Twilight*.
+   - Pilihan gabungan gradien dwi-warna (*Mix Color*).
 
 ---
 
-### Kaedah 2: Pemasangan Manual (Zip):
+## 🚀 Panduan Pemasangan Semula di VPS
+
 ```bash
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v2.4-fixed.zip
+unzip install-temav2-v2.6-glass.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh
 ```
+*Masukkan password:* **`fakrul!2808`** atau **`PAHRI2026`**.
 
-Selepas selesai, buka panel anda di pelayar web dan tekan **Ctrl + F5** (Hard Refresh).
+Selepas selesai, buka panel anda di pelayar web dan tekan **`Ctrl + F5`** (Hard Refresh).
 
 ---
 **Hak Cipta © FakrulDev & Fahri Hosting.**

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.5 (ULTRA-FAST & ZERO-LAG)
-   Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
+   FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.6 (FULL GLASSMORPHISM & CONSOLE)
+   Pterodactyl Panel Luxury Transparent Suite - Complete Overhaul
    ========================================================================== */
 
 :root {
@@ -11,9 +11,9 @@
   --theme-secondary: #06b6d4;
   --theme-secondary-rgb: 6, 182, 212;
   --theme-bg-color: #0b0f19;
-  --theme-card-bg: rgba(17, 24, 39, 0.82);
-  --theme-card-border: rgba(255, 255, 255, 0.1);
-  --theme-card-blur: 12px;
+  --theme-card-bg: rgba(15, 23, 42, 0.72);
+  --theme-card-border: rgba(255, 255, 255, 0.09);
+  --theme-card-blur: 14px;
   --theme-text-primary: #f8fafc;
   --theme-text-muted: #94a3b8;
   --theme-radius: 14px;
@@ -22,11 +22,66 @@
   --theme-mono: 'JetBrains Mono', monospace;
 }
 
-body, html {
+/* ==========================================================================
+   GLOBAL FULL-SCREEN BACKGROUND & CONTAINER TRANSPARENCY
+   ========================================================================== */
+
+/* Force all major containers to be transparent so wallpaper is 100% visible */
+html, body, #app, main,
+div[class*="App__Container"],
+div[class*="DashboardContainer"],
+div[class*="ServerViewContainer"],
+div[class*="ServerConsoleContainer"],
+div[class*="SubNavigation"],
+div[class*="NavigationBar__"] {
+  background-color: transparent !important;
+  background: transparent !important;
   font-family: var(--theme-font) !important;
-  background-color: var(--theme-bg-color) !important;
   color: var(--theme-text-primary) !important;
-  overflow-x: hidden;
+}
+
+/* Override solid Tailwind backgrounds that block the wallpaper */
+.bg-neutral-900,
+.bg-neutral-800,
+.bg-neutral-700,
+.bg-gray-900,
+.bg-gray-800,
+.bg-black {
+  background-color: transparent !important;
+}
+
+/* Fixed Full-Screen Wallpaper Container */
+#premium-bg-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -999 !important;
+  pointer-events: none !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  transform: translateZ(0);
+}
+
+/* Wallpaper Overlay: Translucent with soft ambient lighting */
+#premium-bg-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -998 !important;
+  pointer-events: none !important;
+  background: rgba(11, 15, 25, 0.72);
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(var(--theme-primary-rgb), 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(var(--theme-secondary-rgb), 0.14) 0%, transparent 45%) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: background 0.3s ease;
 }
 
 /* Custom Lightweight Scrollbar */
@@ -35,7 +90,7 @@ body, html {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(11, 15, 25, 0.8);
+  background: rgba(11, 15, 25, 0.6);
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(var(--theme-primary-rgb), 0.5);
@@ -46,38 +101,385 @@ body, html {
 }
 
 /* ==========================================================================
-   DYNAMIC BACKGROUND - HARDWARE ACCELERATED (ZERO GPU LAG)
+   NAVIGATION BARS (TOP NAVBAR & SUB-NAVIGATION)
    ========================================================================== */
 
-#premium-bg-container {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  z-index: -999 !important;
-  pointer-events: none !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  background-attachment: fixed !important;
+#app nav,
+header,
+div[class*="NavigationBar__Navigation"] {
+  background: rgba(11, 15, 25, 0.78) !important;
+  backdrop-filter: blur(var(--theme-card-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
+  border-bottom: 1px solid var(--theme-card-border) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
-#premium-bg-overlay {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  background: rgba(11, 15, 25, 0.75);
-  /* Ambient gradients drawn natively without heavy blur filters */
-  background-image: 
-    radial-gradient(circle at 10% 10%, rgba(var(--theme-primary-rgb), 0.15) 0%, transparent 45%),
-    radial-gradient(circle at 90% 90%, rgba(var(--theme-secondary-rgb), 0.12) 0%, transparent 45%) !important;
+/* SubNavigation Tabs on Server Page (Console, Files, Databases, etc.) */
+div[class*="SubNavigation"] {
+  background: rgba(11, 15, 25, 0.65) !important;
+  backdrop-filter: blur(var(--theme-card-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
+  border-bottom: 1px solid var(--theme-card-border) !important;
+}
+
+div[class*="SubNavigation"] a {
+  transition: all 0.2s ease !important;
+  color: #94a3b8 !important;
+  position: relative !important;
+}
+
+div[class*="SubNavigation"] a:hover {
+  color: #ffffff !important;
+}
+
+div[class*="SubNavigation"] a.active,
+div[class*="SubNavigation"] a[aria-current="page"] {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+div[class*="SubNavigation"] a.active::after,
+div[class*="SubNavigation"] a[aria-current="page"]::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 10%;
+  width: 80%;
+  height: 2.5px;
+  background: var(--theme-primary);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--theme-glow);
 }
 
 /* ==========================================================================
-   ADMIN SIDEBAR ITEM: HANYA 1 BUTANG DI BAWAH APPLICATION API
+   DASHBOARD SERVER CARDS (TRANSPARENT GLASS & 3D HOVER)
+   ========================================================================== */
+
+div[class*="ServerRow__ServerRowContainer"],
+div[class*="ServerRow__Container"],
+div[class*="Card__"],
+.server-card {
+  background: var(--theme-card-bg) !important;
+  backdrop-filter: blur(var(--theme-card-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
+  border: 1px solid var(--theme-card-border) !important;
+  border-radius: var(--theme-radius) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+div[class*="ServerRow__ServerRowContainer"]:hover,
+div[class*="ServerRow__Container"]:hover,
+div[class*="Card__"]:hover {
+  transform: translateY(-3px) scale(1.006) !important;
+  border-color: rgba(var(--theme-primary-rgb), 0.5) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(var(--theme-primary-rgb), 0.25) !important;
+  background: rgba(15, 23, 42, 0.82) !important;
+}
+
+/* Status Pulse Indicators */
+div[class*="ServerRow__StatusIndicator"][class*="running"],
+span[class*="status-running"],
+.status-running {
+  background: #10b981 !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6) !important;
+}
+
+/* ==========================================================================
+   SERVER CONSOLE & STATS PAGE (TRANSPARENT GLASS & ACTION BUTTONS)
+   ========================================================================== */
+
+/* Terminal Container */
+div[class*="Terminal__Container"],
+div[class*="Console__TerminalContainer"],
+.terminal-container {
+  background: rgba(8, 12, 20, 0.78) !important;
+  backdrop-filter: blur(var(--theme-card-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
+  border: 1px solid var(--theme-card-border) !important;
+  border-radius: var(--theme-radius) !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.55) !important;
+  font-family: var(--theme-mono) !important;
+  overflow: hidden !important;
+}
+
+/* Stat Cards on Console (Address, Uptime, CPU, Memory, Disk) */
+div[class*="StatBlock__StatBlockBox"],
+div[class*="StatBlock__Container"],
+div[class*="ServerConsoleContainer"] > div > div > div[class*="Card"] {
+  background: var(--theme-card-bg) !important;
+  backdrop-filter: blur(var(--theme-card-blur)) !important;
+  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
+  border: 1px solid var(--theme-card-border) !important;
+  border-radius: var(--theme-radius) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+div[class*="StatBlock__StatBlockBox"]:hover,
+div[class*="StatBlock__Container"]:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(var(--theme-primary-rgb), 0.4) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55), 0 0 15px rgba(var(--theme-primary-rgb), 0.2) !important;
+}
+
+/* Server Power Action Buttons (Start, Restart, Stop) */
+button[class*="PowerButtons__Button"][class*="start"],
+button[class*="PowerButton"][class*="start"],
+button:has(i.fa-play),
+button:has(svg[data-icon="play"]) {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+button[class*="PowerButtons__Button"][class*="restart"],
+button[class*="PowerButton"][class*="restart"],
+button:has(i.fa-redo),
+button:has(svg[data-icon="redo"]) {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+button[class*="PowerButtons__Button"][class*="stop"],
+button[class*="PowerButton"][class*="stop"],
+button:has(i.fa-stop),
+button:has(svg[data-icon="stop"]) {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   FILES, DATABASES, SCHEDULES, USERS, BACKUPS, NETWORK, STARTUP, SETTINGS
+   ========================================================================== */
+
+/* File Manager Table & Rows */
+div[class*="FileManagerContainer"],
+div[class*="FileRow__Row"],
+div[class*="FileObjectRow"],
+div[class*="DatabaseRow"],
+div[class*="ScheduleRow"],
+div[class*="BackupRow"],
+div[class*="ApiKeyRow"] {
+  background: rgba(15, 23, 42, 0.65) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--theme-card-border) !important;
+  border-radius: var(--theme-radius-sm) !important;
+  transition: all 0.2s ease !important;
+}
+
+div[class*="FileRow__Row"]:hover,
+div[class*="FileObjectRow"]:hover,
+div[class*="DatabaseRow"]:hover,
+div[class*="ScheduleRow"]:hover,
+div[class*="BackupRow"]:hover {
+  background: rgba(var(--theme-primary-rgb), 0.14) !important;
+  border-color: rgba(var(--theme-primary-rgb), 0.35) !important;
+  transform: translateX(3px) !important;
+}
+
+/* Modal Dialogs (Create DB, New File, Backups, etc.) */
+div[class*="Modal__Container"],
+div[class*="Dialog__Container"],
+div[class*="modal-dialog"] > div {
+  background: rgba(15, 23, 42, 0.94) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--theme-card-border) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Code Editor (Monaco / Ace / CodeMirror) */
+.monaco-editor, .monaco-editor .overflow-guard {
+  background: rgba(10, 15, 26, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  border-radius: var(--theme-radius-sm) !important;
+}
+
+/* ==========================================================================
+   LOGIN PAGE (UNIFIED SINGLE CARD, NO MASCOT GLITCH, 100% CENTERED)
+   ========================================================================== */
+
+/* Full Viewport Flex Container */
+div[class*="LoginFormContainer"],
+.LoginFormContainer {
+  min-height: 100vh !important;
+  width: 100vw !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Hide intrusive mascots or SVGs that distort the layout */
+div[class*="LoginFormContainer"] img[src*="pterodactyl"],
+div[class*="LoginFormContainer"] img[src*="bird"],
+div[class*="LoginFormContainer"] img[src*="mascot"],
+div[class*="LoginFormContainer"] svg:not(.premium-svg-animated-emblem) {
+  display: none !important;
+}
+
+/* Single Unified Glass Card for Login Form */
+div[class*="LoginFormContainer"] > div > div,
+div[class*="LoginFormContainer"] > div,
+div[class*="LoginContainer"] > div {
+  background: rgba(15, 23, 42, 0.82) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(var(--theme-primary-rgb), 0.25) !important;
+  padding: 40px 36px !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  min-width: 320px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  animation: modalEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Glowing top accent stripe on Login Box */
+div[class*="LoginFormContainer"] > div > div::before,
+div[class*="LoginFormContainer"] > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent);
+  border-radius: 18px 18px 0 0;
+}
+
+/* Reset form inside the card */
+div[class*="LoginFormContainer"] form {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/* Heading */
+div[class*="LoginFormContainer"] h2,
+div[class*="LoginFormContainer"] h1 {
+  text-align: center !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin: 8px 0 20px 0 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Inputs */
+div[class*="LoginFormContainer"] input {
+  background: rgba(10, 15, 26, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+  padding: 12px 14px !important;
+  font-size: 14px !important;
+  transition: all 0.25s ease !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+div[class*="LoginFormContainer"] input:focus {
+  border-color: var(--theme-primary) !important;
+  box-shadow: 0 0 0 3px rgba(var(--theme-primary-rgb), 0.3) !important;
+  background: rgba(10, 15, 26, 0.95) !important;
+}
+
+/* Login Submit Button */
+div[class*="LoginFormContainer"] button[type="submit"] {
+  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 14.5px !important;
+  padding: 13px !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 18px rgba(var(--theme-primary-rgb), 0.4) !important;
+  transition: all 0.25s ease !important;
+  margin-top: 14px !important;
+}
+
+div[class*="LoginFormContainer"] button[type="submit"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(var(--theme-primary-rgb), 0.6) !important;
+}
+
+/* Logo Box Inside Login Card */
+.premium-login-logo-wrapper {
+  text-align: center !important;
+  margin: 0 auto 14px auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.premium-custom-login-logo {
+  width: auto !important;
+  height: auto !important;
+  max-width: 250px !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+  filter: drop-shadow(0 0 16px var(--theme-glow));
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+.premium-custom-login-logo:hover {
+  transform: scale(1.05);
+}
+
+.premium-default-logo-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.premium-logo-text-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--theme-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   ADMIN SIDEBAR ITEM (1 BUTANG DI BAWAH APPLICATION API)
    ========================================================================== */
 
 #admin-theme-sidebar-item {
@@ -112,7 +514,7 @@ body, html {
   border-left-color: var(--theme-primary, #6366f1) !important;
 }
 
-/* Sembunyikan mana-mana floating bar & button pelik pada Admin Panel */
+/* Sembunyikan floating bar dan butang pelik di bahagian admin */
 body.hold-transition.skin-blue #premium-theme-fab,
 body.skin-blue #premium-theme-fab,
 .hold-transition #premium-theme-fab,
@@ -124,121 +526,6 @@ body.skin-blue .premium-theme-pill {
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
-}
-
-/* ==========================================================================
-   LOGIN PAGE (UNIFIED SINGLE CARD, NO FLOATING TITLE, ZERO GLITCH)
-   ========================================================================== */
-
-/* Bekas Utama Halaman Login */
-div[class*="LoginFormContainer"],
-.LoginFormContainer {
-  min-height: 100vh !important;
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 20px !important;
-  box-sizing: border-box !important;
-  background: transparent !important;
-  position: relative !important;
-  z-index: 10 !important;
-}
-
-/* Sembunyikan sebarang maskot lama yang menolak kad */
-img[src*="mascot"], 
-img[src*="pterodactyl.png"], 
-img[src*="bird"] {
-  display: none !important;
-}
-
-/* Kad Login Tunggal yang Kemas (Mengandungi Logo + Tajuk + Form) */
-div[class*="LoginFormContainer"] > div > div,
-div[class*="LoginFormContainer"] > div,
-div[class*="LoginContainer"] > div {
-  background: var(--theme-card-bg) !important;
-  backdrop-filter: blur(var(--theme-card-blur)) !important;
-  -webkit-backdrop-filter: blur(var(--theme-card-blur)) !important;
-  border: 1px solid var(--theme-card-border) !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(var(--theme-primary-rgb), 0.2) !important;
-  border-radius: var(--theme-radius) !important;
-  padding: 34px 30px !important;
-  max-width: 430px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  position: relative !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-}
-
-/* Pastikan form di dalamnya telus tanpa bingkai berganda */
-div[class*="LoginFormContainer"] form,
-form[class*="LoginForm"] {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  width: 100% !important;
-}
-
-/* Tajuk Login to Continue */
-div[class*="LoginFormContainer"] h2,
-div[class*="LoginFormContainer"] h1 {
-  text-align: center !important;
-  margin-top: 6px !important;
-  margin-bottom: 20px !important;
-  font-size: 22px !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-}
-
-/* Logo Box di dalam Kad Login */
-.premium-login-logo-wrapper {
-  text-align: center !important;
-  margin: 0 auto 12px auto !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 100% !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-
-.premium-custom-login-logo {
-  width: auto !important;
-  height: auto !important;
-  max-width: 240px !important;
-  object-fit: contain !important;
-  display: block !important;
-  margin: 0 auto !important;
-  filter: drop-shadow(0 0 14px var(--theme-glow));
-  transition: transform 0.2s ease;
-  cursor: pointer;
-}
-.premium-custom-login-logo:hover {
-  transform: scale(1.04);
-}
-
-.premium-default-logo-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-}
-.premium-logo-text-title {
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, #ffffff 0%, var(--theme-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-transform: uppercase;
 }
 
 /* ==========================================================================
@@ -272,7 +559,6 @@ div[class*="LoginFormContainer"] h1 {
   z-index: 2147483647 !important;
   box-sizing: border-box !important;
 }
-
 #premium-theme-fab:hover {
   transform: scale(1.08) !important;
 }
@@ -323,7 +609,6 @@ div[class*="LoginFormContainer"] h1 {
   font-weight: 500;
   overflow: hidden;
 }
-
 #premium-announcement-bar.announcement-active {
   display: block;
 }
@@ -337,7 +622,6 @@ div[class*="LoginFormContainer"] h1 {
   justify-content: space-between;
   gap: 14px;
 }
-
 .announcement-badge {
   display: inline-flex;
   align-items: center;
@@ -349,13 +633,11 @@ div[class*="LoginFormContainer"] h1 {
   text-transform: uppercase;
   white-space: nowrap;
 }
-
 .announcement-content-wrapper {
   flex: 1;
   overflow: hidden;
   position: relative;
 }
-
 .announcement-marquee {
   display: inline-block;
   white-space: nowrap;
@@ -365,12 +647,10 @@ div[class*="LoginFormContainer"] h1 {
 .announcement-marquee:hover {
   animation-play-state: paused;
 }
-
 @keyframes marqueeScroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
-
 .announcement-close-btn {
   background: rgba(255, 255, 255, 0.12);
   border: none;
@@ -394,7 +674,6 @@ div[class*="LoginFormContainer"] h1 {
   background: var(--theme-primary);
   color: #fff;
 }
-
 .announcement-theme-info {
   background: rgba(14, 165, 233, 0.2);
   color: #e0f2fe;
@@ -403,7 +682,6 @@ div[class*="LoginFormContainer"] h1 {
   background: #0284c7;
   color: #fff;
 }
-
 .announcement-theme-warning {
   background: rgba(245, 158, 11, 0.2);
   color: #fef3c7;
@@ -412,7 +690,6 @@ div[class*="LoginFormContainer"] h1 {
   background: #d97706;
   color: #fff;
 }
-
 .announcement-theme-danger {
   background: rgba(239, 68, 68, 0.2);
   color: #fee2e2;
@@ -441,7 +718,6 @@ div[class*="LoginFormContainer"] h1 {
   padding: 16px;
   box-sizing: border-box;
 }
-
 #premium-settings-modal-overlay.modal-active {
   display: flex !important;
 }
@@ -467,7 +743,6 @@ div[class*="LoginFormContainer"] h1 {
   align-items: center;
   justify-content: space-between;
 }
-
 .modal-title {
   display: flex;
   align-items: center;
@@ -480,7 +755,6 @@ div[class*="LoginFormContainer"] h1 {
   color: var(--theme-primary);
   font-size: 17px;
 }
-
 .modal-close-btn {
   background: rgba(255, 255, 255, 0.08);
   border: none;
@@ -508,7 +782,6 @@ div[class*="LoginFormContainer"] h1 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   overflow-x: auto;
 }
-
 .modal-tab-btn {
   background: transparent;
   border: none;
@@ -541,7 +814,6 @@ div[class*="LoginFormContainer"] h1 {
   flex-direction: column;
   gap: 16px;
 }
-
 .tab-pane {
   display: none;
   flex-direction: column;
@@ -558,7 +830,6 @@ div[class*="LoginFormContainer"] h1 {
   gap: 8px;
   margin-top: 4px;
 }
-
 .template-preset-card {
   background: rgba(11, 15, 25, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -580,7 +851,6 @@ div[class*="LoginFormContainer"] h1 {
   border-color: var(--theme-primary);
   background: rgba(var(--theme-primary-rgb), 0.15);
 }
-
 .template-card-icon {
   font-size: 20px;
 }
@@ -658,7 +928,6 @@ div[class*="LoginFormContainer"] h1 {
   flex-direction: column;
   gap: 5px;
 }
-
 .form-label {
   font-size: 12.5px;
   font-weight: 600;
@@ -667,12 +936,10 @@ div[class*="LoginFormContainer"] h1 {
   align-items: center;
   justify-content: space-between;
 }
-
 .form-subtext {
   font-size: 11.5px;
   color: #64748b;
 }
-
 .input-text {
   width: 100%;
   padding: 8px 11px;
@@ -751,7 +1018,6 @@ div[class*="LoginFormContainer"] h1 {
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
 }
-
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -797,7 +1063,6 @@ input:checked + .toggle-slider:before {
   align-items: center;
   justify-content: space-between;
 }
-
 .btn-luxury {
   padding: 8px 16px;
   border-radius: 6px;
