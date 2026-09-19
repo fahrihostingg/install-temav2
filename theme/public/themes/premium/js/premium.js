@@ -1,10 +1,14 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.4 (MULTI-TEMPLATES & LOGO FIX)
- * Pterodactyl Panel Luxury Glassmorphism & Clean Admin Integration
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v2.5 (ULTRA-FAST & ZERO-LAG)
+ * Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
  */
 
 (function () {
   'use strict';
+
+  // Guard flag to completely prevent infinite MutationObserver loops
+  let isMutating = false;
+  let debounceTimer = null;
 
   // Default theme settings
   const defaultSettings = {
@@ -18,29 +22,25 @@
     navbar_logo: '',
     logo_height: '65',
     logo_glow: true,
-    card_blur: '16',
+    card_blur: '12',
     card_opacity: '0.85',
-    animated_bg: true,
-    card_tilt: true,
-    glow_effects: true,
     announcement_enabled: true,
     announcement_text: '🔥 <b>Selamat Datang!</b> Panel Cloud & Game Server siap digunakan 24/7. Hubungi admin untuk bantuan teknis.',
     announcement_type: 'gradient',
     announcement_marquee: true,
-    custom_css: '',
-    allow_user_customizer: true
+    custom_css: ''
   };
 
   let activeSettings = Object.assign({}, defaultSettings);
 
-  // Ready-to-Use Theme Templates
+  // Ready-to-Use 1-Click Theme Templates
   const themeTemplates = {
     cold: {
       name: 'Cold Glacier',
       primary: '#38bdf8',
       secondary: '#0284c7',
       bg: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&w=2070&auto=format&fit=crop',
-      blur: '20',
+      blur: '14',
       opacity: '0.80'
     },
     hacker: {
@@ -48,7 +48,7 @@
       primary: '#00ff66',
       secondary: '#059669',
       bg: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop',
-      blur: '10',
+      blur: '8',
       opacity: '0.92'
     },
     soft: {
@@ -56,7 +56,7 @@
       primary: '#c084fc',
       secondary: '#f472b6',
       bg: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop',
-      blur: '22',
+      blur: '14',
       opacity: '0.78'
     },
     cyberpunk: {
@@ -64,7 +64,7 @@
       primary: '#f43f5e',
       secondary: '#06b6d4',
       bg: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=2047&auto=format&fit=crop',
-      blur: '16',
+      blur: '12',
       opacity: '0.85'
     },
     luxury_gold: {
@@ -72,7 +72,7 @@
       primary: '#f59e0b',
       secondary: '#fbbf24',
       bg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop',
-      blur: '18',
+      blur: '12',
       opacity: '0.90'
     },
     bloodmoon: {
@@ -80,7 +80,7 @@
       primary: '#e11d48',
       secondary: '#9f1239',
       bg: 'https://images.unsplash.com/photo-1507499739999-097706ad8914?q=80&w=2070&auto=format&fit=crop',
-      blur: '16',
+      blur: '12',
       opacity: '0.88'
     },
     deep_ocean: {
@@ -88,7 +88,7 @@
       primary: '#0ea5e9',
       secondary: '#6366f1',
       bg: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
-      blur: '18',
+      blur: '12',
       opacity: '0.82'
     },
     electric: {
@@ -96,7 +96,7 @@
       primary: '#8b5cf6',
       secondary: '#3b82f6',
       bg: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop',
-      blur: '16',
+      blur: '12',
       opacity: '0.85'
     },
     emerald: {
@@ -104,7 +104,7 @@
       primary: '#10b981',
       secondary: '#14b8a6',
       bg: 'https://images.unsplash.com/photo-1511497584788-87676104235f?q=80&w=2070&auto=format&fit=crop',
-      blur: '18',
+      blur: '12',
       opacity: '0.82'
     },
     sunset: {
@@ -112,7 +112,7 @@
       primary: '#f97316',
       secondary: '#ec4899',
       bg: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop',
-      blur: '18',
+      blur: '12',
       opacity: '0.82'
     }
   };
@@ -122,7 +122,7 @@
     if (hex.length === 3) {
       hex = hex.split('').map(c => c + c).join('');
     }
-    const num = parseInt(hex, 16);
+    const num = parseInt(hex, 16) || 0;
     return {
       r: (num >> 16) & 255,
       g: (num >> 8) & 255,
@@ -142,21 +142,9 @@
 
       document.body.prepend(bg);
     }
-
-    if (!document.getElementById('premium-glow-orb-1')) {
-      const orb1 = document.createElement('div');
-      orb1.id = 'premium-glow-orb-1';
-      orb1.className = 'premium-glow-orb premium-glow-orb-1';
-      document.body.prepend(orb1);
-
-      const orb2 = document.createElement('div');
-      orb2.id = 'premium-glow-orb-2';
-      orb2.className = 'premium-glow-orb premium-glow-orb-2';
-      document.body.prepend(orb2);
-    }
   }
 
-  // 2. Apply Theme CSS Variables & Colors
+  // 2. Apply Theme CSS Variables
   function applyTheme(settings) {
     activeSettings = Object.assign({}, activeSettings, settings);
 
@@ -172,10 +160,9 @@
     root.style.setProperty('--theme-secondary', activeSettings.secondary_color);
     root.style.setProperty('--theme-secondary-rgb', sRgbStr);
     root.style.setProperty('--theme-glow', glowStr);
-    root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 16}px`);
+    root.style.setProperty('--theme-card-blur', `${activeSettings.card_blur || 12}px`);
     root.style.setProperty('--theme-card-bg', `rgba(17, 24, 39, ${activeSettings.card_opacity || 0.85})`);
 
-    // Background Image
     const bgContainer = document.getElementById('premium-bg-container');
     const bgOverlay = document.getElementById('premium-bg-overlay');
     const isLoginPage = window.location.pathname.includes('/auth/');
@@ -185,27 +172,12 @@
         ? (activeSettings.login_bg || activeSettings.dashboard_bg || '')
         : (activeSettings.dashboard_bg || '');
 
-      if (bgImg) {
+      if (bgImg && !bgContainer.style.backgroundImage.includes(bgImg)) {
         bgContainer.style.backgroundImage = `url('${bgImg}')`;
-      } else {
-        bgContainer.style.backgroundImage = 'none';
       }
-
       bgOverlay.style.background = `rgba(11, 15, 25, ${activeSettings.bg_overlay_opacity || 0.75})`;
     }
 
-    // Toggle Ambient Orbs
-    const orb1 = document.getElementById('premium-glow-orb-1');
-    const orb2 = document.getElementById('premium-glow-orb-2');
-    if (orb1 && orb2) {
-      const showOrbs = activeSettings.animated_bg !== false;
-      orb1.style.display = showOrbs ? 'block' : 'none';
-      orb2.style.display = showOrbs ? 'block' : 'none';
-      orb1.style.background = activeSettings.primary_color;
-      orb2.style.background = activeSettings.secondary_color;
-    }
-
-    // Dynamic Style Tag
     let styleTag = document.getElementById('premium-dynamic-theme-style');
     if (!styleTag) {
       styleTag = document.createElement('style');
@@ -233,23 +205,17 @@
       ${activeSettings.custom_css || ''}
     `;
 
-    injectOrUpdateLoginLogo();
-    updateNavbarLogo();
-    updateAnnouncement();
+    runPageEnhancements();
   }
 
-  // 3. Guaranteed Login Logo Fix (Ikut URL 100%, Letak Kemas Dalam Form)
+  // 3. Guaranteed Login Logo Fix (Inside Card, 100% URL Matching, No Card Breaking)
   function injectOrUpdateLoginLogo() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     if (!isLoginPage) return;
 
-    // Cari elemen form login
-    const form = document.querySelector('form');
-    if (!form) return;
-
-    // Cari tajuk "Login to Continue"
+    // Search for "Login to Continue" title
     let titleEl = null;
-    const allHeaders = form.querySelectorAll('h1, h2, h3, h4, div, p');
+    const allHeaders = document.querySelectorAll('h1, h2, h3, h4');
     for (let i = 0; i < allHeaders.length; i++) {
       const txt = (allHeaders[i].textContent || '').trim();
       if (txt.includes('Login to Continue')) {
@@ -258,38 +224,44 @@
       }
     }
 
-    const parentNode = titleEl ? titleEl.parentNode : form;
-    const referenceNode = titleEl || form.firstChild;
+    if (!titleEl) return;
 
+    const parentNode = titleEl.parentNode;
     let logoBox = document.getElementById('premium-login-logo-box');
+
     if (!logoBox) {
       logoBox = document.createElement('div');
       logoBox.id = 'premium-login-logo-box';
       logoBox.className = 'premium-login-logo-wrapper';
-      parentNode.insertBefore(logoBox, referenceNode);
-    } else if (logoBox.parentNode !== parentNode) {
-      parentNode.insertBefore(logoBox, referenceNode);
+      parentNode.insertBefore(logoBox, titleEl);
+    } else if (logoBox.nextSibling !== titleEl) {
+      parentNode.insertBefore(logoBox, titleEl);
     }
 
     const logoUrl = (activeSettings.login_logo || '').trim();
     const logoHeight = activeSettings.logo_height || '65';
     const logoGlow = activeSettings.logo_glow !== false;
-    const glowFilter = logoGlow ? `filter: drop-shadow(0 0 16px var(--theme-glow));` : '';
+    const glowFilter = logoGlow ? `filter: drop-shadow(0 0 14px var(--theme-glow));` : '';
 
     if (logoUrl) {
-      // 100% Ikut URL Gambar yang Diberikan Pengguna
+      const curImg = logoBox.querySelector('#premium-login-logo-img');
+      if (curImg && curImg.src === logoUrl) {
+        return; // Content is already up to date, skip DOM mutation
+      }
       logoBox.innerHTML = `
         <img id="premium-login-logo-img" 
              class="premium-custom-login-logo" 
              src="${logoUrl}" 
              alt="Logo" 
-             style="max-height: ${logoHeight}px; max-width: 250px; width: auto; height: auto; object-fit: contain; margin: 0 auto; display: block; ${glowFilter}" />
+             style="max-height: ${logoHeight}px; max-width: 240px; width: auto; height: auto; object-fit: contain; margin: 0 auto; display: block; ${glowFilter}" />
       `;
     } else {
-      // Logo Emblem Asal Jika Tiada URL Custom
+      if (logoBox.querySelector('.premium-default-logo-badge')) {
+        return; // Default logo already present, skip DOM mutation
+      }
       logoBox.innerHTML = `
         <div class="premium-default-logo-badge" style="${glowFilter}" title="Tetapkan pautan URL logo di Tetapan Tema">
-          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="52" height="52">
+          <svg class="premium-svg-animated-emblem" viewBox="0 0 80 80" width="50" height="50">
             <defs>
               <linearGradient id="pEmblemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="var(--theme-primary, #6366f1)"/>
@@ -335,7 +307,7 @@
     }
   }
 
-  // 5. Announcement Bar Component
+  // 5. Announcement Bar
   function updateAnnouncement() {
     if (window.location.pathname.includes('/auth/') || window.location.pathname.startsWith('/admin')) return;
 
@@ -349,7 +321,7 @@
           <div class="announcement-content-wrapper">
             <span id="premium-announcement-text" class="announcement-text"></span>
           </div>
-          <button id="premium-announcement-close" class="announcement-close-btn" title="Tutup Pengumuman">
+          <button id="premium-announcement-close" class="announcement-close-btn" title="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -361,8 +333,6 @@
         nav.parentNode.insertBefore(bar, nav.nextSibling);
       } else if (app) {
         app.prepend(bar);
-      } else {
-        document.body.prepend(bar);
       }
 
       document.getElementById('premium-announcement-close').addEventListener('click', function () {
@@ -372,12 +342,12 @@
     }
 
     const isDismissed = sessionStorage.getItem('premium_announcement_dismissed') === 'true';
-    const isEnabled = activeSettings.announcement_enabled && !isDismissed && activeSettings.announcement_text.trim() !== '';
+    const isEnabled = activeSettings.announcement_enabled && !isDismissed && (activeSettings.announcement_text || '').trim() !== '';
 
     if (isEnabled) {
       bar.className = `announcement-theme-${activeSettings.announcement_type || 'gradient'} announcement-active`;
       const textEl = document.getElementById('premium-announcement-text');
-      if (textEl) {
+      if (textEl && textEl.innerHTML !== activeSettings.announcement_text) {
         textEl.innerHTML = activeSettings.announcement_text;
         textEl.className = activeSettings.announcement_marquee ? 'announcement-marquee' : 'announcement-static';
       }
@@ -401,20 +371,9 @@
     }, 3500);
   }
 
-  // 7. Inject Admin Sidebar Item: ONLY 1 BUTTON DIRECTLY UNDER "Application API"
+  // 7. Inject Admin Sidebar Item (HANYA 1 BUTANG DI BAWAH APPLICATION API)
   function injectAdminSidebarItem() {
     if (!window.location.pathname.startsWith('/admin')) return;
-
-    // Bersihkan semua butang terapung & pill header di bahagian admin
-    const strayButtons = [
-      '#premium-theme-fab',
-      '#premium-top-setting-btn',
-      '#premium-nav-theme-btn',
-      '.premium-theme-pill'
-    ];
-    strayButtons.forEach(sel => {
-      document.querySelectorAll(sel).forEach(el => el.remove());
-    });
 
     if (document.getElementById('admin-theme-sidebar-item')) return;
 
@@ -460,7 +419,7 @@
     }
   }
 
-  // 8. Inject Theme Buttons for Client & Login (Compact 44px Circle)
+  // 8. Inject Theme Buttons for Client & Login (Compact Fixed Circle)
   function injectClientButtons() {
     const isLoginPage = window.location.pathname.includes('/auth/');
     const isAdminPage = window.location.pathname.startsWith('/admin');
@@ -506,7 +465,7 @@
     }
   }
 
-  // 9. Build Theme Settings Modal with Multi-Templates, Mix Colors & Live Logo Preview
+  // 9. Build Theme Settings Modal
   function buildThemeModal() {
     if (document.getElementById('premium-settings-modal-overlay')) return;
 
@@ -517,13 +476,13 @@
         <div class="modal-header">
           <div class="modal-title">
             <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema, Warna & Logo Panel</span>
+            <span>Pengaturan Tema & Logo Panel</span>
           </div>
           <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <div class="modal-tabs">
-          <button class="modal-tab-btn active" data-tab="tab-templates"><i class="fa-solid fa-wand-magic-sparkles"></i> Template Siap Pakai</button>
+          <button class="modal-tab-btn active" data-tab="tab-templates"><i class="fa-solid fa-wand-magic-sparkles"></i> Template 1-Klik</button>
           <button class="modal-tab-btn" data-tab="tab-colors"><i class="fa-solid fa-droplet"></i> Warna & Mix</button>
           <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo & Brand</button>
           <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Wallpaper</button>
@@ -532,11 +491,11 @@
         </div>
 
         <div class="modal-body">
-          <!-- TAB 1: TEMPLATE SIAP PAKAI (COLD, HACKER, SOFT, CYBERPUNK, LUXURY, DLL) -->
+          <!-- TAB 1: 10 TEMPLATES (COLD, HACKER, SOFT, CYBERPUNK, DLL) -->
           <div id="tab-templates" class="tab-pane active">
             <div class="form-group">
-              <label class="form-label">Pilih Tema / Template 1-Klik</label>
-              <span class="form-subtext">Klik mana-mana template di bawah untuk mengubah warna, wallpaper dan gaya panel serta-merta:</span>
+              <label class="form-label">Pilih Template Tema Siap Pakai</label>
+              <span class="form-subtext">Klik untuk memuat palet warna, wallpaper dan gaya panel serta-merta:</span>
               <div class="templates-preset-grid">
                 <div class="template-preset-card" data-template="cold">
                   <div class="template-card-icon">❄️</div>
@@ -558,7 +517,7 @@
 
                 <div class="template-preset-card" data-template="soft">
                   <div class="template-card-icon">🌸</div>
-                  <div class="template-card-title">Soft Pastel</div>
+                  <div class="template-card-title">Soft Lavender</div>
                   <div class="template-card-palette">
                     <span class="template-card-dot" style="background:#c084fc;"></span>
                     <span class="template-card-dot" style="background:#f472b6;"></span>
@@ -585,7 +544,7 @@
 
                 <div class="template-preset-card" data-template="bloodmoon">
                   <div class="template-card-icon">🩸</div>
-                  <div class="template-card-title">Blood Crimson</div>
+                  <div class="template-card-title">Bloodmoon</div>
                   <div class="template-card-palette">
                     <span class="template-card-dot" style="background:#e11d48;"></span>
                     <span class="template-card-dot" style="background:#9f1239;"></span>
@@ -633,10 +592,8 @@
 
           <!-- TAB 2: WARNA, MIXCOLOR & KUSTOM -->
           <div id="tab-colors" class="tab-pane">
-            <!-- Mix Colors / Dual Tone -->
             <div class="form-group">
               <label class="form-label">Pilihan Mix Color (Gradien Dwi-Warna)</label>
-              <span class="form-subtext">Gabungan dua warna serasi untuk aksen butang dan pendaran cahaya:</span>
               <div class="mix-colors-grid">
                 <div class="mix-color-pill" style="background: linear-gradient(135deg, #8b5cf6, #06b6d4);" data-p="#8b5cf6" data-s="#06b6d4">Cyber Pulse</div>
                 <div class="mix-color-pill" style="background: linear-gradient(135deg, #00ff66, #0ea5e9);" data-p="#00ff66" data-s="#0ea5e9">Matrix Cyan</div>
@@ -649,41 +606,39 @@
               </div>
             </div>
 
-            <!-- Single Color Presets -->
             <div class="form-group">
               <label class="form-label">Pilihan Warna Tunggal (16 Palet)</label>
               <div class="color-presets-grid">
-                <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1" title="Indigo"></div>
-                <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6" title="Violet"></div>
-                <div class="color-preset-pill" style="background: #a855f7;" data-color="#a855f7" title="Purple"></div>
-                <div class="color-preset-pill" style="background: #d946ef;" data-color="#d946ef" title="Fuchsia"></div>
-                <div class="color-preset-pill" style="background: #ec4899;" data-color="#ec4899" title="Pink"></div>
-                <div class="color-preset-pill" style="background: #f43f5e;" data-color="#f43f5e" title="Rose"></div>
-                <div class="color-preset-pill" style="background: #ef4444;" data-color="#ef4444" title="Crimson"></div>
-                <div class="color-preset-pill" style="background: #f97316;" data-color="#f97316" title="Orange"></div>
-                <div class="color-preset-pill" style="background: #f59e0b;" data-color="#f59e0b" title="Amber"></div>
-                <div class="color-preset-pill" style="background: #eab308;" data-color="#eab308" title="Gold"></div>
-                <div class="color-preset-pill" style="background: #84cc16;" data-color="#84cc16" title="Lime"></div>
-                <div class="color-preset-pill" style="background: #10b981;" data-color="#10b981" title="Emerald"></div>
-                <div class="color-preset-pill" style="background: #14b8a6;" data-color="#14b8a6" title="Teal"></div>
-                <div class="color-preset-pill" style="background: #06b6d4;" data-color="#06b6d4" title="Cyan"></div>
-                <div class="color-preset-pill" style="background: #0ea5e9;" data-color="#0ea5e9" title="Sky"></div>
-                <div class="color-preset-pill" style="background: #3b82f6;" data-color="#3b82f6" title="Electric Blue"></div>
+                <div class="color-preset-pill" style="background: #6366f1;" data-color="#6366f1"></div>
+                <div class="color-preset-pill" style="background: #8b5cf6;" data-color="#8b5cf6"></div>
+                <div class="color-preset-pill" style="background: #a855f7;" data-color="#a855f7"></div>
+                <div class="color-preset-pill" style="background: #d946ef;" data-color="#d946ef"></div>
+                <div class="color-preset-pill" style="background: #ec4899;" data-color="#ec4899"></div>
+                <div class="color-preset-pill" style="background: #f43f5e;" data-color="#f43f5e"></div>
+                <div class="color-preset-pill" style="background: #ef4444;" data-color="#ef4444"></div>
+                <div class="color-preset-pill" style="background: #f97316;" data-color="#f97316"></div>
+                <div class="color-preset-pill" style="background: #f59e0b;" data-color="#f59e0b"></div>
+                <div class="color-preset-pill" style="background: #eab308;" data-color="#eab308"></div>
+                <div class="color-preset-pill" style="background: #84cc16;" data-color="#84cc16"></div>
+                <div class="color-preset-pill" style="background: #10b981;" data-color="#10b981"></div>
+                <div class="color-preset-pill" style="background: #14b8a6;" data-color="#14b8a6"></div>
+                <div class="color-preset-pill" style="background: #06b6d4;" data-color="#06b6d4"></div>
+                <div class="color-preset-pill" style="background: #0ea5e9;" data-color="#0ea5e9"></div>
+                <div class="color-preset-pill" style="background: #3b82f6;" data-color="#3b82f6"></div>
               </div>
             </div>
 
-            <!-- Custom HEX Pickers -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px;">
               <div class="form-group">
                 <label class="form-label">Warna Utama (Primary)</label>
-                <div class="custom-color-row">
+                <div style="display: flex; gap: 8px;">
                   <input type="color" id="cfg-primary-picker" class="color-picker-input" value="${activeSettings.primary_color}">
                   <input type="text" id="cfg-primary-hex" class="input-text" value="${activeSettings.primary_color}">
                 </div>
               </div>
               <div class="form-group">
                 <label class="form-label">Warna Sekunder (Mix)</label>
-                <div class="custom-color-row">
+                <div style="display: flex; gap: 8px;">
                   <input type="color" id="cfg-secondary-picker" class="color-picker-input" value="${activeSettings.secondary_color || '#06b6d4'}">
                   <input type="text" id="cfg-secondary-hex" class="input-text" value="${activeSettings.secondary_color || '#06b6d4'}">
                 </div>
@@ -691,25 +646,21 @@
             </div>
           </div>
 
-          <!-- TAB 3: LOGO & BRAND (IKUT LINK URL 100% DENGAN PRATINJAU LANGSUNG) -->
+          <!-- TAB 3: LOGO & BRAND (100% URL DENGAN PRATINJAU LANGSUNG) -->
           <div id="tab-logo" class="tab-pane">
             <div class="form-group">
               <label class="form-label">URL Logo Halaman Login (PNG/JPG/SVG/WebP/GIF)</label>
-              <span class="form-subtext">Tampal pautan gambar logo anda di sini (cth: Imgur, Cloudinary, atau direct link):</span>
+              <span class="form-subtext">Tampal pautan gambar logo anda (Imgur, Cloudinary, atau direct link):</span>
               <input type="text" id="cfg-login-logo" class="input-text" placeholder="https://i.imgur.com/example.png" value="${activeSettings.login_logo || ''}">
             </div>
 
-            <!-- Live Preview Box -->
             <div class="form-group">
               <label class="form-label">Pratinjau Logo Login (Live Preview)</label>
-              <div id="logo-preview-container" class="logo-preview-box">
-                <!-- Preview image or empty state injected dynamically -->
-              </div>
+              <div id="logo-preview-container" class="logo-preview-box"></div>
             </div>
 
             <div class="form-group">
               <label class="form-label">URL Logo Navbar Dashboard</label>
-              <span class="form-subtext">Logo di penjuru atas navbar dashboard klien:</span>
               <input type="text" id="cfg-navbar-logo" class="input-text" placeholder="https://..." value="${activeSettings.navbar_logo || ''}">
             </div>
 
@@ -722,8 +673,7 @@
 
             <div class="toggle-row">
               <div>
-                <div style="font-size:13.5px; font-weight:700;">Efek Cahaya Neon Logo (Glow)</div>
-                <div style="font-size:12px; color:#64748b;">Pendaran cahaya neon mengikut warna tema</div>
+                <div style="font-size:13px; font-weight:700;">Efek Cahaya Neon Logo (Glow)</div>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="cfg-logo-glow" ${activeSettings.logo_glow ? 'checked' : ''}>
@@ -735,18 +685,17 @@
           <!-- TAB 4: WALLPAPER BACKGROUND -->
           <div id="tab-bg" class="tab-pane">
             <div class="form-group">
-              <label class="form-label">URL Wallpaper Background Dashboard</label>
+              <label class="form-label">URL Wallpaper Dashboard</label>
               <input type="text" id="cfg-dashboard-bg" class="input-text" placeholder="https://..." value="${activeSettings.dashboard_bg || ''}">
             </div>
 
             <div class="form-group">
               <label class="form-label">URL Wallpaper Halaman Login</label>
-              <span class="form-subtext">Kosongkan jika ingin mengikuti background dashboard.</span>
               <input type="text" id="cfg-login-bg" class="input-text" placeholder="https://..." value="${activeSettings.login_bg || ''}">
             </div>
 
             <div class="form-group">
-              <label class="form-label">Kegelapan Lapisan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
+              <label class="form-label">Kegelapan Overlay: <span id="val-overlay" class="range-val-badge">${Math.round(activeSettings.bg_overlay_opacity * 100)}%</span></label>
               <div class="slider-container">
                 <input type="range" id="cfg-bg-overlay" class="input-range" min="10" max="95" value="${Math.round(activeSettings.bg_overlay_opacity * 100)}">
               </div>
@@ -757,8 +706,7 @@
           <div id="tab-announcement" class="tab-pane">
             <div class="toggle-row">
               <div>
-                <div style="font-size:13.5px; font-weight:700;">Aktifkan Banner Pengumuman</div>
-                <div style="font-size:12px; color:#64748b;">Siaran notis penting di atas dashboard</div>
+                <div style="font-size:13px; font-weight:700;">Aktifkan Banner Pengumuman</div>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="cfg-announcement-enabled" ${activeSettings.announcement_enabled ? 'checked' : ''}>
@@ -768,22 +716,22 @@
 
             <div class="form-group">
               <label class="form-label">Teks Pengumuman</label>
-              <textarea id="cfg-announcement-text" class="input-text" rows="3" style="resize:vertical;">${activeSettings.announcement_text || ''}</textarea>
+              <textarea id="cfg-announcement-text" class="input-text" rows="3">${activeSettings.announcement_text || ''}</textarea>
             </div>
 
             <div class="form-group">
               <label class="form-label">Gaya Banner</label>
               <select id="cfg-announcement-type" class="input-text">
-                <option value="gradient" ${activeSettings.announcement_type === 'gradient' ? 'selected' : ''}>Luxury Gradient Accent</option>
+                <option value="gradient" ${activeSettings.announcement_type === 'gradient' ? 'selected' : ''}>Luxury Gradient</option>
                 <option value="info" ${activeSettings.announcement_type === 'info' ? 'selected' : ''}>Cyan Info Alert</option>
                 <option value="warning" ${activeSettings.announcement_type === 'warning' ? 'selected' : ''}>Sunset Warning</option>
-                <option value="danger" ${activeSettings.announcement_type === 'danger' ? 'selected' : ''}>Crimson Urgent Alert</option>
+                <option value="danger" ${activeSettings.announcement_type === 'danger' ? 'selected' : ''}>Crimson Urgent</option>
               </select>
             </div>
 
             <div class="toggle-row">
               <div>
-                <div style="font-size:13.5px; font-weight:700;">Teks Berjalan (Running Marquee)</div>
+                <div style="font-size:13px; font-weight:700;">Teks Berjalan (Marquee)</div>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="cfg-announcement-marquee" ${activeSettings.announcement_marquee ? 'checked' : ''}>
@@ -797,7 +745,7 @@
             <div class="form-group">
               <label class="form-label">Tingkat Efek Kaca (Glass Blur): <span id="val-blur" class="range-val-badge">${activeSettings.card_blur}px</span></label>
               <div class="slider-container">
-                <input type="range" id="cfg-card-blur" class="input-range" min="0" max="30" value="${activeSettings.card_blur}">
+                <input type="range" id="cfg-card-blur" class="input-range" min="0" max="25" value="${activeSettings.card_blur}">
               </div>
             </div>
 
@@ -806,16 +754,6 @@
               <div class="slider-container">
                 <input type="range" id="cfg-card-opacity" class="input-range" min="30" max="100" value="${Math.round(activeSettings.card_opacity * 100)}">
               </div>
-            </div>
-
-            <div class="toggle-row">
-              <div>
-                <div style="font-size:13.5px; font-weight:700;">Animated Ambient Glow Orbs</div>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" id="cfg-animated-bg" ${activeSettings.animated_bg ? 'checked' : ''}>
-                <span class="toggle-slider"></span>
-              </label>
             </div>
 
             <div class="form-group">
@@ -858,7 +796,7 @@
       });
     });
 
-    // 1-Click Templates Click
+    // Template 1-Click
     overlay.querySelectorAll('.template-preset-card').forEach(card => {
       card.addEventListener('click', () => {
         const key = card.getAttribute('data-template');
@@ -868,7 +806,6 @@
         overlay.querySelectorAll('.template-preset-card').forEach(c => c.classList.remove('active'));
         card.classList.add('active');
 
-        // Apply template values
         document.getElementById('cfg-primary-picker').value = t.primary;
         document.getElementById('cfg-primary-hex').value = t.primary;
         document.getElementById('cfg-secondary-picker').value = t.secondary;
@@ -918,7 +855,7 @@
       });
     });
 
-    // Color Pickers Live
+    // Color Pickers
     const pPicker = document.getElementById('cfg-primary-picker');
     const pHex = document.getElementById('cfg-primary-hex');
     pPicker.addEventListener('input', (e) => {
@@ -945,7 +882,7 @@
       }
     });
 
-    // Logo Input with Instant Live Preview Box
+    // Logo Live Preview Box
     const logoInput = document.getElementById('cfg-login-logo');
     const previewContainer = document.getElementById('logo-preview-container');
 
@@ -1012,7 +949,6 @@
         announcement_text: document.getElementById('cfg-announcement-text').value,
         announcement_type: document.getElementById('cfg-announcement-type').value,
         announcement_marquee: document.getElementById('cfg-announcement-marquee').checked,
-        animated_bg: document.getElementById('cfg-animated-bg').checked,
         custom_css: document.getElementById('cfg-custom-css').value
       };
 
@@ -1069,14 +1005,32 @@
     }
   }
 
-  // 10. MutationObserver for React Hydration & Route Changes
-  function setupWatcher() {
-    const observer = new MutationObserver(() => {
+  // 10. Run Page Enhancements (Controlled & Idempotent)
+  function runPageEnhancements() {
+    isMutating = true;
+    try {
       injectOrUpdateLoginLogo();
       updateNavbarLogo();
       updateAnnouncement();
       injectAdminSidebarItem();
       injectClientButtons();
+    } finally {
+      setTimeout(() => {
+        isMutating = false;
+      }, 50);
+    }
+  }
+
+  // 11. Throttled Watcher (Zero Lag, Max 4 checks per second)
+  function setupWatcher() {
+    const observer = new MutationObserver(() => {
+      if (isMutating) return;
+      if (debounceTimer) return;
+
+      debounceTimer = setTimeout(() => {
+        debounceTimer = null;
+        runPageEnhancements();
+      }, 250);
     });
 
     observer.observe(document.body, {
@@ -1084,19 +1038,16 @@
       subtree: true
     });
 
+    // 4 initial checks for React hydration
     let count = 0;
     const interval = setInterval(() => {
-      injectOrUpdateLoginLogo();
-      updateNavbarLogo();
-      updateAnnouncement();
-      injectAdminSidebarItem();
-      injectClientButtons();
+      runPageEnhancements();
       count++;
-      if (count > 10) clearInterval(interval);
+      if (count >= 4) clearInterval(interval);
     }, 400);
   }
 
-  // 11. Bootstrap Routine
+  // 12. Main Bootstrap
   function bootstrap() {
     initBackgroundDOM();
     buildThemeModal();
@@ -1122,8 +1073,7 @@
         console.log('Menggunakan konfigurasi cache tempatan:', err);
       })
       .finally(() => {
-        injectAdminSidebarItem();
-        injectClientButtons();
+        runPageEnhancements();
         setupWatcher();
       });
   }
