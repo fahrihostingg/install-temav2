@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Full Glassmorphism v3.0 Ultimate
-> **Tema Pterodactyl Panel v1.15+ dengan Wallpaper Penuh 100%, Kad Kaca Lutsinar (Glassmorphism), Form Login Responsif (Laptop, Android, iPhone), Penambahbaikan Pengurus Fail & Butang Tema Khusus Admin Panel.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.1 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Form Login Berpusat & Kompak, Kad Pelayan Menyatu dengan Wallpaper, Banner Pengumuman Pelbagai Warna, dan Kawalan Tema Khusus Admin.**
 
 ---
 
@@ -13,29 +13,31 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Ciri-Ciri & Naik Taraf Utama (Versi 3.0):
+## ✨ Pembaikan & Naik Taraf Utama (Versi 3.1):
 
-1. **Latar Belakang Penuh 100% (Full-Screen Fixed Wallpaper) & Ketelusan Kaca**:
-   - Gambar latar belakang kini meliputi seluruh skrin penuh dari atas ke bawah tanpa terpotong atau terlindung oleh blok hitam.
-   - Semua kad pelayan di dashboard, terminal console, jadual fail, dan sub-navigasi diubah menjadi **kad kaca lutsinar (*frosted glassmorphism*)** yang menampakkan wallpaper di belakangnya.
-   - Tahap ketelusan (*Card Opacity*) dan kepekatan lapisan kaca (*Glass Blur*) boleh dilaraskan sesuka hati di menu tetapan tema.
+1. **Halaman Login Berpusat & Kompak (Tidak Ketepi & Tidak Terlalu Panjang)**:
+   - Form login kini **tepat di tengah skrin** (mendatar dan menegak) dan tidak lagi terdorong ke tepi kiri.
+   - Saiz kad dikecilkan kepada saiz ideal yang padat (360px) supaya tidak terlalu panjang atau meleret ke bawah.
+   - **Ganti Logo Kecil (Bukan Background):** Pautan URL logo di Tetapan Tema kini khusus menggantikan **logo kecil** yang terletak kemas di atas tajuk *"Login to Continue"*. Gambar latar belakang (*wallpaper*) login dikawal secara berasingan melalui pautan wallpaper.
 
-2. **Halaman Login Kemas & Responsif (Laptop, Android, iPhone)**:
-   - Form login kini menjadi **satu kad kaca kompak tunggal** yang berpusat (tidak lagi terbelah menjadi dua kotak atau terlalu panjang).
-   - Saiz kad form login diselaraskan secara automatik untuk paparan telefon pintar (Android & iPhone) serta skrin komputer riba (Laptop & Desktop).
-   - Logo terletak kemas di bahagian atas kad mengikut pautan URL dalam tetapan admin, diikuti teks *"Login to Continue"* dan medan input yang elegan.
+2. **Banner Pengumuman Kemas & Pelbagai Pilihan Warna**:
+   - Susun atur diperbetulkan: butang tutup **`X`** kini kekal di hujung kanan sebaris dan tidak akan sesekali jatuh ke baris kedua.
+   - Pilihan warna banner lengkap:
+     - 🟣 **Theme Gradient** (Menyatu secara harmoni dengan warna tema panel)
+     - 🔵 **Cyan Info Alert**
+     - 🟢 **Emerald Hijau (Success)**
+     - 🟠 **Sunset Amber (Warning)**
+     - 🔴 **Crimson Merah (Urgent Alert)**
+     - 🌌 **Midnight Obsidian (Gelap Kaca)**
+     - 💜 **Royal Violet**
 
-3. **Butang Tema Dikhaskan untuk Admin Sahaja**:
-   - Butang tema di bahagian **Dashboard** dan **Login Page** telah dipadamkan sepenuhnya untuk mengekalkan kebersihan dan keselamatan panel.
-   - Butang tetapan tema **hanya wujud di bahagian Admin Panel (`/admin/*`)** di dalam menu *sidebar* kiri tepat di bawah **`Application API`** lengkap dengan lencana bergaya **`PRO`**.
+3. **Kad Pelayan Menyatu dengan Wallpaper Latar Belakang**:
+   - Latar belakang kad pelayan diubah kepada kaca lutsinar (*frosted glass* 45% opacity) supaya gambar latar belakang (seperti litar *motherboard*) nampak menyatu dengan jelas dan elegan.
+   - Dilengkapi garis aksen neon bercahaya di sebelah kiri kad yang aktif apabila kursor diarahkan.
 
-4. **Penambahbaikan Halaman File Manager & Butang Tindakan**:
-   - Butang **Create Directory**, **Upload**, dan **New File** kini mempunyai gaya gradien kaca moden dan pendaran cahaya (*glow*).
-   - Senarai baris fail (*File Rows*) kini mempunyai animasi sorotan meluncur (*hover slide*) apabila kursor diarahkan, lengkap dengan warna ikon folder (emas bercahaya) dan ikon kod (cyan/biru).
-
-5. **10 Template Siap Pakai (1-Klik) & Mix Color**:
-   - Pilihan pantas: *Cold Glacier, Cyber Matrix (Hacker), Soft Lavender, Cyberpunk 2077, Obsidian Gold, Bloodmoon, Deep Ocean, Electric Violet, Emerald Mint, Sunset Twilight*.
-   - Pilihan dwi-warna *Mix Color* (Cyber Pulse, Matrix Cyan, Fire & Gold, dll.).
+4. **Kawalan Tema Khusus Admin Sahaja**:
+   - Tiada butang tema pada halaman login atau dashboard klien bagi memastikan antaramuka pengguna kekal bersih.
+   - Pengaturan tema hanya boleh diakses melalui **Admin Panel (`/admin/*`)** pada menu *sidebar* kiri tepat di bawah **`Application API`** dengan lencana **`PRO`**.
 
 ---
 
@@ -45,7 +47,7 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v3.0-ultimate.zip
+unzip install-temav2-v3.1-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh
