@@ -1084,10 +1084,51 @@
     }
   }
 
+  function updatePageClasses() {
+    const path = window.location.pathname;
+    if (path === '/' || path === '') {
+      document.body.classList.add('on-dashboard');
+      document.body.classList.remove('on-server-page');
+    } else if (path.startsWith('/server/')) {
+      document.body.classList.remove('on-dashboard');
+      document.body.classList.add('on-server-page');
+    } else {
+      document.body.classList.remove('on-dashboard', 'on-server-page');
+    }
+  }
+
+  function enhanceDashboardServerCards() {
+    const path = window.location.pathname;
+    if (path !== '/' && path !== '') return;
+
+    const cards = document.querySelectorAll('a[href^="/server/"]');
+    cards.forEach(card => {
+      if (card.closest('nav') || card.closest('div[class*="SubNavigation"]') || card.closest('div[class*="FileManager"]')) return;
+
+      card.style.setProperty('background', `rgba(11, 15, 25, ${activeSettings.card_opacity || 0.35})`, 'important');
+      card.style.setProperty('background-color', `rgba(11, 15, 25, ${activeSettings.card_opacity || 0.35})`, 'important');
+      card.style.setProperty('backdrop-filter', `blur(${activeSettings.card_blur || 12}px)`, 'important');
+      card.style.setProperty('-webkit-backdrop-filter', `blur(${activeSettings.card_blur || 12}px)`, 'important');
+      card.style.setProperty('border', `1px solid rgba(${hexToRgb(activeSettings.primary_color).r}, ${hexToRgb(activeSettings.primary_color).g}, ${hexToRgb(activeSettings.primary_color).b}, 0.28)`, 'important');
+      card.style.setProperty('border-left', `5px solid ${activeSettings.primary_color}`, 'important');
+      card.style.setProperty('border-radius', '12px', 'important');
+      card.style.setProperty('box-shadow', '0 6px 24px rgba(0, 0, 0, 0.4)', 'important');
+      card.style.setProperty('text-decoration', 'none', 'important');
+
+      const innerDivs = card.querySelectorAll('div');
+      innerDivs.forEach(d => {
+        d.style.setProperty('background', 'transparent', 'important');
+        d.style.setProperty('background-color', 'transparent', 'important');
+      });
+    });
+  }
+
   // 10. Run Page Enhancements (Controlled & Zero-Lag)
   function runPageEnhancements() {
     isMutating = true;
     try {
+      updatePageClasses();
+      enhanceDashboardServerCards();
       updateLoginLogo();
       updateNavbarLogo();
       updateAnnouncement();

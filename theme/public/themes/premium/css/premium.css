@@ -436,37 +436,39 @@ div[class*="NavigationBar__Navigation"] {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* KAD PELAYAN DI DASHBOARD - TELUS KACA 100% MENYATU DENGAN WALLPAPER (HANYA DASHBOARD) */
-div[class*="DashboardContainer"] a[href^="/server/"],
-div[class*="DashboardContainer"] div[class*="ServerRow"],
+/* KAD PELAYAN DI DASHBOARD - TELUS KACA 100% MENYATU DENGAN WALLPAPER IKUT TEMA */
+body.on-dashboard a[href^="/server/"],
+a[href^="/server/"]:not(nav *):not(div[class*="SubNavigation"] *):not(div[class*="FileManager"] *):not(div[class*="Breadcrumb"] *):not([class*="Navigation"] *),
+div[class*="DashboardContainer"] a,
 div[class*="DashboardContainer"] [class*="ServerRow"],
-div[class*="DashboardContainer"] > div > div > a,
 a[class*="ServerRow__ServerRowContainer"],
+div[class*="ServerRow__ServerRowContainer"],
 .server-card {
-  background: rgba(11, 15, 25, var(--theme-card-opacity, 0.38)) !important;
-  background-color: rgba(11, 15, 25, var(--theme-card-opacity, 0.38)) !important;
+  background: rgba(11, 15, 25, var(--theme-card-opacity, 0.35)) !important;
+  background-color: rgba(11, 15, 25, var(--theme-card-opacity, 0.35)) !important;
   backdrop-filter: blur(var(--theme-card-blur, 12px)) !important;
   -webkit-backdrop-filter: blur(var(--theme-card-blur, 12px)) !important;
-  border: 1px solid rgba(var(--theme-primary-rgb), 0.25) !important;
-  border-left: 4.5px solid var(--theme-primary) !important;
+  border: 1px solid rgba(var(--theme-primary-rgb), 0.28) !important;
+  border-left: 5px solid var(--theme-primary) !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(var(--theme-primary-rgb), 0.04) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(var(--theme-primary-rgb), 0.05) !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   position: relative !important;
   overflow: hidden !important;
   text-decoration: none !important;
 }
 
-div[class*="DashboardContainer"] a[href^="/server/"] > div,
+body.on-dashboard a[href^="/server/"] > div,
+a[href^="/server/"]:not(nav *):not(div[class*="SubNavigation"] *):not(div[class*="FileManager"] *):not(div[class*="Breadcrumb"] *):not([class*="Navigation"] *) > div,
 a[class*="ServerRow__ServerRowContainer"] > div {
   background: transparent !important;
   background-color: transparent !important;
 }
 
 /* Efek Hover Pada Kad Pelayan */
-div[class*="DashboardContainer"] a[href^="/server/"]:hover,
-a[class*="ServerRow__ServerRowContainer"]:hover,
-div[class*="DashboardContainer"] [class*="ServerRow"]:hover {
+body.on-dashboard a[href^="/server/"]:hover,
+a[href^="/server/"]:not(nav *):not(div[class*="SubNavigation"] *):not(div[class*="FileManager"] *):not(div[class*="Breadcrumb"] *):not([class*="Navigation"] *):hover,
+a[class*="ServerRow__ServerRowContainer"]:hover {
   transform: translateY(-2px) scale(1.006) !important;
   background: rgba(var(--theme-primary-rgb), 0.15) !important;
   background-color: rgba(var(--theme-primary-rgb), 0.15) !important;
@@ -475,25 +477,28 @@ div[class*="DashboardContainer"] [class*="ServerRow"]:hover {
 }
 
 /* Teks & Statistik di Dalam Kad Pelayan */
-div[class*="DashboardContainer"] a[href^="/server/"] h4,
+body.on-dashboard a[href^="/server/"] h4,
+a[href^="/server/"]:not(nav *):not(div[class*="SubNavigation"] *):not(div[class*="FileManager"] *):not(div[class*="Breadcrumb"] *):not([class*="Navigation"] *) h4,
 a[class*="ServerRow__ServerRowContainer"] h4,
-div[class*="DashboardContainer"] a[href^="/server/"] p[class*="font-semibold"],
+body.on-dashboard a[href^="/server/"] p[class*="font-semibold"],
 a[class*="ServerRow__ServerRowContainer"] p[class*="font-semibold"],
-div[class*="DashboardContainer"] a[href^="/server/"] .text-lg,
+body.on-dashboard a[href^="/server/"] .text-lg,
 a[class*="ServerRow__ServerRowContainer"] .text-lg {
   color: #ffffff !important;
   font-weight: 700 !important;
   letter-spacing: 0.3px !important;
 }
 
-div[class*="DashboardContainer"] a[href^="/server/"] svg,
+body.on-dashboard a[href^="/server/"] svg,
+a[href^="/server/"]:not(nav *):not(div[class*="SubNavigation"] *):not(div[class*="FileManager"] *):not(div[class*="Breadcrumb"] *):not([class*="Navigation"] *) svg,
 a[class*="ServerRow__ServerRowContainer"] svg {
   color: var(--theme-primary) !important;
   filter: drop-shadow(0 0 8px var(--theme-glow)) !important;
 }
 
 /* Status Bar / Penunjuk Status Pelayan */
-div[class*="DashboardContainer"] a[href^="/server/"] .status-bar,
+body.on-dashboard a[href^="/server/"] .status-bar,
+a[href^="/server/"]:not(nav *):not(div[class*="SubNavigation"] *):not(div[class*="FileManager"] *):not(div[class*="Breadcrumb"] *):not([class*="Navigation"] *) .status-bar,
 a[class*="ServerRow__ServerRowContainer"] .status-bar,
 div[class*="StatusIndicator"] {
   border-radius: 4px !important;

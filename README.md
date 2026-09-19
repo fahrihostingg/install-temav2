@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v4.0 Pro Master
-> **Tema Pterodactyl Panel v1.15+ dengan Paparan Tab Pelayan & Pengurus Fail Sempurna di Telefon Bimbit (Persis Seperti Laptop), Bebas Teks Terpotong, Butang Tidak Terhimpit, dan Installer Mandiri.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v4.1 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Kad Pelayan Telus Kaca 100% Menyatu dengan Wallpaper Ikut Tema, Tab Sub-Navigasi Sempurna di Telefon & Laptop, dan Installer Mandiri.**
 
 ---
 
@@ -13,24 +13,24 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Pembaikan & Naik Taraf Utama (Versi 4.0):
+## ✨ Pembaikan & Naik Taraf Terkini (Versi 4.1):
 
-1. **Pembaikan Paparan Telefon Bimbit Menjadi Sama Persis Seperti Laptop (`1000023063.jpg` vs `ba3c43f6-8670-4fbf-a8de-9ed4fe252196`)**:
-   - **Punca Tab Terpotong Jadi 2 Huruf (`Co`, `Fil`, `Da`, `Sc`):** Sebelum ini selector kad pelayan (`a[href*="/server/"]`) secara tidak sengaja turut menggayakan pautan tab sub-navigasi pelayan dan fail. Pada skrin telefon, gaya kad memaksa tab bersaiz besar sehingga kesemua 10 tab terhimpit dan teks dipotong ke 2 huruf.
-   - **Penyelesaian v4.0:**
-     - Selector kad pelayan dihadkan **100% khusus untuk senarai pelayan di Dashboard sahaja**.
-     - Tab navigasi pelayan kini menyokong **tatalan mendatar licin (*smooth horizontal swipe*)** dengan paparan nama penuh: **Console, Files, Databases, Schedules, Users, Backups, Network, Startup, Settings, Activity** sama persis seperti pada paparan laptop!
-     - Tiada lagi dua garisan melintang aneh di atas dan bawah bar tab.
-     - Kotak sempadan (*border*) aneh pada baris fail dan breadcrumb `home / container` telah dibuang sepenuhnya, menjadikan senarai fail kemas, bersih, dan elegan.
+1. **Kad Pelayan di Dashboard Kembali 100% Telus Kaca Menyatu Ikut Tema (`image_a41b98.jpg`)**:
+   - **Punca Masalah:** Dalam versi sebelum ini, selector kad dihadkan dengan cara yang menyebabkan elemen senarai pelayan tidak sepadan, lalu kembali ke warna kelabu padu (*default* Pterodactyl).
+   - **Penyelesaian v4.1:**
+     - Ditambah selector dwi-lapisan pintar: `body.on-dashboard a[href^="/server/"]` dan `a[href^="/server/"]:not(nav *):not([class*="SubNavigation"] *):not([class*="FileManager"] *)`.
+     - Fungsi JS `enhanceDashboardServerCards()` memastikan kad pelayan pada Dashboard utama (`/`) **100% telus kaca (*frosted glass 35% opacity* dengan *blur 12px*)** menampakkan wallpaper litar motherboard menyatu di belakang kad.
+     - Garisan aksen neon di sebelah kiri kad (`border-left: 5px`) menyala terang mengikut warna tema pilihan anda (`--theme-primary`).
+     - Kad pelayan kini telus sepenuhnya pada Dashboard tanpa menjejaskan paparan kemas tab dan fail di dalam halaman pelayan (`image_a41bf6.jpg`).
 
-2. **Pembaikan Butang Modal Tidak Terhimpit di Telefon (`1000023030.jpg`)**:
-   - Pada skrin telefon, butang *"Simpan Pengaturan"* dan *"Reset Default"* disusun menegak dengan kelebaran penuh (100%), sangat selesa ditekan ibu jari tanpa sebarang teks terlipat.
+2. **Tab Navigasi & Pengurus Fail Sempurna di Telefon Bimbit & Laptop (`image_a41bf6.jpg`)**:
+   - Tab navigasi menyokong tatalan mendatar licin (*horizontal swipe*) dengan teks penuh: **Console, Files, Databases, Schedules, Users, Backups, Network, Startup, Settings, Activity**.
+   - Baris fail dan breadcrumb bersih tanpa kotak sempadan berlebihan.
 
-3. **Installer 100% Mandiri (*Self-Contained*) & Bebas Ralat Lisensi**:
-   - Pakej tema dimampatkan terus ke dalam fail `install.sh`. Boleh dijalankan dari mana-mana folder atau terus melalui arahan curl.
-   - Pengesahan kata laluan selamat daripada konflik pembolehubah sistem Linux `$PWD`.
+3. **Installer 100% Mandiri (*Self-Contained*) & Pengesahan Kata Laluan Pantas**:
+   - Semua fail tema dipakejkan terus ke dalam fail `install.sh`. Boleh dijalankan dari mana-mana folder atau terus melalui arahan curl.
 
-4. **Simpanan Pautan Kekal Sepenuhnya Selepas Refresh**:
+4. **Simpanan Pautan & Data Kekal Sepenuhnya Selepas Refresh**:
    - Dwi-storan serentak (*LocalStorage + settings.json*) memastikan tiada medan yang menjadi kosong selepas *refresh*.
 
 ---
@@ -42,7 +42,7 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v4.0-master.zip
+unzip install-temav2-v4.1-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh
@@ -55,7 +55,7 @@ bash install.sh
 ```
 *Masukkan password sah:* **`fakrul!2808`** atau **`PAHRI2026`**.
 
-Selepas selesai, buka semula panel anda di telefon dan komputer riba, kemudian tekan **`Ctrl + F5`** (atau *clear cache* pelayar telefon).
+Selepas selesai, buka semula panel anda dan tekan **`Ctrl + F5`** (Hard Refresh). Kad pelayan di Dashboard kini telus kaca sepenuhnya mengikut tema!
 
 ---
 **Hak Cipta © FakrulDev & Fahri Hosting.**
