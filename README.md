@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.6 Pro Master
-> **Tema Pterodactyl Panel v1.15+ dengan Output Installer Terminal Cyberpunk Mewah, Animasi Singkat & Elegan (Bebas Glitch), Penyimpanan Pautan Kekal, dan Kad Login Proporsional.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.7 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Installer Mandiri (Self-Contained / Boleh Dijalankan via Curl Langsung), Animasi Singkat & Elegan Tanpa Ralat, dan Simpanan Pautan Kekal.**
 
 ---
 
@@ -13,37 +13,45 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.6):
+## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.7):
 
-1. **Output `install.sh` Baharu yang Ultra-Keren (Cyberpunk / Terminal Luxury)**:
-   - **Banner ASCII Cyberpunk Berwarna:** Logo grafik bergaya *hacker luxury* Fahri Hosting × FakrulDev.
-   - **Gerbang Keselamatan & Verifikasi Lisensi Bergaya:** Paparan pengesahan kunci lisensi yang kemas dengan semakan status pintar.
-   - **Kotak Kemajuan Berperingkat (*Step-by-Step Box*):** Setiap langkah pemasangan dikesan dengan semakan status `[ OK ]` yang rapi.
-   - **Kad Ringkasan Penamat (*Completion Card*):** Paparan kad mewah berbingkai kemas dengan panduan penting pengguna.
+1. **Penyelesaian Ralat Langkah 3/5: "Folder sumber tema tidak lengkap!" (`image_a2b6c1.png`)**:
+   - **Punca Ralat:** Apabila skrip dijalankan dari luar direktori atau melalui arahan satu baris `curl`, fail `install.sh` tidak menemui folder `theme/` di direktori semasa.
+   - **Penyelesaian v3.7:**
+     - Skrip `install.sh` kini **100% Mandiri (*Self-Contained / Standalone*)**. Semua aset tema (CSS, JS, API, settings, dan blade wrapper) telah dipakejkan terus ke dalam skrip.
+     - Sekiranya folder tema fizikal tidak dikesan, skrip akan mengekstrak aset terbenam secara automatik ke folder sementara.
+     - Skrip kini boleh dijalankan dari mana-mana lokasi, sama ada di dalam folder, dari `/root`, mahupun melalui `bash <(curl -fsSL ...)`.
 
-2. **Animasi Diperhalusi (Singkat, Bersih & Elegan - Bebas Glitch `image_a24e5e.jpg`)**:
-   - **Pembaikan Ralat Garisan Menyerong di Kotak Carian:** Spinner pemuatan telah dihadkan khusus pada saiz padat 32px bulat sempurna. Tiada lagi masalah garisan menyerong atau elemen berpusing di seluruh kotak modal carian.
-   - **Animasi Singkat & Responsif:** Membuang efek garisan bergerak (*infinite shimmer*) yang berlebihan dan menggantikannya dengan interaksi mikro sepantas **0.2s** (hover kad, butang bersinar lembut, modal pop-in pantas, dan denyutan status hijau).
-   - Antara muka kekal mewah, tenang, dan pantas tanpa sebarang gangguan visual.
+2. **Animasi Diperhalusi (Singkat, Bersih, Keren & Bebas Glitch `image_a24e5e.jpg`)**:
+   - **Pembaikan Garisan Menyerong di Kotak Carian:** Pemuat *spinner* telah dikunci ketat pada saiz bulat padat 32px. Tiada lagi masalah garisan berputar atau kesan visual pelik yang memotong kotak carian.
+   - **Animasi Singkat (0.2s):** Efek pergerakan berlebihan telah dibuang dan digantikan dengan animasi mikro yang pantas dan selesa di mata.
 
-3. **Pautan & Data Kekal Sepenuhnya Selepas Refresh**:
-   - Menggunakan fungsi penyelarasan automatik `syncSettingsToModal()` dan sistem dwi-storan (*LocalStorage + settings.json* pelayan). Semua pautan logo, wallpaper, dan tetapan tidak akan menjadi kosong lagi selepas *refresh*.
+3. **Penyimpanan Pautan & Data Kekal Sepenuhnya Selepas Refresh (`image_a1c71d.png`)**:
+   - Fungsi automatik `syncSettingsToModal()` memulihkan semua URL logo, wallpaper, saiz, dan teks setiap kali pelayar disegarkan atau menu admin dibuka.
 
-4. **Kad Login Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
-   - Lebar 680px, ruang dalaman yang megah, logo kemas (~150px), dan tajuk yang jelas di hadapan wallpaper angkasa.
+4. **Kad Login Seimbang & Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
+   - Bersaiz lebar 680px dengan ketinggian padat dan logo kemas di hadapan wallpaper angkasa.
 
 ---
 
-## 🚀 Panduan Pemasangan Semula di VPS
+## 🚀 Panduan Pemasangan di VPS
 
+### Kaedah 1 (Disyorkan - Ekstrak ZIP):
 ```bash
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v3.6-master.zip
+unzip install-temav2-v3.7-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh
+```
+
+### Kaedah 2 (Jalankan dari mana-mana folder / GitHub):
+```bash
+bash install.sh
+# Atau jika menggunakan curl dari repo anda:
+bash <(curl -fsSL https://raw.githubusercontent.com/.../install.sh)
 ```
 *Masukkan password:* **`fakrul!2808`** atau **`PAHRI2026`**.
 
