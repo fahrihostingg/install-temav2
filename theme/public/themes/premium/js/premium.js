@@ -1,7 +1,7 @@
 /**
- * FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.4 PRO MASTER
+ * FAKRULDEV & FAHRI HOSTING - THEME SUITE v3.5 PRO MASTER
  * Pterodactyl Panel Luxury Glassmorphism & High-Performance Suite
- * Full Wallpaper Transparency | Ideal Proportioned Login Card | Admin-Only Controls
+ * Persistent Links & Settings | Rich UI Animations | Ultra-Responsive
  */
 
 (function () {
@@ -24,6 +24,7 @@
     logo_glow: true,
     card_blur: '12',
     card_opacity: '0.38',
+    animations_enabled: true,
     announcement_enabled: true,
     announcement_text: '🔥 <b>Selamat Datang!</b> Panel Cloud & Game Server siap digunakan 24/7. Hubungi admin untuk bantuan teknis.',
     announcement_type: 'gradient',
@@ -180,7 +181,7 @@
     root.style.setProperty('--theme-card-opacity', activeSettings.card_opacity || '0.38');
     root.style.setProperty('--theme-card-bg', `rgba(11, 15, 25, ${activeSettings.card_opacity || 0.38})`);
 
-    // Full-Screen Wallpaper
+    // Full-Screen Wallpaper (Login background falls back safely to space wallpaper, NEVER replaces small logo)
     const bgContainer = document.getElementById('premium-bg-container');
     const bgOverlay = document.getElementById('premium-bg-overlay');
     const isLoginPage = window.location.pathname.includes('/auth/');
@@ -241,6 +242,7 @@
     `;
 
     runPageEnhancements();
+    syncSettingsToModal(activeSettings);
   }
 
   // 3. Guaranteed Login Logo Replacement (HANYA menukar logo di dalam kad login)
@@ -424,7 +426,79 @@
     }
   }
 
-  // 8. Build Theme Settings Modal (Only Injected/Opened on Admin Panel)
+  // 8. Sync Current Settings to Modal Input Fields (MENCEGAH KOSONG SELEPAS REFRESH)
+  function syncSettingsToModal(s) {
+    if (!document.getElementById('premium-settings-modal-overlay')) return;
+
+    const pPicker = document.getElementById('cfg-primary-picker');
+    const pHex = document.getElementById('cfg-primary-hex');
+    const sPicker = document.getElementById('cfg-secondary-picker');
+    const sHex = document.getElementById('cfg-secondary-hex');
+    const dashBg = document.getElementById('cfg-dashboard-bg');
+    const loginBg = document.getElementById('cfg-login-bg');
+    const loginLogo = document.getElementById('cfg-login-logo');
+    const navLogo = document.getElementById('cfg-navbar-logo');
+    const logoHeight = document.getElementById('cfg-logo-height');
+    const valLogoHeight = document.getElementById('val-logo-height');
+    const logoGlow = document.getElementById('cfg-logo-glow');
+    const annEnabled = document.getElementById('cfg-announcement-enabled');
+    const annText = document.getElementById('cfg-announcement-text');
+    const annType = document.getElementById('cfg-announcement-type');
+    const annMarquee = document.getElementById('cfg-announcement-marquee');
+    const cardOpacity = document.getElementById('cfg-card-opacity');
+    const valOpacity = document.getElementById('val-opacity');
+    const cardBlur = document.getElementById('cfg-card-blur');
+    const valBlur = document.getElementById('val-blur');
+    const bgOverlay = document.getElementById('cfg-bg-overlay');
+    const valOverlay = document.getElementById('val-overlay');
+    const customCss = document.getElementById('cfg-custom-css');
+    const animEnabled = document.getElementById('cfg-animations-enabled');
+
+    if (pPicker && s.primary_color) pPicker.value = s.primary_color;
+    if (pHex && s.primary_color) pHex.value = s.primary_color;
+    if (sPicker && s.secondary_color) sPicker.value = s.secondary_color;
+    if (sHex && s.secondary_color) sHex.value = s.secondary_color;
+
+    if (dashBg) dashBg.value = s.dashboard_bg || '';
+    if (loginBg) loginBg.value = s.login_bg || '';
+    if (loginLogo) loginLogo.value = s.login_logo || '';
+    if (navLogo) navLogo.value = s.navbar_logo || '';
+
+    if (logoHeight) logoHeight.value = s.logo_height || 150;
+    if (valLogoHeight) valLogoHeight.textContent = `${s.logo_height || 150}px`;
+    if (logoGlow) logoGlow.checked = s.logo_glow !== false;
+
+    if (annEnabled) annEnabled.checked = !!s.announcement_enabled;
+    if (annText) annText.value = s.announcement_text || '';
+    if (annType && s.announcement_type) annType.value = s.announcement_type;
+    if (annMarquee) annMarquee.checked = !!s.announcement_marquee;
+
+    if (cardOpacity) cardOpacity.value = Math.round((s.card_opacity || 0.38) * 100);
+    if (valOpacity) valOpacity.textContent = `${Math.round((s.card_opacity || 0.38) * 100)}%`;
+
+    if (cardBlur) cardBlur.value = s.card_blur || 12;
+    if (valBlur) valBlur.textContent = `${s.card_blur || 12}px`;
+
+    if (bgOverlay) bgOverlay.value = Math.round((s.bg_overlay_opacity || 0.50) * 100);
+    if (valOverlay) valOverlay.textContent = `${Math.round((s.bg_overlay_opacity || 0.50) * 100)}%`;
+
+    if (customCss) customCss.value = s.custom_css || '';
+    if (animEnabled) animEnabled.checked = s.animations_enabled !== false;
+
+    updatePreviewBox(s.login_logo);
+  }
+
+  function updatePreviewBox(url) {
+    const previewContainer = document.getElementById('logo-preview-container');
+    if (!previewContainer) return;
+    if (url && url.trim() !== '') {
+      previewContainer.innerHTML = `<img src="${url.trim()}" class="logo-preview-img" alt="Pratinjau Logo" onerror="this.parentNode.innerHTML='<span class=\\'logo-preview-empty\\'><i class=\\'fa-solid fa-triangle-exclamation\\' style=\\'color:#f43f5e;\\'></i> URL Gambar tidak sah</span>';" />`;
+    } else {
+      previewContainer.innerHTML = `<span class="logo-preview-empty"><i class="fa-solid fa-circle-info"></i> Tiada URL (Maskot Asal Bercahaya Digunakan)</span>`;
+    }
+  }
+
+  // 9. Build Theme Settings Modal (Only Injected/Opened on Admin Panel)
   function buildThemeModal() {
     if (document.getElementById('premium-settings-modal-overlay')) return;
 
@@ -435,7 +509,7 @@
         <div class="modal-header">
           <div class="modal-title">
             <i class="fa-solid fa-palette"></i>
-            <span>Pengaturan Tema & Logo Panel (v3.4 Pro)</span>
+            <span>Pengaturan Tema & Logo Panel (v3.5 Pro)</span>
           </div>
           <button id="premium-modal-close" class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -446,7 +520,7 @@
           <button class="modal-tab-btn" data-tab="tab-logo"><i class="fa-solid fa-shield-cat"></i> Logo Login</button>
           <button class="modal-tab-btn" data-tab="tab-bg"><i class="fa-solid fa-image"></i> Wallpaper</button>
           <button class="modal-tab-btn" data-tab="tab-announcement"><i class="fa-solid fa-bullhorn"></i> Pengumuman</button>
-          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Kaca & Pelayan</button>
+          <button class="modal-tab-btn" data-tab="tab-effects"><i class="fa-solid fa-sliders"></i> Animasi & Kaca</button>
         </div>
 
         <div class="modal-body">
@@ -739,9 +813,20 @@
             </div>
           </div>
 
-          <!-- TAB 6: EFEK KACA & TRANSPARAN KAD PELAYAN -->
+          <!-- TAB 6: ANIMASI, KACA & TRANSPARAN KAD PELAYAN -->
           <div id="tab-effects" class="tab-pane">
-            <div class="form-group">
+            <div class="toggle-row">
+              <div>
+                <div style="font-size:13px; font-weight:700;">Aktifkan Animasi & Efek Bercahaya (Animations & Glow)</div>
+                <div style="font-size:11px; color:#94a3b8;">Animasi loading neon, denyutan status pelayan, shimmer garis neon, dan floating glow.</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="cfg-animations-enabled" ${activeSettings.animations_enabled !== false ? 'checked' : ''}>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
               <label class="form-label">Ketelusan Kad Pelayan (Dashboard): <span id="val-opacity" class="range-val-badge">${Math.round(activeSettings.card_opacity * 100)}%</span></label>
               <span class="form-subtext">Rendahkan untuk membuat kad pelayan di dashboard menyatu sepenuhnya dengan wallpaper latar:</span>
               <div class="slider-container">
@@ -806,16 +891,6 @@
         overlay.querySelectorAll('.template-preset-card').forEach(c => c.classList.remove('active'));
         card.classList.add('active');
 
-        document.getElementById('cfg-primary-picker').value = t.primary;
-        document.getElementById('cfg-primary-hex').value = t.primary;
-        document.getElementById('cfg-secondary-picker').value = t.secondary;
-        document.getElementById('cfg-secondary-hex').value = t.secondary;
-        document.getElementById('cfg-dashboard-bg').value = t.bg;
-        document.getElementById('cfg-card-blur').value = t.blur;
-        document.getElementById('val-blur').textContent = `${t.blur}px`;
-        document.getElementById('cfg-card-opacity').value = Math.round(t.opacity * 100);
-        document.getElementById('val-opacity').textContent = `${Math.round(t.opacity * 100)}%`;
-
         applyTheme(Object.assign({}, activeSettings, {
           primary_color: t.primary,
           secondary_color: t.secondary,
@@ -841,10 +916,6 @@
       pill.addEventListener('click', () => {
         const p = pill.getAttribute('data-p');
         const s = pill.getAttribute('data-s');
-        document.getElementById('cfg-primary-picker').value = p;
-        document.getElementById('cfg-primary-hex').value = p;
-        document.getElementById('cfg-secondary-picker').value = s;
-        document.getElementById('cfg-secondary-hex').value = s;
 
         overlay.querySelectorAll('.mix-color-pill').forEach(c => c.classList.remove('active'));
         pill.classList.add('active');
@@ -857,8 +928,6 @@
     overlay.querySelectorAll('.color-preset-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const color = pill.getAttribute('data-color');
-        document.getElementById('cfg-primary-picker').value = color;
-        document.getElementById('cfg-primary-hex').value = color;
         overlay.querySelectorAll('.color-preset-pill').forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
         applyTheme(Object.assign({}, activeSettings, { primary_color: color }));
@@ -891,27 +960,14 @@
       }
     });
 
-    // Logo Live Preview Box
     const logoInput = document.getElementById('cfg-login-logo');
-    const previewContainer = document.getElementById('logo-preview-container');
-
-    function updatePreviewBox(url) {
-      if (url && url.trim() !== '') {
-        previewContainer.innerHTML = `<img src="${url.trim()}" class="logo-preview-img" alt="Pratinjau Logo" onerror="this.parentNode.innerHTML='<span class=\\'logo-preview-empty\\'><i class=\\'fa-solid fa-triangle-exclamation\\' style=\\'color:#f43f5e;\\'></i> URL Gambar tidak sah</span>';" />`;
-      } else {
-        previewContainer.innerHTML = `<span class="logo-preview-empty"><i class="fa-solid fa-circle-info"></i> Tiada URL (Maskot Asal Bercahaya Digunakan)</span>`;
-      }
-    }
-
-    updatePreviewBox(activeSettings.login_logo);
-
     logoInput.addEventListener('input', (e) => {
       const url = e.target.value.trim();
       updatePreviewBox(url);
-      applyTheme(Object.assign({}, activeSettings, { login_logo: url }));
+      activeSettings.login_logo = url;
+      updateLoginLogo();
     });
 
-    // Sliders
     const blurSlider = document.getElementById('cfg-card-blur');
     const blurVal = document.getElementById('val-blur');
     blurSlider.addEventListener('input', (e) => {
@@ -953,6 +1009,7 @@
         navbar_logo: document.getElementById('cfg-navbar-logo').value.trim(),
         logo_height: logoHeightSlider.value,
         logo_glow: document.getElementById('cfg-logo-glow').checked,
+        animations_enabled: document.getElementById('cfg-animations-enabled').checked,
         announcement_enabled: document.getElementById('cfg-announcement-enabled').checked,
         announcement_text: document.getElementById('cfg-announcement-text').value,
         announcement_type: document.getElementById('cfg-announcement-type').value,
@@ -960,7 +1017,8 @@
         custom_css: document.getElementById('cfg-custom-css').value
       };
 
-      applyTheme(payload);
+      activeSettings = Object.assign({}, activeSettings, payload);
+      applyTheme(activeSettings);
       localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(activeSettings));
 
       fetch('/themes/premium/api/settings.php', {
@@ -970,11 +1028,11 @@
       })
       .then(res => res.json())
       .then(data => {
-        showToast('Pengaturan Tema Berjaya Disimpan!', 'fa-check-double');
+        showToast('Pengaturan Tema & Pautan Berjaya Disimpan!', 'fa-check-double');
         closeThemeModal();
       })
       .catch(err => {
-        showToast('Pengaturan Tema Berjaya Disimpan (Lokal)', 'fa-floppy-disk');
+        showToast('Disimpan secara setempat (Local Storage)', 'fa-floppy-disk');
         closeThemeModal();
       });
     });
@@ -998,6 +1056,20 @@
 
   function openThemeModal() {
     buildThemeModal();
+    syncSettingsToModal(activeSettings);
+
+    // Muat data terkini daripada pelayan untuk memastikan data sentiasa segerak
+    fetch('/themes/premium/api/settings.php?_t=' + Date.now())
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.success && data.settings) {
+          activeSettings = Object.assign({}, activeSettings, data.settings);
+          localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(activeSettings));
+          syncSettingsToModal(activeSettings);
+        }
+      })
+      .catch(err => {});
+
     const overlay = document.getElementById('premium-settings-modal-overlay');
     if (overlay) {
       overlay.classList.add('modal-active');
@@ -1012,7 +1084,7 @@
     }
   }
 
-  // 9. Run Page Enhancements (Controlled & Zero-Lag)
+  // 10. Run Page Enhancements (Controlled & Zero-Lag)
   function runPageEnhancements() {
     isMutating = true;
     try {
@@ -1027,7 +1099,7 @@
     }
   }
 
-  // 10. Throttled Watcher (Zero Lag)
+  // 11. Throttled Watcher (Zero Lag)
   function setupWatcher() {
     const observer = new MutationObserver(() => {
       if (isMutating) return;
@@ -1052,26 +1124,36 @@
     }, 400);
   }
 
-  // 11. Main Bootstrap
+  // 12. Main Bootstrap
   function bootstrap() {
     initBackgroundDOM();
-    buildThemeModal();
 
+    // 1. Muat serta-merta dari Local Storage (Data tidak akan sesekali kosong selepas refresh)
     const cached = localStorage.getItem('premium_pterodactyl_settings');
     if (cached) {
       try {
-        applyTheme(JSON.parse(cached));
-      } catch (e) {}
+        const parsed = JSON.parse(cached);
+        activeSettings = Object.assign({}, defaultSettings, parsed);
+      } catch (e) {
+        activeSettings = Object.assign({}, defaultSettings);
+      }
     } else {
-      applyTheme(defaultSettings);
+      activeSettings = Object.assign({}, defaultSettings);
     }
 
-    fetch('/themes/premium/api/settings.php')
+    applyTheme(activeSettings);
+    buildThemeModal();
+    syncSettingsToModal(activeSettings);
+
+    // 2. Muat dari Fail Pelayan (settings.json via API)
+    fetch('/themes/premium/api/settings.php?_t=' + Date.now())
       .then(res => res.json())
       .then(data => {
         if (data && data.success && data.settings) {
-          applyTheme(data.settings);
-          localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(data.settings));
+          activeSettings = Object.assign({}, activeSettings, data.settings);
+          localStorage.setItem('premium_pterodactyl_settings', JSON.stringify(activeSettings));
+          applyTheme(activeSettings);
+          syncSettingsToModal(activeSettings);
         }
       })
       .catch(err => {

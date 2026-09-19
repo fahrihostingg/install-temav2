@@ -1,5 +1,5 @@
-# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.4 Pro Master
-> **Tema Pterodactyl Panel v1.15+ dengan Kad Login Luas & Proporsional Sesuai Garisan Pengguna, Penggantian Logo Khusus (Bukan Wallpaper), Wallpaper Kaca Penuh, dan Kad Pelayan Telus Ikut Tema.**
+# 🌟 FakrulDev & Fahri Hosting - Tema Premium Luxury & Glassmorphism v3.5 Pro Master
+> **Tema Pterodactyl Panel v1.15+ dengan Penyimpanan Pautan Kekal (Tiada Reset Kosong Lepas Refresh), Animasi Loading & Visual Lengkap, Kad Login Proporsional, dan Kawalan Khusus Admin.**
 
 ---
 
@@ -13,26 +13,23 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 
 ---
 
-## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.4):
+## ✨ Pembaikan & Naik Taraf Terkini (Versi 3.5):
 
-1. **Kad Login Dibesarkan Mengikut Garisan Merah Pengguna (`image_a14e40.jpg`)**:
-   - **Permintaan:** Pengguna melukis garisan merah yang menunjukkan saiz kad login yang diinginkan agar lebih luas, megah, dan proporsional.
-   - **Penyelesaian v3.4:**
-     - Saiz kad dilebarkan kepada **680px** dengan `min-height: 330px` dan padding luas `38px 44px`.
-     - Logo di sebelah kiri dibesarkan kepada saiz ideal (~150px - 160px tinggi) dengan kilauan cahaya neon (*glow*).
-     - Input *Username*, *Password*, dan butang *Login* diberi saiz yang lebih selesa dengan ruang dalaman yang mantap.
-     - Tajuk *"Login to Continue"* lebih jelas (26px) di atas kad.
+1. **Pautan & Data Kekal Sepenuhnya Selepas Refresh (`image_a1c71d.png`)**:
+   - **Punca Medan Menjadi Kosong:** Sebelum ini borang modal tidak menyelaraskan (*sync*) data tetapan yang telah dimuat turun dari storan/pelayan ke dalam kotak input setelah modal dibina, mengakibatkan medan kelihatan kosong selepas pelayar dimuat semula.
+   - **Penyelesaian v3.5:**
+     - Ditambah fungsi `syncSettingsToModal()` yang secara automatik mengisi semula semua URL logo, wallpaper, saiz, dan tetapan ke dalam borang sebaik sahaja modal dibuka atau halaman disegarkan.
+     - Menggunakan sistem dwi-storan serentak (*Dual Storage: LocalStorage + Server File settings.json*) dengan kawalan `Cache-Control: no-cache`, memastikan semua pautan kekal utuh sehingga anda menukarnya sendiri.
 
-2. **Logo Halaman Login Khusus (BUKAN Mengubah Wallpaper Latar Belakang)**:
-   - Tetapan `URL Logo Halaman Login` di menu admin kini khusus hanya menggantikan logo/maskot di dalam kad login.
-   - Gambar latar belakang (*wallpaper*) penuh skrin kekal aktif dan dipisahkan secara selamat di Tab *Wallpaper*.
+2. **Koleksi Animasi Moden & Efek Visual Pro**:
+   - 🌀 **Animasi Loading Neon (Orbital Spinner):** Semua penunjuk pemuatan (*loading spinner*) panel kini berputar dengan dwi-garisan neon bercahaya (*glowing orbital ring*).
+   - ⚡ **Jalur Kemajuan Shimmer (Progress Beam):** Garisan pemuatan di bahagian atas skrin memancar dengan kilauan gradien bergerak (*neon shimmer*).
+   - ✨ **Efek Bernafas Bercahaya (Floating Glow):** Kad login mempunyai kesan cahaya bernafas halus yang terapung di hadapan wallpaper angkasa.
+   - 🟢 **Denyutan Status Pelayan (Online Pulse):** Penunjuk status pelayan hijau berdenyut dengan cahaya neon aktif.
+   - 👑 **Lencana PRO Berdenyut:** Lencana `PRO` Tema Panel di sidebar admin berdenyut secara elegan.
 
-3. **Kad Pelayan di Dashboard 100% Telus Kaca Menyatu Ikut Tema**:
-   - Kad pelayan di dashboard menggunakan kaca lutsinar (*38% opacity* dengan *blur 12px*), menampakkan gambar wallpaper litar menyatu di belakang kad.
-   - Garisan aksen neon di sebelah kiri kad menyala mengikut warna tema pilihan anda.
-
-4. **Koleksi UI Lengkap**:
-   - 12 Template Tema 1-Klik, Preset Wallpaper Pantas, Butang Kuasa Konsol bercahaya neon, Tab Navigasi Kaca, dan Banner Pengumuman Pelbagai Warna.
+3. **Kad Login Selesa & Proporsional Sesuai Garisan Pengguna (`image_a14e40.jpg`)**:
+   - Saiz kad ditetapkan pada lebar **680px** dengan ruang dalaman yang luas, logo kemas (~150px), dan tajuk yang jelas.
 
 ---
 
@@ -42,7 +39,7 @@ Semasa menjalankan `install.sh`, masukkan salah satu kata laluan yang sah:
 sudo su
 cd /root
 rm -rf install-temav2-main
-unzip install-temav2-v3.4-master.zip
+unzip install-temav2-v3.5-master.zip
 cd install-temav2-main
 chmod +x install.sh
 bash install.sh

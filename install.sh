@@ -179,6 +179,11 @@ chown $WEB_USER "$WRAPPER_FILE"
 if [ -f "$ADMIN_FILE" ]; then
   chown $WEB_USER "$ADMIN_FILE"
 fi
+chmod -R 777 "/public/themes/premium/api"
+chmod -R 777 "/public/themes/premium/data"
+chmod 666 "/public/themes/premium/api/settings.json" 2>/dev/null || true
+chmod 666 "/public/themes/premium/data/settings.json" 2>/dev/null || true
+chmod 666 "/public/themes/premium/data/.secret" 2>/dev/null || true
 echo -e "${GREEN}✓ Kebenaran fail diatur kepada ($WEB_USER).${NC}"
 
 # ------------------------------------------------------------------------------
